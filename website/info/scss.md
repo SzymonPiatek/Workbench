@@ -3,7 +3,7 @@
     npm install scss
     npm install sass
 
-# Filewatcher 
+# File watchers 
 ### Arguments:
     $FileName$:$ProjectFileDir$/website/static/css/$FileNameWithoutExtension$.css
 ### Output:
