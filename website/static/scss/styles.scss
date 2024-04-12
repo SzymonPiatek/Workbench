@@ -7,12 +7,25 @@
 body {
   min-height: 100dvh;
   max-height: 100dvh;
-  min-width: 100dvw;
-  max-width: 100dvw;
+  min-width: 100%;
+  max-width: 100%;
   display: flex;
 }
 
+main {
+  min-height: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
 .sidebar {
+  min-height: 100%;
+  max-height: 100%;
   width: 100%;
   max-width: 300px;
   display: flex;
@@ -20,6 +33,11 @@ body {
   justify-content: space-between;
   padding: 20px;
   border-right: 2px #a3a3a3 solid;
+  overflow-y: auto;
+  background: #326e93;
+  * {
+    color: #fff;
+  }
   .items {
     display: flex;
     flex-direction: column;
@@ -31,8 +49,12 @@ body {
       display: flex;
       align-items: center;
       gap: 20px;
+      font-size: 1.2rem;
       &#logo {
         justify-content: center;
+        padding-bottom: 20px;
+        border-bottom: 2px #a3a3a3 solid;
+        font-size: 1.6rem;
       }
       .image {
         width: 1rem;
@@ -44,14 +66,6 @@ body {
   }
 }
 
-main {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  flex: 1;
-  padding: 20px;
-}
-
 .block {
   display: flex;
   flex-direction: column;
@@ -59,6 +73,10 @@ main {
   &#title {
     padding-bottom: 20px;
     border-bottom: 2px #a3a3a3 solid;
+    font-size: 1.6rem;
+  }
+  .title {
+    font-size: 1.4rem;
   }
   .elements {
     display: flex;
@@ -73,6 +91,13 @@ main {
       text-align: center;
       padding: 20px;
       border: 1px #a3a3a3 solid;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      &:hover {
+        background: #326e93;
+        color: #fff;
+        transition: 0.2s ease;
+      }
     }
   }
 }
