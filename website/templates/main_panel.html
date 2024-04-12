@@ -4,19 +4,23 @@
 
 {% block content %}
 
-    {% for title, elements in blocks %}
+    {% for block in blocks %}
         <div class="block">
             <div class="label" onclick="toggleElements(this)">
-                <div class="text">{{ title }}</div>
+                <div class="text">{{ block.title }}</div>
                 <div class="image"><i class="fa-solid fa-caret-up"></i></div>
             </div>
             <div class="elements">
-                {% for element in elements %}
-                    <div class="element">{{ element }}</div>
+                {% for element in block.elements %}
+                    <div class="element">
+                        <div class="image"><i class="fa-solid {{ element.icon }}"></i></div>
+                        <div class="text">{{ element.name }}</div>
+                    </div>
                 {% endfor %}
             </div>
         </div>
     {% endfor %}
+
 
     <script>
         function toggleElements(titleElement) {
