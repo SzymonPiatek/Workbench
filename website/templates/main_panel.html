@@ -6,7 +6,7 @@
 
     {% for title, elements in blocks %}
         <div class="block">
-            <div class="title">{{ title }}</div>
+            <div class="title" onclick="toggleElements(this)">{{ title }}</div>
             <div class="elements">
                 {% for element in elements %}
                     <div class="element">{{ element }}</div>
@@ -15,4 +15,13 @@
         </div>
     {% endfor %}
 
+    <script>
+        function toggleElements(titleElement) {
+            const elementsContainer = titleElement.nextElementSibling;
+            elementsContainer.classList.toggle('hidden');
+        }
+    </script>
+
 {% endblock content %}
+
+

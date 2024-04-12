@@ -90,6 +90,9 @@ main {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    &.hidden {
+      display: none;
+    }
     .element {
       height: 200px;
       aspect-ratio: 1.5;
