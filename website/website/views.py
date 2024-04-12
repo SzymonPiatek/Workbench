@@ -11,7 +11,8 @@ def main_panel(request):
                         "Dodaj pracownika",
                         "Dodaj grupę"]),
         ("Lokalizacje", ["Podgląd budynku", "Podgląd lokalizacji", "Dodaj lokalizację"]),
-        ("Kalendarz", ["Zobacz najbliższe wydarzenia", "Dodaj wydarzenie"])
+        ("Kalendarz", ["Zobacz najbliższe wydarzenia", "Dodaj wydarzenie"]),
+        ("Helpdesk", ["Zgłoś problem", "Zobacz zgłoszenia", "FAQ"])
     ]
 
     context = {
