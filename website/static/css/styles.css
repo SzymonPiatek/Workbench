@@ -95,11 +95,13 @@ main {
   border: 1px #a3a3a3 solid;
   border-radius: 8px;
   font-size: 1.2rem;
-}
-.block .elements .element:hover {
   background: #326e93;
   color: #fff;
-  transition: 0.2s ease;
+}
+.block .elements .element:hover {
+  background: #c23434;
+  scale: 1.05;
+  transition: 0.3s ease;
 }
 
 /*# sourceMappingURL=styles.css.map */

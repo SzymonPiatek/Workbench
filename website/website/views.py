@@ -4,11 +4,13 @@ from django.shortcuts import render
 def main_panel(request):
     blocks = {
         "Panel administratora": {"Statystyki"},
-        "Rezerwacje": {"Pokój", "Biurko", "Sala"},
-        "Przedmioty": {"Sprawdź stan", "Przeprowadź inwentaryzację"},
+        "Rezerwacje": {"Pokój", "Biurko", "Sala", "Dodaj pozycję"},
+        "Przedmioty": {"Sprawdź stan", "Przeprowadź inwentaryzację", "Dodaj pozycję"},
         "Pracownicy": {"Wyświetl wszystkich pracowników",
-                       "Wyświetl wszystkie grupy"},
-        "Lokalizacje": {"Podgląd budynku", "Podgląd lokalizacji"},
+                       "Wyświetl wszystkie grupy",
+                       "Dodaj pracownika",
+                       "Dodaj grupę"},
+        "Lokalizacje": {"Podgląd budynku", "Podgląd lokalizacji", "Dodaj lokalizację"},
         "Kalendarz": {"Zobacz najbliższe wydarzenia", "Dodaj wydarzenie"}
     }
 
