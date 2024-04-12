@@ -6,7 +6,10 @@
 
     {% for title, elements in blocks %}
         <div class="block">
-            <div class="title" onclick="toggleElements(this)">{{ title }}</div>
+            <div class="label" onclick="toggleElements(this)">
+                <div class="text">{{ title }}</div>
+                <div class="image"><i class="fa-solid fa-caret-up"></i></div>
+            </div>
             <div class="elements">
                 {% for element in elements %}
                     <div class="element">{{ element }}</div>
@@ -19,9 +22,15 @@
         function toggleElements(titleElement) {
             const elementsContainer = titleElement.nextElementSibling;
             elementsContainer.classList.toggle('hidden');
+            const icon = titleElement.querySelector('.image i');
+            if (icon.classList.contains('fa-caret-up')) {
+                icon.classList.remove('fa-caret-up');
+                icon.classList.add('fa-caret-down');
+            } else {
+                icon.classList.remove('fa-caret-down');
+                icon.classList.add('fa-caret-up');
+            }
         }
     </script>
 
 {% endblock content %}
-
-
