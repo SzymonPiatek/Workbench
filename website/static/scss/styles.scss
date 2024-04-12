@@ -57,6 +57,7 @@ main {
         padding-bottom: 20px;
         border-bottom: 2px #a3a3a3 solid;
         font-size: 1.6rem;
+        font-weight: bold;
       }
       .image {
         width: 1rem;
@@ -76,17 +77,22 @@ main {
     padding-bottom: 20px;
     border-bottom: 2px #a3a3a3 solid;
     font-size: 1.6rem;
+    font-weight: bold;
   }
   .title {
     font-size: 1.4rem;
+    background: #1b4865;
+    color: #fff;
+    padding: 8px 8px 8px 20px;
+    border-radius: 50vw;
   }
   .elements {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     .element {
-      aspect-ratio: 1.25;
-      width: 150px;
+      height: 200px;
+      aspect-ratio: 1.5;
       display: flex;
       justify-content: center;
       align-items: center;

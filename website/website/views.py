@@ -15,7 +15,6 @@ def main_panel(request):
     }
 
     context = {
-        "page_title": "Strona główna",
         "blocks": blocks,
     }
     return render(request, "main_panel.html", context)
