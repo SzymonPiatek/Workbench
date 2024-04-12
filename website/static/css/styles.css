@@ -41,6 +41,40 @@ body {
   width: 1rem;
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex: 1;
+  padding: 20px;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.block#title {
+  padding-bottom: 20px;
+  border-bottom: 2px #a3a3a3 solid;
+}
+.block .elements {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.block .elements .element {
+  aspect-ratio: 1.25;
+  width: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  border: 1px #a3a3a3 solid;
 }
 
 /*# sourceMappingURL=styles.css.map */

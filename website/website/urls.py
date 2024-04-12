@@ -5,5 +5,5 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home, name="home_page"),
+    path('', views.main_panel, name="main_panel_page"),
 ]
