@@ -12,10 +12,12 @@
             </div>
             <div class="elements">
                 {% for element in block.elements %}
-                    <div class="element">
-                        <div class="image"><i class="fa-solid {{ element.icon }}"></i></div>
-                        <div class="text">{{ element.name }}</div>
-                    </div>
+                    {% if element.view_name %}
+                        <a href="{% url element.view_name %}" class="element">
+                            <div class="image"><i class="fa-solid {{ element.icon }}"></i></div>
+                            <div class="text">{{ element.name }}</div>
+                        </a>
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>
