@@ -8,13 +8,17 @@
             <div class="text">{{ page_title }}</div>
         </div>
         <div class="functions">
+            <div class="function" id="filterButton" data-value="all" onclick="toggleFilter()">
+                <div class="image"><i class="fa-solid fa-filter"></i></div>
+                <div class="text">Pokaż aktywne</div>
+            </div>
             <div class="function" onclick="toggleOverlay(this, 'addNotification')">
                 <div class="image"><i class="fa-solid fa-plus"></i></div>
                 <div class="text">Dodaj powiadomienie</div>
             </div>
         </div>
         <div class="table">
-            <table>
+            <table id="notificationsTable">
                 <tr class="sticky">
                     <th>Tytuł</th>
                     <th>Treść</th>
@@ -25,7 +29,7 @@
                     <th>Status</th>
                 </tr>
                 {% for notification in notifications %}
-                    <tr>
+                    <tr class="notificationRow {% if notification.is_active %}active{% else %}inactive{% endif %}">
                         <td>{{ notification.title }}</td>
                         <td>{{ notification.message }}</td>
                         <td>{{ notification.formatted_created_at }}</td>
@@ -49,6 +53,43 @@
             overlayTitle.innerHTML = buttonText;
             overlayContainer.style.display = "flex";
             elementDiv.style.display = "flex";
+        }
+
+        function rowDisplay(status) {
+            const tableRows = document.querySelectorAll("#notificationsTable .notificationRow");
+
+            if (status !== 'all') {
+                tableRows.forEach(row => {
+                    if (row.classList.contains(status)) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
+                });
+            } else {
+                tableRows.forEach(row => {
+                    row.style.display = "";
+                });
+            }
+        }
+
+        function toggleFilter() {
+            const filterButton = document.getElementById('filterButton');
+            const filterValue = filterButton.getAttribute('data-value');
+            const filterButtonText = filterButton.querySelector('.text');
+            if (filterValue === "all") {
+                filterButton.setAttribute('data-value', "active");
+                filterButtonText.innerText = "Pokaż nieaktywne";
+                rowDisplay('active');
+            } else if (filterValue === "active") {
+                filterButton.setAttribute('data-value', "inactive");
+                filterButtonText.innerText = "Pokaż wszystkie";
+                rowDisplay('inactive');
+            } else if (filterValue === "inactive") {
+                filterButton.setAttribute('data-value', "all");
+                filterButtonText.innerText = "Pokaż aktywne";
+                rowDisplay('all');
+            }
         }
     </script>
 {% endblock content %}

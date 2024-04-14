@@ -158,6 +158,7 @@ main {
 .block .functions {
   display: flex;
   justify-content: right;
+  gap: 20px;
 }
 .block .functions .function {
   display: flex;
