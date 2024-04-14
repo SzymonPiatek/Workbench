@@ -12,8 +12,8 @@
             </div>
             <div class="elements">
                 {% for element in block.elements %}
-                    {% if element.view_name %}
-                        <a href="{% url element.view_name %}" class="element">
+                    {% if element.url %}
+                        <a href="{% url element.url %}" class="element">
                             <div class="image"><i class="fa-solid {{ element.icon }}"></i></div>
                             <div class="text">{{ element.name }}</div>
                         </a>
