@@ -9,15 +9,21 @@
   display: flex;
   position: relative;
   background: var(--color-1);
+  transform: translateX(0);
+  transition: transform 0.3s ease;
+}
+.sidebar_container.hidden {
+  transform: translateX(calc(29px - 100%));
+  transition: transform 0.3s ease;
 }
 .sidebar_container .sidebar_button {
+  width: 32px;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   font-size: 1.8rem;
-  padding: 8px;
   color: #fff;
 }
 .sidebar_container .sidebar {
@@ -32,6 +38,7 @@
 }
 .sidebar_container .sidebar.hidden {
   display: none;
+  transition: display 0.3s ease;
 }
 .sidebar_container .sidebar * {
   color: #fff;
