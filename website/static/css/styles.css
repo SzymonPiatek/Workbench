@@ -1,8 +1,89 @@
+:root {
+  --color-1: #326e93;
+  --color-2: #22557a;
+  --color-3: #a3a3a3;
+}
+
+.sidebar_container {
+  width: fit-content;
+  display: flex;
+  position: relative;
+  background: var(--color-1);
+  transform: translateX(0);
+  transition: transform 0.3s ease;
+}
+.sidebar_container.hidden {
+  transform: translateX(calc(29px - 100%));
+  transition: transform 0.3s ease;
+}
+.sidebar_container .sidebar_button {
+  width: 32px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1.8rem;
+  color: #fff;
+}
+.sidebar_container .sidebar {
+  min-height: 100%;
+  max-height: 100%;
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-y: auto;
+}
+.sidebar_container .sidebar.hidden {
+  display: none;
+  transition: display 0.3s ease;
+}
+.sidebar_container .sidebar * {
+  color: #fff;
+}
+.sidebar_container .sidebar .items {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 20px;
+}
+.sidebar_container .sidebar .items:last-child {
+  margin-bottom: 20px;
+}
+.sidebar_container .sidebar .items .item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 1.2rem;
+}
+.sidebar_container .sidebar .items .item#logo {
+  justify-content: center;
+  padding-bottom: 20px;
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+.sidebar_container .sidebar .items .item .image {
+  width: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+:root {
+  --color-1: #326e93;
+  --color-2: #22557a;
+  --color-3: #a3a3a3;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
+  list-style: none;
+  text-decoration: none;
 }
 
 body {
@@ -25,51 +106,42 @@ main {
   overflow-y: auto;
 }
 
-::-webkit-scrollbar {
-  display: none;
+.table {
+  max-width: 100%;
+  overflow-x: auto;
 }
-
-.sidebar {
-  min-height: 100%;
-  max-height: 100%;
+.table table {
   width: 100%;
-  max-width: 300px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 20px;
-  overflow-y: auto;
-  background: #326e93;
 }
-.sidebar * {
+.table table tr.sticky {
+  position: sticky;
+  top: -20px;
+}
+.table table tr th, .table table tr td {
+  padding: 8px;
+  border: 1px #000 solid;
+}
+.table table tr th {
+  background: var(--color-1);
   color: #fff;
 }
-.sidebar .items {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
-.sidebar .items:last-child {
-  margin-bottom: 20px;
+
+::-webkit-scrollbar-track {
+  background: transparent;
 }
-.sidebar .items .item {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  font-size: 1.2rem;
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-2);
+  border-radius: 4px;
 }
-.sidebar .items .item#logo {
-  justify-content: center;
-  padding-bottom: 20px;
-  border-bottom: 2px #a3a3a3 solid;
-  font-size: 1.6rem;
-  font-weight: bold;
-}
-.sidebar .items .item .image {
-  width: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-1);
 }
 
 .block {
@@ -79,15 +151,34 @@ main {
 }
 .block#title {
   padding-bottom: 20px;
-  border-bottom: 2px #a3a3a3 solid;
+  border-bottom: 2px var(--color-3) solid;
   font-size: 1.6rem;
   font-weight: bold;
+}
+.block .functions {
+  display: flex;
+  justify-content: right;
+  gap: 20px;
+}
+.block .functions .function {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  cursor: pointer;
+  background: var(--color-1);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 12px;
+}
+.block .functions .function:hover {
+  background: var(--color-2);
+  transition: 0.2s ease;
 }
 .block .label {
   display: flex;
   justify-content: space-between;
   font-size: 1.4rem;
-  background: #1b4865;
+  background: var(--color-2);
   color: #fff;
   padding: 8px 20px 8px 20px;
   border-radius: 50vw;
@@ -102,20 +193,20 @@ main {
 }
 .block .elements .element {
   height: 200px;
-  aspect-ratio: 1.4;
+  aspect-ratio: 1.3;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 20px;
   text-align: center;
   padding: 20px;
-  border: 1px #a3a3a3 solid;
+  border: 1px var(--color-3) solid;
   border-radius: 8px;
-  background: #326e93;
+  background: var(--color-1);
   color: #fff;
 }
 .block .elements .element:hover {
-  background: #1b4865;
+  background: var(--color-2);
   transition: 0.2s ease;
 }
 .block .elements .element .image {
@@ -123,6 +214,73 @@ main {
 }
 .block .elements .element .text {
   font-size: 1.2rem;
+}
+.block .items {
+  flex: 1;
+}
+.block .items form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.block .items form input, .block .items form button, .block .items form textarea {
+  border-radius: 12px;
+}
+.block .items form .item {
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+}
+.block .items form .item input, .block .items form .item textarea, .block .items form .item label {
+  width: 100%;
+  font-size: 1.4rem;
+  padding: 4px;
+}
+.block .items form .item input, .block .items form .item textarea {
+  border: 1px #000 solid;
+}
+.block .items form .item label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.block .items form .item label input {
+  width: 1.2rem;
+  aspect-ratio: 1;
+}
+.block .items form button {
+  border: 1px #000 solid;
+  font-size: 1.6rem;
+  background: var(--color-1);
+  color: #fff;
+}
+.block .items form button:hover {
+  background: var(--color-2);
+  transition: 0.2s ease;
+}
+
+.overlay_container {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.overlay_container .overlay {
+  height: fit-content;
+  width: 600px;
+  max-width: 80%;
+  max-height: 80dvh;
+  background: #fff;
+  border-radius: 12px;
+  border: 2px #000 solid;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: auto;
 }
 
 /*# sourceMappingURL=styles.css.map */

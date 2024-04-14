@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ page_title }} {% endblock title %}
+
+{% block content %}
+    <div class="block">
+        <div class="label">
+            <div class="text">{{ page_title }}</div>
+        </div>
+        <div class="functions">
+            <div class="function" id="filterButton" data-value="all" onclick="toggleFilter()">
+                <div class="image"><i class="fa-solid fa-filter"></i></div>
+                <div class="text">Pokaż aktywne</div>
+            </div>
+            <div class="function" onclick="toggleOverlay(this, 'addNotification')">
+                <div class="image"><i class="fa-solid fa-plus"></i></div>
+                <div class="text">Dodaj powiadomienie</div>
+            </div>
+        </div>
+        <div class="table">
+            <table id="notificationsTable">
+                <tr class="sticky">
+                    <th data-sort-dir="asc">Tytuł</th>
+                    <th data-sort-dir="asc">Treść</th>
+                    <th data-sort-dir="asc">Data utworzenia</th>
+                    <th data-sort-dir="asc">Data początkowa</th>
+                    <th data-sort-dir="asc">Częstotliwość (dzień)</th>
+                    <th data-sort-dir="asc">Odbiorcy</th>
+                    <th data-sort-dir="asc">Status</th>
+                </tr>
+                {% for notification in notifications %}
+                    <tr class="notificationRow {% if notification.is_active %}active{% else %}inactive{% endif %}">
+                        <td>{{ notification.title }}</td>
+                        <td>{{ notification.message }}</td>
+                        <td>{{ notification.formatted_created_at }}</td>
+                        <td>{{ notification.formatted_start_date }}</td>
+                        <td>{{ notification.frequency }}</td>
+                        <td>{{ notification.count_recipients }}</td>
+                        <td>{{ notification.is_active_return }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function rowDisplay(status) {
+            const tableRows = document.querySelectorAll("#notificationsTable .notificationRow");
+
+            if (status !== 'all') {
+                tableRows.forEach(row => {
+                    if (row.classList.contains(status)) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
+                });
+            } else {
+                tableRows.forEach(row => {
+                    row.style.display = "";
+                });
+            }
+        }
+
+        function toggleFilter() {
+            const filterButton = document.getElementById('filterButton');
+            const filterValue = filterButton.getAttribute('data-value');
+            const filterButtonText = filterButton.querySelector('.text');
+            if (filterValue === "all") {
+                filterButton.setAttribute('data-value', "active");
+                filterButtonText.innerText = "Pokaż nieaktywne";
+                rowDisplay('active');
+            } else if (filterValue === "active") {
+                filterButton.setAttribute('data-value', "inactive");
+                filterButtonText.innerText = "Pokaż wszystkie";
+                rowDisplay('inactive');
+            } else if (filterValue === "inactive") {
+                filterButton.setAttribute('data-value', "all");
+                filterButtonText.innerText = "Pokaż aktywne";
+                rowDisplay('all');
+            }
+        }
+
+        $(document).ready(function() {
+           $('#notificationsTable th').click(function() {
+               var table = $(this).closest('table');
+               var rows = table.find('tbody > tr').get();
+               var columnIndex = $(this).index();
+               var sortDir = $(this).data('sort-dir') === 'asc' ? 'desc' : 'asc';
+
+               rows.sort(function(a, b) {
+                   var cellA = $(a).children('td').eq(columnIndex).text().toUpperCase();
+                   var cellB = $(b).children('td').eq(columnIndex).text().toUpperCase();
+                   if (sortDir === 'asc') {
+                       return cellA.localeCompare(cellB);
+                   } else {
+                       return cellB.localeCompare(cellA);
+                   }
+               });
+
+               $.each(rows, function(index, row) {
+                   if (!$(row).hasClass('sticky')) {
+                       table.children('tbody').append(row);
+                   }
+               });
+
+               $(this).data('sort-dir', sortDir);
+           });
+        });
+    </script>
+{% endblock content %}

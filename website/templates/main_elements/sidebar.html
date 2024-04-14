@@ -1,50 +1,82 @@
-<div class="sidebar" id="title">
-    <div class="items">
-        <div class="item" id="logo">
-            <div class="image"><i class="fa-brands fa-edge-legacy"></i></div>
-            <div class="text">Example</div>
+<div class="sidebar_container" id="sidebarContainer">
+    <div class="sidebar" id="sidebar">
+        <div class="items">
+            <a href="{% url 'main_panel_page' %}" class="item" id="logo">
+                <div class="image"><i class="fa-brands fa-edge-legacy"></i></div>
+                <div class="text">Example</div>
+            </a>
+            <a href="{% url 'main_panel_page' %}"  class="item">
+                <div class="image"><i class="fa-solid fa-star"></i></div>
+                <div class="text">Panel główny</div>
+            </a>
+            <a href="" class="item">
+                <div class="image"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                <div class="text">Panel administratora</div>
+            </a>
+            <a href="" class="item">
+                <div class="image"><i class="fa-solid fa-bookmark"></i></div>
+                <div class="text">Rezerwacje</div>
+            </a>
+            <a href="" class="item">
+                <div class="image"><i class="fa-solid fa-computer"></i></div>
+                <div class="text">Przedmioty</div>
+            </a>
+            <a href="" class="item">
+                <div class="image"><i class="fa-solid fa-user-group"></i></div>
+                <div class="text">Pracownicy</div>
+            </a>
+            <a href="" class="item">
+                <div class="image"><i class="fa-solid fa-location-dot"></i></div>
+                <div class="text">Lokalizacje</div>
+            </a>
+            <a href="" class="item">
+                <div class="image"><i class="fa-solid fa-calendar-days"></i></div>
+                <div class="text">Kalendarz</div>
+            </a>
+            <a href="" class="item">
+                <div class="image"><i class="fa-solid fa-life-ring"></i></div>
+                <div class="text">Helpdesk</div>
+            </a>
         </div>
-        <div class="item">
-            <div class="image"><i class="fa-solid fa-star"></i></div>
-            <div class="text">Panel główny</div>
-        </div>
-        <div class="item">
-            <div class="image"><i class="fa-solid fa-screwdriver-wrench"></i></div>
-            <div class="text">Panel administratora</div>
-        </div>
-        <div class="item">
-            <div class="image"><i class="fa-solid fa-bookmark"></i></div>
-            <div class="text">Rezerwacje</div>
-        </div>
-        <div class="item">
-            <div class="image"><i class="fa-solid fa-computer"></i></div>
-            <div class="text">Przedmioty</div>
-        </div>
-        <div class="item">
-            <div class="image"><i class="fa-solid fa-user-group"></i></div>
-            <div class="text">Pracownicy</div>
-        </div>
-        <div class="item">
-            <div class="image"><i class="fa-solid fa-location-dot"></i></div>
-            <div class="text">Lokalizacje</div>
-        </div>
-        <div class="item">
-            <div class="image"><i class="fa-solid fa-calendar-days"></i></div>
-            <div class="text">Kalendarz</div>
-        </div>
-        <div class="item">
-            <div class="image"><i class="fa-solid fa-life-ring"></i></div>
-            <div class="text">Helpdesk</div>
+        <div class="items">
+            <a href="" class="item">
+                <div class="image"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                <div class="item">Zgłoś problem</div>
+            </a>
+            <a href="" class="item">
+                <div class="image"><i class="fa-solid fa-user"></i></div>
+                <div class="item">Nazwa użytkownika</div>
+            </a>
         </div>
     </div>
-    <div class="items">
-        <div class="item">
-            <div class="image"><i class="fa-solid fa-triangle-exclamation"></i></div>
-            <div class="item">Zgłoś problem</div>
-        </div>
-        <div class="item">
-            <div class="image"><i class="fa-solid fa-user"></i></div>
-            <div class="item">Nazwa użytkownika</div>
-        </div>
+    <div class="sidebar_button" id="sidebarButton" onclick="toggleSidebar()">
+        <i class="fa-solid fa-caret-left"></i>
     </div>
 </div>
+
+<script>
+    function toggleSidebar() {
+        const sidebarContainer = document.getElementById("sidebarContainer");
+        const sidebar = document.getElementById("sidebar");
+
+        if (sidebarContainer.classList.contains("hidden")) {
+            sidebarContainer.classList.toggle("hidden");
+            sidebar.classList.toggle("hidden");
+        } else {
+            sidebarContainer.classList.toggle("hidden");
+            setTimeout(function() {
+                sidebar.classList.toggle("hidden");
+            }, 300);
+        }
+
+        const sidebarButton = document.getElementById('sidebarButton');
+        const icon = sidebarButton.querySelector('i');
+        if (icon.classList.contains('fa-caret-left')) {
+            icon.classList.remove('fa-caret-left');
+            icon.classList.add('fa-caret-right');
+        } else {
+            icon.classList.remove('fa-caret-right');
+            icon.classList.add('fa-caret-left');
+        }
+    }
+</script>

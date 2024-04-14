@@ -1,0 +1,85 @@
+<div class="items">
+    <form>
+        <div class="item">
+            <small>Tytuł</small>
+            <input type="text" name="title" id="title">
+        </div>
+        <div class="item">
+            <small>Treść</small>
+            <textarea name="message" id="message" rows="4" style="resize: vertical;"></textarea>
+        </div>
+        <div class="item">
+            <small>Data początkowa</small>
+            <input type="datetime-local" name="startDate" id="startDate">
+        </div>
+        <div class="item">
+            <small>Częstotliwość (dzień)</small>
+            <input type="number" name="frequency" id="frequency">
+        </div>
+        <div class="item">
+            <small>Wybierz odbiorcę</small>
+            <input type="text" name="recipients" id="recipients">
+            <ul id="usersList"></ul>
+        </div>
+        <div class="item">
+            <small>Odbiorcy</small>
+            <textarea name="recipientsList" id="recipientsList" rows="4" style="resize: vertical;" readonly></textarea>
+        </div>
+        <div class="item">
+            <small>Aktywny</small>
+            <label>
+                <input type="checkbox" name="status" value="True">Tak
+            </label>
+        </div>
+        <button type="submit">Dodaj</button>
+    </form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var recipientsInput = document.getElementById('recipients');
+        var usersList = document.getElementById('usersList');
+
+        recipientsInput.addEventListener('input', function () {
+            var searchText = recipientsInput.value;
+
+            if (searchText.length > 0) {
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', '/get_all_users/?search=' + searchText, true);
+
+                xhr.onload = function () {
+                    if (xhr.status >= 200 && xhr.status < 400) {
+                        var data = JSON.parse(xhr.responseText);
+                        displayUsers(data);
+                    } else {
+                        console.error('Błąd podczas pobierania danych.');
+                    }
+                };
+
+                xhr.onerror = function () {
+                    console.error('Błąd sieciowy.');
+                };
+
+                xhr.send();
+            } else {
+                clearUsersList();
+            }
+        });
+
+        function displayUsers(users) {
+            clearUsersList();
+
+            users.forEach(function (user) {
+                var li = document.createElement('li');
+                li.textContent = user.username;
+                usersList.appendChild(li);
+            });
+        }
+
+        function clearUsersList() {
+            while (usersList.firstChild) {
+                usersList.removeChild(usersList.firstChild);
+            }
+        }
+    });
+</script>

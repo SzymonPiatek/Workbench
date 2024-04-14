@@ -1,0 +1,32 @@
+<div class="overlay_container" id="overlay_container" style="display: none">
+    <div class="overlay">
+        <div class="block">
+            <div class="label">
+                <div class="text" id="overlay_title">
+                    {% block overlay_title %}{% endblock overlay_title %}
+                </div>
+                <div class="image" onclick="closeOverlay()">
+                    <i class="fa-regular fa-circle-xmark"></i>
+                </div>
+            </div>
+            <div id="overlays">
+                <div class="overlay_item" id="addNotification" style="display: none">
+                    {% include 'pages/notifications/add_notification.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function closeOverlay() {
+        var overlayContainer = document.getElementById("overlay_container");
+        var overlaysContainer = document.getElementById("overlays");
+        var overlayItems = overlaysContainer.querySelectorAll('.overlay_item');
+
+        overlayItems.forEach(item => {
+            item.style.display = "none";
+        })
+        overlayContainer.style.display = "none";
+    }
+</script>
