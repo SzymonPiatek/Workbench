@@ -8,7 +8,7 @@
             <div class="text">{{ page_title }}</div>
         </div>
         <div class="functions">
-            <div class="function" onclick="toggleOverlay()">
+            <div class="function" onclick="toggleOverlay(this, 'addNotification')">
                 <div class="image"><i class="fa-solid fa-plus"></i></div>
                 <div class="text">Dodaj powiadomienie</div>
             </div>
@@ -40,8 +40,13 @@
     </div>
 
     <script>
-        function toggleOverlay(elementDiv) {
-            var overlayContainer = document.getElementById("overlay_container");
+        function toggleOverlay(button, elementId) {
+            const overlayContainer = document.getElementById("overlay_container");
+            const elementDiv = document.getElementById(elementId);
+            const buttonText = button.querySelector(".text").innerText;
+            const overlayTitle = document.getElementById('overlay_title');
+
+            overlayTitle.innerHTML = buttonText;
             overlayContainer.style.display = "flex";
             elementDiv.style.display = "flex";
         }
