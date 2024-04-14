@@ -20,13 +20,13 @@
         <div class="table">
             <table id="notificationsTable">
                 <tr class="sticky">
-                    <th>Tytuł</th>
-                    <th>Treść</th>
-                    <th>Data utworzenia</th>
-                    <th>Data początkowa</th>
-                    <th>Częstotliwość (dzień)</th>
-                    <th>Odbiorcy</th>
-                    <th>Status</th>
+                    <th data-sort-dir="asc">Tytuł</th>
+                    <th data-sort-dir="asc">Treść</th>
+                    <th data-sort-dir="asc">Data utworzenia</th>
+                    <th data-sort-dir="asc">Data początkowa</th>
+                    <th data-sort-dir="asc">Częstotliwość (dzień)</th>
+                    <th data-sort-dir="asc">Odbiorcy</th>
+                    <th data-sort-dir="asc">Status</th>
                 </tr>
                 {% for notification in notifications %}
                     <tr class="notificationRow {% if notification.is_active %}active{% else %}inactive{% endif %}">
@@ -91,5 +91,32 @@
                 rowDisplay('all');
             }
         }
+
+        $(document).ready(function() {
+           $('#notificationsTable th').click(function() {
+               var table = $(this).closest('table');
+               var rows = table.find('tbody > tr').get();
+               var columnIndex = $(this).index();
+               var sortDir = $(this).data('sort-dir') === 'asc' ? 'desc' : 'asc';
+
+               rows.sort(function(a, b) {
+                   var cellA = $(a).children('td').eq(columnIndex).text().toUpperCase();
+                   var cellB = $(b).children('td').eq(columnIndex).text().toUpperCase();
+                   if (sortDir === 'asc') {
+                       return cellA.localeCompare(cellB);
+                   } else {
+                       return cellB.localeCompare(cellA);
+                   }
+               });
+
+               $.each(rows, function(index, row) {
+                   if (!$(row).hasClass('sticky')) {
+                       table.children('tbody').append(row);
+                   }
+               });
+
+               $(this).data('sort-dir', sortDir);
+           });
+        });
     </script>
 {% endblock content %}
