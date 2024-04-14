@@ -154,11 +154,22 @@ main {
         border-radius: 12px;
         display: flex;
         flex-direction: column;
-        input, textarea {
+        input, textarea, label {
           width: 100%;
           font-size: 1.4rem;
-          border: 1px #000 solid;
           padding: 4px;
+        }
+        input, textarea {
+          border: 1px #000 solid;
+        }
+        label {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          input {
+            width: 1.2rem;
+            aspect-ratio: 1;
+          }
         }
       }
       button {

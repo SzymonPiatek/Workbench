@@ -231,11 +231,22 @@ main {
   display: flex;
   flex-direction: column;
 }
-.block .items form .item input, .block .items form .item textarea {
+.block .items form .item input, .block .items form .item textarea, .block .items form .item label {
   width: 100%;
   font-size: 1.4rem;
-  border: 1px #000 solid;
   padding: 4px;
+}
+.block .items form .item input, .block .items form .item textarea {
+  border: 1px #000 solid;
+}
+.block .items form .item label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.block .items form .item label input {
+  width: 1.2rem;
+  aspect-ratio: 1;
 }
 .block .items form button {
   border: 1px #000 solid;
