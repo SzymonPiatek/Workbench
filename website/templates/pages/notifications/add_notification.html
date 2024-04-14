@@ -17,8 +17,13 @@
             <input type="number" name="frequency" id="frequency">
         </div>
         <div class="item">
-            <small>Odbiorcy</small>
+            <small>Wybierz odbiorcę</small>
             <input type="text" name="recipients" id="recipients">
+            <ul id="usersList"></ul>
+        </div>
+        <div class="item">
+            <small>Odbiorcy</small>
+            <textarea name="recipientsList" id="recipientsList" rows="4" style="resize: vertical;" readonly></textarea>
         </div>
         <div class="item">
             <small>Aktywny</small>
@@ -29,3 +34,57 @@
         <button type="submit">Dodaj</button>
     </form>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var recipientsInput = document.getElementById('recipients');
+        var usersList = document.getElementById('usersList');
+
+        recipientsInput.addEventListener('input', function () {
+            var searchText = recipientsInput.value;
+
+            if (searchText.length > 0) {
+                // Wywołanie funkcji AJAX, aby pobrać użytkowników
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', '/get_all_users/?search=' + searchText, true);
+
+                xhr.onload = function () {
+                    if (xhr.status >= 200 && xhr.status < 400) {
+                        var data = JSON.parse(xhr.responseText);
+                        displayUsers(data);
+                    } else {
+                        console.error('Błąd podczas pobierania danych.');
+                    }
+                };
+
+                xhr.onerror = function () {
+                    console.error('Błąd sieciowy.');
+                };
+
+                xhr.send();
+            } else {
+                // Wyczyść listę użytkowników, jeśli pole wyszukiwania jest puste
+                clearUsersList();
+            }
+        });
+
+        function displayUsers(users) {
+            // Wyczyść aktualną listę użytkowników
+            clearUsersList();
+
+            // Wyświetl nową listę użytkowników
+            users.forEach(function (user) {
+                var li = document.createElement('li');
+                li.textContent = user.username; // Załóżmy, że nazwa użytkownika jest przechowywana w kluczu 'username'
+                usersList.appendChild(li);
+            });
+        }
+
+        function clearUsersList() {
+            // Wyczyść zawartość listy użytkowników
+            while (usersList.firstChild) {
+                usersList.removeChild(usersList.firstChild);
+            }
+        }
+    });
+</script>
