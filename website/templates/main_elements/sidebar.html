@@ -60,10 +60,8 @@
         const sidebar = document.getElementById("sidebar");
 
         if (sidebarContainer.classList.contains("hidden")) {
+            sidebarContainer.classList.toggle("hidden");
             sidebar.classList.toggle("hidden");
-            setTimeout(function() {
-                sidebarContainer.classList.toggle("hidden");
-            }, 300);
         } else {
             sidebarContainer.classList.toggle("hidden");
             setTimeout(function() {
