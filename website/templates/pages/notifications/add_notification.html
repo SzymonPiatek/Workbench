@@ -44,7 +44,6 @@
             var searchText = recipientsInput.value;
 
             if (searchText.length > 0) {
-                // Wywołanie funkcji AJAX, aby pobrać użytkowników
                 var xhr = new XMLHttpRequest();
                 xhr.open('GET', '/get_all_users/?search=' + searchText, true);
 
@@ -63,25 +62,21 @@
 
                 xhr.send();
             } else {
-                // Wyczyść listę użytkowników, jeśli pole wyszukiwania jest puste
                 clearUsersList();
             }
         });
 
         function displayUsers(users) {
-            // Wyczyść aktualną listę użytkowników
             clearUsersList();
 
-            // Wyświetl nową listę użytkowników
             users.forEach(function (user) {
                 var li = document.createElement('li');
-                li.textContent = user.username; // Załóżmy, że nazwa użytkownika jest przechowywana w kluczu 'username'
+                li.textContent = user.username;
                 usersList.appendChild(li);
             });
         }
 
         function clearUsersList() {
-            // Wyczyść zawartość listy użytkowników
             while (usersList.firstChild) {
                 usersList.removeChild(usersList.firstChild);
             }
