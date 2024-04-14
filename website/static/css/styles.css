@@ -1,3 +1,9 @@
+:root {
+  --color-1: #326e93;
+  --color-2: #22557a;
+  --color-3: #a3a3a3;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -27,6 +33,19 @@ main {
   overflow-y: auto;
 }
 
+table tr.sticky {
+  position: sticky;
+  top: -20px;
+}
+table tr th, table tr td {
+  padding: 8px;
+  border: 1px #000 solid;
+}
+table tr th {
+  background: var(--color-1);
+  color: #fff;
+}
+
 ::-webkit-scrollbar {
   display: none;
 }
@@ -41,7 +60,7 @@ main {
   justify-content: space-between;
   padding: 20px;
   overflow-y: auto;
-  background: #326e93;
+  background: var(--color-1);
 }
 .sidebar * {
   color: #fff;
@@ -63,7 +82,7 @@ main {
 .sidebar .items .item#logo {
   justify-content: center;
   padding-bottom: 20px;
-  border-bottom: 2px #a3a3a3 solid;
+  border-bottom: 2px var(--color-3) solid;
   font-size: 1.6rem;
   font-weight: bold;
 }
@@ -81,15 +100,33 @@ main {
 }
 .block#title {
   padding-bottom: 20px;
-  border-bottom: 2px #a3a3a3 solid;
+  border-bottom: 2px var(--color-3) solid;
   font-size: 1.6rem;
   font-weight: bold;
+}
+.block .functions {
+  display: flex;
+  justify-content: right;
+}
+.block .functions .function {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  cursor: pointer;
+  background: var(--color-1);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 12px;
+}
+.block .functions .function:hover {
+  background: var(--color-2);
+  transition: 0.2s ease;
 }
 .block .label {
   display: flex;
   justify-content: space-between;
   font-size: 1.4rem;
-  background: #1b4865;
+  background: var(--color-2);
   color: #fff;
   padding: 8px 20px 8px 20px;
   border-radius: 50vw;
@@ -111,13 +148,13 @@ main {
   gap: 20px;
   text-align: center;
   padding: 20px;
-  border: 1px #a3a3a3 solid;
+  border: 1px var(--color-3) solid;
   border-radius: 8px;
-  background: #326e93;
+  background: var(--color-1);
   color: #fff;
 }
 .block .elements .element:hover {
-  background: #1b4865;
+  background: var(--color-2);
   transition: 0.2s ease;
 }
 .block .elements .element .image {

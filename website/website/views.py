@@ -3,18 +3,10 @@ from django.shortcuts import render
 
 def statistics(request):
     context = {
-        "page_title": "Statistics"
+        "page_title": "Statystyki"
     }
 
     return render(request, 'pages/statistics.html', context)
-
-
-def notifications(request):
-    context = {
-        "page_title": "Notifications"
-    }
-
-    return render(request, 'pages/notifications.html', context)
 
 
 def main_panel(request):
@@ -24,6 +16,7 @@ def main_panel(request):
             "elements": [
                 {"icon": "fa-chart-pie", "name": "Statystyki", "view_name": "statistics_page"},
                 {"icon": "fa-bell", "name": "Powiadomienia", "view_name": "notifications_page"},
+                {"icon": "fa-plus", "name": "Dodaj powiadomienie", "view_name": "notifications_page"},
             ]
         },
         {
@@ -32,7 +25,7 @@ def main_panel(request):
                 {"icon": "fa-car", "name": "Parking", "view_name": "main_panel_page"},
                 {"icon": "fa-display", "name": "Biurko", "view_name": "main_panel_page"},
                 {"icon": "fa-people-roof", "name": "Sala", "view_name": "main_panel_page"},
-                {"icon": "fa-plus", "name": "Dodaj pozycję", "view_name": "main_panel_page"}
+                {"icon": "fa-plus", "name": "Dodaj rezerwację", "view_name": "main_panel_page"}
             ]
         },
         {

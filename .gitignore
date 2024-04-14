@@ -3,3 +3,5 @@ venv
 node_modules
 .idea/
 website/website/__pycache__/
+website/notifications/__pycache__/
+website/notifications/migrations/__pycache__/
