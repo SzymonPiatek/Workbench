@@ -8,7 +8,7 @@
             <div class="text">{{ page_title }}</div>
         </div>
         <div class="functions">
-            <div class="function">
+            <div class="function" onclick="toggleOverlay()">
                 <div class="image"><i class="fa-solid fa-plus"></i></div>
                 <div class="text">Dodaj powiadomienie</div>
             </div>
@@ -38,4 +38,12 @@
             </table>
         </div>
     </div>
+
+    <script>
+        function toggleOverlay(elementDiv) {
+            var overlayContainer = document.getElementById("overlay_container");
+            overlayContainer.style.display = "flex";
+            elementDiv.style.display = "flex";
+        }
+    </script>
 {% endblock content %}
