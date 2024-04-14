@@ -49,14 +49,24 @@
             </a>
         </div>
     </div>
-    <div class="sidebar_button" onclick="toggleSidebar()">
+    <div class="sidebar_button" id="sidebarButton" onclick="toggleSidebar()">
         <i class="fa-solid fa-caret-left"></i>
     </div>
 </div>
 
 <script>
     function toggleSidebar() {
-        var sidebar = document.getElementById("sidebar");
+        const sidebar = document.getElementById("sidebar");
         sidebar.classList.toggle("hidden");
+
+        const sidebarButton = document.getElementById('sidebarButton');
+        const icon = sidebarButton.querySelector('i');
+            if (icon.classList.contains('fa-caret-left')) {
+                icon.classList.remove('fa-caret-left');
+                icon.classList.add('fa-caret-right');
+            } else {
+                icon.classList.remove('fa-caret-right');
+                icon.classList.add('fa-caret-left');
+            }
     }
 </script>
