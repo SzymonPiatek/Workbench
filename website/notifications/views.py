@@ -10,4 +10,4 @@ def notifications(request):
         "notifications": all_notifications,
     }
 
-    return render(request, 'pages/notifications.html', context)
+    return render(request, 'pages/notifications/notifications.html', context)

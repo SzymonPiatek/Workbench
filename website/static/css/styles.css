@@ -33,21 +33,21 @@ main {
   overflow-y: auto;
 }
 
-table tr.sticky {
+.table {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.table table tr.sticky {
   position: sticky;
   top: -20px;
 }
-table tr th, table tr td {
+.table table tr th, .table table tr td {
   padding: 8px;
   border: 1px #000 solid;
 }
-table tr th {
+.table table tr th {
   background: var(--color-1);
   color: #fff;
-}
-
-::-webkit-scrollbar {
-  display: none;
 }
 
 .sidebar {

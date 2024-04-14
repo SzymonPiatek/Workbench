@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ page_title }} {% endblock title %}
+
+{% block content %}
+    <div class="block">
+        <div class="label">
+            <div class="text">{{ page_title }}</div>
+        </div>
+        <div class="functions">
+            <div class="function">
+                <div class="image"><i class="fa-solid fa-plus"></i></div>
+                <div class="text">Dodaj powiadomienie</div>
+            </div>
+        </div>
+        <div class="table">
+            <table>
+                <tr class="sticky">
+                    <th>Tytuł</th>
+                    <th>Treść</th>
+                    <th>Data utworzenia</th>
+                    <th>Data początkowa</th>
+                    <th>Częstotliwość (dzień)</th>
+                    <th>Odbiorcy</th>
+                    <th>Status</th>
+                </tr>
+                {% for notification in notifications %}
+                    <tr>
+                        <td>{{ notification.title }}</td>
+                        <td>{{ notification.message }}</td>
+                        <td>{{ notification.formatted_created_at }}</td>
+                        <td>{{ notification.formatted_start_date }}</td>
+                        <td>{{ notification.frequency }}</td>
+                        <td>{{ notification.count_recipients }}</td>
+                        <td>{{ notification.is_active_return }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock content %}

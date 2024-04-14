@@ -33,26 +33,31 @@ main {
   overflow-y: auto;
 }
 
-table {
-  tr {
-    &.sticky {
-      position: sticky;
-      top: -20px;
-    }
-    th, td {
-      padding: 8px;
-      border: 1px #000 solid;
-    }
-    th {
-      background: var(--color-1);
-      color: #fff;
+.table {
+  max-width: 100%;
+  overflow-x: auto;
+  table {
+    tr {
+      &.sticky {
+        position: sticky;
+        top: -20px;
+      }
+      th, td {
+        padding: 8px;
+        border: 1px #000 solid;
+      }
+      th {
+        background: var(--color-1);
+        color: #fff;
+      }
     }
   }
 }
-
-::-webkit-scrollbar {
-  display: none;
-}
+//
+//
+//::-webkit-scrollbar {
+//  display: none;
+//}
 
 .sidebar {
   min-height: 100%;

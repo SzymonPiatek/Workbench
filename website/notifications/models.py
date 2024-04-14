@@ -10,9 +10,10 @@ class Notification(models.Model):
     start_date = models.DateTimeField(blank=False, null=False)
     frequency = models.IntegerField()
     recipients = models.ManyToManyField(User)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
-        ordering = ['-created_at', '-start_date', '-frequency']
+        ordering = ['-is_active', '-created_at', '-start_date', '-frequency']
 
         verbose_name = 'Powiadomienie'
         verbose_name_plural = 'Powiadomienia'
@@ -50,3 +51,6 @@ class Notification(models.Model):
         full_date = f"{date} {weekday}"
 
         return full_date
+
+    def is_active_return(self):
+        return "Tak" if self.is_active else "Nie"

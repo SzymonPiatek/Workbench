@@ -11,4 +11,5 @@ class NotificationAdmin(admin.ModelAdmin):
         'start_date',
         'frequency',
         'count_recipients',
+        'is_active',
     )
