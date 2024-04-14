@@ -16,7 +16,7 @@ def main_panel(request):
             "elements": [
                 {"icon": "fa-chart-pie", "name": "Statystyki", "url": "statistics_page"},
                 {"icon": "fa-bell", "name": "Powiadomienia", "url": "notifications_page"},
-                {"icon": "fa-plus", "name": "Dodaj powiadomienie", "url": "notifications_page"},
+                {"icon": "fa-plus", "name": "Dodaj powiadomienie", "on_click": "toggleOverlay(this, 'addNotification')"},
             ]
         },
         {

@@ -44,17 +44,6 @@
     </div>
 
     <script>
-        function toggleOverlay(button, elementId) {
-            const overlayContainer = document.getElementById("overlay_container");
-            const elementDiv = document.getElementById(elementId);
-            const buttonText = button.querySelector(".text").innerText;
-            const overlayTitle = document.getElementById('overlay_title');
-
-            overlayTitle.innerHTML = buttonText;
-            overlayContainer.style.display = "flex";
-            elementDiv.style.display = "flex";
-        }
-
         function rowDisplay(status) {
             const tableRows = document.querySelectorAll("#notificationsTable .notificationRow");
 

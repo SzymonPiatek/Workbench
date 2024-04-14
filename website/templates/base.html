@@ -25,4 +25,16 @@
         </main>
         {% include 'overlay.html' %}
     </body>
+    <script>
+        function toggleOverlay(button, elementId) {
+            const overlayContainer = document.getElementById("overlay_container");
+            const elementDiv = document.getElementById(elementId);
+            const buttonText = button.querySelector(".text").innerText;
+            const overlayTitle = document.getElementById('overlay_title');
+
+            overlayTitle.innerHTML = buttonText;
+            overlayContainer.style.display = "flex";
+            elementDiv.style.display = "flex";
+        }
+    </script>
 </html>
