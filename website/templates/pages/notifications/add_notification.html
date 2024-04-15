@@ -19,7 +19,9 @@
         <div class="item">
             <small>Wybierz odbiorcę</small>
             <input type="text" name="recipients" id="recipients">
-            <div id="usersList"></div>
+            <div id="usersList">
+                <div class="users_list"></div>
+            </div>
         </div>
         <div class="item">
             <small>Odbiorcy</small>
@@ -38,7 +40,8 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var recipientsInput = document.getElementById('recipients');
-        var usersList = document.getElementById('usersList');
+        var usersListDiv = document.getElementById('usersList');
+        var usersList = usersListDiv.querySelector('.users_list');
         var allUsers = [];
 
         getAllUsers();
@@ -80,7 +83,13 @@
 
             users.slice(0, 3).forEach(function (user) {
                 var userDiv = Object.assign(document.createElement('div'),
-                    {className: "user", textContent: user.username});
+                    {className: "user"});
+                var userImageDiv = Object.assign(document.createElement('div'),
+                    {className: "image", innerHTML: `<i class="fa-solid fa-user"></i>`});
+                var userTextDiv = Object.assign(document.createElement('div'),
+                    {className: "text", innerHTML: user.username});
+                userDiv.appendChild(userImageDiv);
+                userDiv.appendChild(userTextDiv);
                 usersList.appendChild(userDiv);
             });
         }
