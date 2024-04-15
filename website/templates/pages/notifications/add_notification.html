@@ -85,20 +85,35 @@
         function displayUsers(users) {
             clearUsersList();
 
-            users.slice(0, 3).forEach(function (user) {
-                var userDiv = Object.assign(document.createElement('div'),
-                    {className: "user"});
-                var userImageDiv = Object.assign(document.createElement('div'),
-                    {className: "image", innerHTML: `<i class="fa-solid fa-user"></i>`});
-                var userTextDiv = Object.assign(document.createElement('div'),
-                    {className: "text", innerHTML: user.full_name + ' (' + user.email + ')'});
-                userDiv.appendChild(userImageDiv);
-                userDiv.appendChild(userTextDiv);
-                userDiv.addEventListener('click', function () {
-                    addRecipient(user.email);
-                });
-                usersList.appendChild(userDiv);
+            var addedUsersCount = usersList.querySelectorAll('.user').length;
+
+            users.forEach(function (user, index) {
+                if (!isUserInRecipientList(user.email) && addedUsersCount < 3) {
+                    var userDiv = Object.assign(document.createElement('div'),
+                        {className: "user"});
+                    var userImageDiv = Object.assign(document.createElement('div'),
+                        {className: "image", innerHTML: `<i class="fa-solid fa-user"></i>`});
+                    var userTextDiv = Object.assign(document.createElement('div'),
+                        {className: "text", innerHTML: user.full_name + ' (' + user.email + ')'});
+                    userDiv.appendChild(userImageDiv);
+                    userDiv.appendChild(userTextDiv);
+                    userDiv.addEventListener('click', function () {
+                        addRecipient(user.email);
+                    });
+                    usersList.appendChild(userDiv);
+                    addedUsersCount++;
+                }
             });
+        }
+
+        function isUserInRecipientList(email) {
+            var recipients = recipientsList.querySelectorAll('.recipient');
+            for (var i = 0; i < recipients.length; i++) {
+                if (recipients[i].querySelector('.text').innerHTML === email) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         function clearUsersList() {
