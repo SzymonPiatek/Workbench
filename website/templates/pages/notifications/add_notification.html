@@ -18,7 +18,7 @@
         </div>
         <div class="item">
             <small>Wybierz odbiorcę</small>
-            <input type="text" name="recipients" id="recipients">
+            <input type="text" name="recipients" id="recipients" autocomplete="off">
             <div id="usersList">
                 <div class="users_list"></div>
             </div>
@@ -70,7 +70,10 @@
 
             if (searchText.length > 0) {
                 var filteredUsers = allUsers.filter(function (user) {
-                    return user.username.toLowerCase().includes(searchText.toLowerCase());
+                    return (
+                        (user.full_name.includes(searchText.toLowerCase())) ||
+                        (user.email.includes(searchText.toLowerCase()))
+                    );
                 });
                 displayUsers(filteredUsers);
             } else {
@@ -87,7 +90,7 @@
                 var userImageDiv = Object.assign(document.createElement('div'),
                     {className: "image", innerHTML: `<i class="fa-solid fa-user"></i>`});
                 var userTextDiv = Object.assign(document.createElement('div'),
-                    {className: "text", innerHTML: user.username});
+                    {className: "text", innerHTML: user.full_name + ' (' + user.email + ')'});
                 userDiv.appendChild(userImageDiv);
                 userDiv.appendChild(userTextDiv);
                 usersList.appendChild(userDiv);
