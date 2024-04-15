@@ -29,6 +29,7 @@ class Command(BaseCommand):
                 return None
 
         def generate_users(users_data):
+            i = 1
             for user_data in users_data:
                 first_name, last_name = user_data.split()
                 full_name = f"{first_name} {last_name}"
@@ -49,6 +50,6 @@ class Command(BaseCommand):
                         password=make_password(password)
                     )
 
-                    self.stdout.write(self.style.SUCCESS(f'User "{username}" created successfully.'))
-
+                    self.stdout.write(self.style.SUCCESS(f'User {i} - "{username}" created successfully.'))
+                    i += 1
         generate_users(generate_users_data(quantity))
