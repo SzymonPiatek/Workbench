@@ -248,6 +248,17 @@ main {
   width: 1.2rem;
   aspect-ratio: 1;
 }
+.block .items form .item #usersList {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.block .items form .item #usersList .user {
+  padding: 2px;
+  border: 1px #000 solid;
+  border-radius: 12px;
+  text-indent: 4px;
+}
 .block .items form button {
   border: 1px #000 solid;
   font-size: 1.6rem;

@@ -171,6 +171,17 @@ main {
             aspect-ratio: 1;
           }
         }
+        #usersList {
+          display: flex;
+          flex-direction: column;
+          gap: 1px;
+          .user {
+            padding: 2px;
+            border: 1px #000 solid;
+            border-radius: 12px;
+            text-indent: 4px;
+          }
+        }
       }
       button {
         border: 1px #000 solid;

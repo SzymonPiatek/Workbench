@@ -19,7 +19,7 @@
         <div class="item">
             <small>Wybierz odbiorcę</small>
             <input type="text" name="recipients" id="recipients">
-            <ul id="usersList"></ul>
+            <div id="usersList"></div>
         </div>
         <div class="item">
             <small>Odbiorcy</small>
@@ -78,10 +78,10 @@
         function displayUsers(users) {
             clearUsersList();
 
-            users.forEach(function (user) {
-                var li = document.createElement('li');
-                li.textContent = user.username;
-                usersList.appendChild(li);
+            users.slice(0, 3).forEach(function (user) {
+                var userDiv = Object.assign(document.createElement('div'),
+                    {className: "user", textContent: user.username});
+                usersList.appendChild(userDiv);
             });
         }
 
