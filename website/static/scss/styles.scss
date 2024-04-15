@@ -172,14 +172,54 @@ main {
           }
         }
         #usersList {
+          width: inherit;
+          margin-top: 1px;
+          height: 10px;
+          position: relative;
+          .users_list {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            position: absolute;
+            z-index: 999;
+            .user{
+              padding: 4px 8px;
+              border: 1px #000 solid;
+              border-radius: 12px;
+              background: #fff;
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              &:hover {
+                background: var(--color-1);
+                color: #fff;
+                transition: 0.2s ease;
+              }
+            }
+          }
+        }
+        #recipientsList {
+          width: 100%;
+          height: 200px;
           display: flex;
           flex-direction: column;
           gap: 1px;
-          .user {
-            padding: 2px;
+          border: 1px #000 solid;
+          border-radius: 12px;
+          overflow-y: auto;
+          padding: 8px;
+          .recipient {
+            padding: 4px 8px;
             border: 1px #000 solid;
             border-radius: 12px;
-            text-indent: 4px;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            .function {
+              margin-left: auto;
+            }
           }
         }
       }
