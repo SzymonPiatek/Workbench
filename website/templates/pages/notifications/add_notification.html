@@ -42,6 +42,7 @@
         var recipientsInput = document.getElementById('recipients');
         var usersListDiv = document.getElementById('usersList');
         var usersList = usersListDiv.querySelector('.users_list');
+        var recipientsList = document.getElementById('recipientsList');
         var allUsers = [];
 
         getAllUsers();
@@ -93,6 +94,9 @@
                     {className: "text", innerHTML: user.full_name + ' (' + user.email + ')'});
                 userDiv.appendChild(userImageDiv);
                 userDiv.appendChild(userTextDiv);
+                userDiv.addEventListener('click', function () {
+                    addRecipient(user.email);
+                });
                 usersList.appendChild(userDiv);
             });
         }
@@ -101,6 +105,12 @@
             while (usersList.firstChild) {
                 usersList.removeChild(usersList.firstChild);
             }
+        }
+
+        function addRecipient(email) {
+            recipientsList.value += email + '\n';
+            clearUsersList();
+            recipientsInput.value = '';
         }
     });
 </script>
