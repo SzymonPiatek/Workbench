@@ -249,10 +249,13 @@ main {
   aspect-ratio: 1;
 }
 .block .items form .item #usersList {
-  width: 100%;
+  width: inherit;
   margin-top: 1px;
+  height: 10px;
+  position: relative;
 }
 .block .items form .item #usersList .users_list {
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 1px;
@@ -267,6 +270,11 @@ main {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+.block .items form .item #usersList .users_list .user:hover {
+  background: var(--color-1);
+  color: #fff;
+  transition: 0.2s ease;
 }
 .block .items form button {
   border: 1px #000 solid;

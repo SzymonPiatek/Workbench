@@ -172,9 +172,12 @@ main {
           }
         }
         #usersList {
-          width: 100%;
+          width: inherit;
           margin-top: 1px;
+          height: 10px;
+          position: relative;
           .users_list {
+            width: 100%;
             display: flex;
             flex-direction: column;
             gap: 1px;
@@ -188,6 +191,11 @@ main {
               display: flex;
               align-items: center;
               gap: 8px;
+              &:hover {
+                background: var(--color-1);
+                color: #fff;
+                transition: 0.2s ease;
+              }
             }
           }
         }
