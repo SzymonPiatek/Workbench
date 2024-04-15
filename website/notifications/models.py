@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from users.models import CustomUser
 
 
 class Notification(models.Model):
@@ -8,7 +8,7 @@ class Notification(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     start_date = models.DateTimeField(blank=False, null=False)
     frequency = models.IntegerField()
-    recipients = models.ManyToManyField(User)
+    recipients = models.ManyToManyField(CustomUser)
     is_active = models.BooleanField(default=True)
 
     class Meta:
