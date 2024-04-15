@@ -122,14 +122,24 @@
             }
         }
 
+        function deleteRecipient(recipientDiv) {
+            recipientDiv.parentNode.removeChild(recipientDiv);
+        }
+
         function addRecipient(email) {
             var recipientDiv = Object.assign(document.createElement('div'), {className: "recipient"});
             var recipientImageDiv = Object.assign(document.createElement('div'),
                 {className: "image", innerHTML: `<i class="fa-solid fa-user"></i>`})
             var recipientTextDiv = Object.assign(document.createElement('div'),
                     {className: "text", innerHTML: email});
+            var recipientFunctionDiv = Object.assign(document.createElement('div'),
+                    {className: "function", innerHTML: `<i class="fa-regular fa-circle-xmark"></i>`});
             recipientDiv.appendChild(recipientImageDiv);
             recipientDiv.appendChild(recipientTextDiv);
+            recipientDiv.appendChild(recipientFunctionDiv);
+            recipientFunctionDiv.addEventListener("click", function () {
+                deleteRecipient(recipientDiv);
+            })
             recipientsList.appendChild(recipientDiv);
             clearUsersList();
             recipientsInput.value = '';
