@@ -25,7 +25,7 @@
         </div>
         <div class="item">
             <small>Odbiorcy</small>
-            <textarea name="recipientsList" id="recipientsList" rows="4" style="resize: vertical;" readonly></textarea>
+            <div id="recipientsList"></div>
         </div>
         <div class="item">
             <small>Aktywny</small>
@@ -108,7 +108,14 @@
         }
 
         function addRecipient(email) {
-            recipientsList.value += email + '\n';
+            var recipientDiv = Object.assign(document.createElement('div'), {className: "recipient"});
+            var recipientImageDiv = Object.assign(document.createElement('div'),
+                {className: "image", innerHTML: `<i class="fa-solid fa-user"></i>`})
+            var recipientTextDiv = Object.assign(document.createElement('div'),
+                    {className: "text", innerHTML: email});
+            recipientDiv.appendChild(recipientImageDiv);
+            recipientDiv.appendChild(recipientTextDiv);
+            recipientsList.appendChild(recipientDiv);
             clearUsersList();
             recipientsInput.value = '';
         }
