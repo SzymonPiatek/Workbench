@@ -22,7 +22,6 @@ def save_notification(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body.decode('utf-8'))
-            print(data)
 
             recipients_list_data = data['recipients']
             recipients_list = []

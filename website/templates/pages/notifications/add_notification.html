@@ -61,9 +61,22 @@
     document.addEventListener('DOMContentLoaded', function () {
         const form = document.querySelector('form');
         const recipientsList = document.getElementById('recipientsList');
+        const radioInputs = document.querySelectorAll('input[type="radio"][name="type"]');
 
         form.addEventListener('submit', function (event) {
             event.preventDefault();
+
+            let typeChecked = false;
+            radioInputs.forEach(input => {
+                if (input.checked) {
+                    typeChecked = true;
+                }
+            });
+
+            if (!typeChecked) {
+                alert('Proszę wybrać jeden z typów powiadomienia.');
+                return;
+            }
 
             const formData = new FormData(form);
 
