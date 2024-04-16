@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="item single_use">
-            <small>Data i czas</small>
+            <small>Data wykonania</small>
             <input type="datetime-local" name="date" id="date">
         </div>
         <div class="item cyclical">
@@ -33,8 +33,8 @@
             <input type="number" name="frequency" id="frequency">
         </div>
         <div class="item reminder">
-            <small>Czas przed wydarzeniem</small>
-            <input type="time" name="timeBefore" id="timeBefore">
+            <small>Czas przed wydarzeniem (min)</small>
+            <input type="number" name="timeBefore" id="timeBefore">
         </div>
         <div class="item always">
             <small>Wybierz odbiorcę</small>
@@ -50,12 +50,58 @@
         <div class="item always">
             <small>Aktywny</small>
             <label>
-                <input type="checkbox" name="status" value="True">Tak
+                <input type="checkbox" name="isActive" id="isActive" value="True">Tak
             </label>
         </div>
         <button type="submit">Dodaj</button>
     </form>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('form');
+        const recipientsList = document.getElementById('recipientsList');
+        const radioInputs = document.querySelectorAll('input[type="radio"][name="type"]');
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            let typeChecked = false;
+            radioInputs.forEach(input => {
+                if (input.checked) {
+                    typeChecked = true;
+                }
+            });
+
+            if (!typeChecked) {
+                alert('Proszę wybrać jeden z typów powiadomienia.');
+                return;
+            }
+
+            const formData = new FormData(form);
+
+            const requestData = {};
+            formData.forEach((value, key) => {
+                requestData[key] = value;
+            });
+
+            const recipients = [];
+            recipientsList.childNodes.forEach(child => {
+                if (child.classList && child.classList.contains('recipient')) {
+                    const text = child.querySelector('.text').innerText;
+                    recipients.push(text);
+                }
+            });
+            requestData['recipients'] = recipients;
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '{% url "save_notification_page" %}', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+
+            xhr.send(JSON.stringify(requestData));
+        });
+    });
+</script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
