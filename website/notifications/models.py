@@ -17,7 +17,7 @@ class Notification(models.Model):
     date = models.DateTimeField(blank=True, null=True)
     start_date = models.DateTimeField(blank=True, null=True)
     frequency = models.IntegerField(blank=True, null=True)
-    time_before = models.TimeField(blank=True, null=True)
+    time_before = models.IntegerField(blank=True, null=True)
     recipients = models.ManyToManyField(CustomUser)
     is_active = models.BooleanField(default=True)
 
