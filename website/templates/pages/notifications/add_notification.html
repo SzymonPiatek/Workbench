@@ -1,33 +1,53 @@
-<div class="items">
+<div class="items" id="formItems">
     <form>
-        <div class="item">
+        <div class="item always">
             <small>Tytuł</small>
             <input type="text" name="title" id="title">
         </div>
-        <div class="item">
+        <div class="item always">
             <small>Treść</small>
             <textarea name="message" id="message" rows="4" style="resize: vertical;"></textarea>
         </div>
-        <div class="item">
+        <div class="item always" id="frequencyInputs">
+            <div class="radio_items">
+                <input type="radio" name="type" id="type1" value="single_use">
+                <label for="type1">Jednorazowe</label>
+
+                <input type="radio" name="type" id="type2" value="cyclical">
+                <label for="type2">Cykliczne</label>
+
+                <input type="radio" name="type" id="type3" value="reminder">
+                <label for="type3">Przypomnienie</label>
+            </div>
+        </div>
+        <div class="item single_use">
+            <small>Data i czas</small>
+            <input type="datetime-local" name="date" id="date">
+        </div>
+        <div class="item cyclical">
             <small>Data początkowa</small>
             <input type="datetime-local" name="startDate" id="startDate">
         </div>
-        <div class="item">
+        <div class="item cyclical">
             <small>Częstotliwość (dzień)</small>
             <input type="number" name="frequency" id="frequency">
         </div>
-        <div class="item">
+        <div class="item reminder">
+            <small>Czas przed wydarzeniem</small>
+            <input type="time" name="timeBefore" id="timeBefore">
+        </div>
+        <div class="item always">
             <small>Wybierz odbiorcę</small>
             <input type="text" name="recipients" id="recipients" autocomplete="off">
             <div id="usersList">
                 <div class="users_list"></div>
             </div>
         </div>
-        <div class="item">
+        <div class="item always">
             <small>Odbiorcy</small>
             <div id="recipientsList"></div>
         </div>
-        <div class="item">
+        <div class="item always">
             <small>Aktywny</small>
             <label>
                 <input type="checkbox" name="status" value="True">Tak
@@ -144,5 +164,36 @@
             clearUsersList();
             recipientsInput.value = '';
         }
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const frequencyInputs = document.getElementById('frequencyInputs');
+        const radioInputs = frequencyInputs.querySelectorAll('input[type="radio"][name="type"]');
+        const formItems = document.getElementById('formItems');
+        const items = formItems.querySelectorAll('.item');
+
+        function toggleItems() {
+            const selectedInput = frequencyInputs.querySelector('input[type="radio"][name="type"]:checked');
+            if (selectedInput) {
+                const selectedType = selectedInput.value;
+
+                items.forEach(item => {
+                    const itemClasses = item.classList;
+                    if (!itemClasses.contains(selectedType) && !itemClasses.contains('always')) {
+                        item.style.display = "none";
+                    } else {
+                        item.style.display = "flex";
+                    }
+                });
+            }
+        }
+
+        radioInputs.forEach(input => {
+           input.addEventListener("change", toggleItems);
+        });
+
+        toggleItems();
     });
 </script>
