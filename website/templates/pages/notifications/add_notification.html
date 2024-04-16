@@ -20,13 +20,21 @@
                 <label for="type3">Przypomnienie</label>
             </div>
         </div>
-        <div class="item">
+        <div class="item single_use">
+            <small>Data i czas</small>
+            <input type="datetime-local" name="date" id="date">
+        </div>
+        <div class="item cyclical">
             <small>Data początkowa</small>
             <input type="datetime-local" name="startDate" id="startDate">
         </div>
-        <div class="item">
+        <div class="item cyclical">
             <small>Częstotliwość (dzień)</small>
             <input type="number" name="frequency" id="frequency">
+        </div>
+        <div class="item reminder">
+            <small>Czas przed wydarzeniem</small>
+            <input type="time" name="timeBefore" id="timeBefore">
         </div>
         <div class="item">
             <small>Wybierz odbiorcę</small>
