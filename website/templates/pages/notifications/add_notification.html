@@ -9,6 +9,18 @@
             <textarea name="message" id="message" rows="4" style="resize: vertical;"></textarea>
         </div>
         <div class="item">
+            <div class="radio_items">
+                <input type="radio" name="type" id="type1" value="single_use">
+                <label for="type1">Jednorazowe</label>
+
+                <input type="radio" name="type" id="type2" value="cyclical">
+                <label for="type2">Cykliczne</label>
+
+                <input type="radio" name="type" id="type3" value="reminder">
+                <label for="type3">Przypomnienie</label>
+            </div>
+        </div>
+        <div class="item">
             <small>Data początkowa</small>
             <input type="datetime-local" name="startDate" id="startDate">
         </div>

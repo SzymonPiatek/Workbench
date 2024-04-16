@@ -231,6 +231,25 @@ main {
   display: flex;
   flex-direction: column;
 }
+.block .items form .item .radio_items {
+  display: flex;
+  justify-content: space-around;
+  border: 1px #000 solid;
+  border-radius: 20px;
+}
+.block .items form .item .radio_items label {
+  flex: 1;
+  padding: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.4rem;
+}
+.block .items form .item .radio_items input[type=radio]:checked + label {
+  background: var(--color-1);
+  border-radius: 20px;
+  color: #fff;
+}
 .block .items form .item input, .block .items form .item textarea, .block .items form .item label {
   width: 100%;
   font-size: 1.4rem;
@@ -239,10 +258,19 @@ main {
 .block .items form .item input, .block .items form .item textarea {
   border: 1px #000 solid;
 }
+.block .items form .item input[type=radio] {
+  display: none;
+}
 .block .items form .item label {
   display: flex;
   align-items: center;
   gap: 10px;
+}
+.block .items form .item label.radio_label {
+  width: fit-content;
+  justify-content: space-between;
+  font-size: 1rem;
+  background: red;
 }
 .block .items form .item label input {
   width: 1.2rem;
