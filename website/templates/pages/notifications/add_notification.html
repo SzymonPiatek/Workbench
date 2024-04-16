@@ -50,7 +50,7 @@
         <div class="item always">
             <small>Aktywny</small>
             <label>
-                <input type="checkbox" name="status" value="True">Tak
+                <input type="checkbox" name="is_active" id="is_active" value="True">Tak
             </label>
         </div>
         <button type="submit">Dodaj</button>
@@ -80,10 +80,17 @@
                 }
             });
             requestData['recipients'] = recipients;
-            console.log(requestData);
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '{% url "save_notification_page" %}', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+
+            xhr.send(JSON.stringify(requestData));
         });
     });
+</script>
 
+<script>
     document.addEventListener('DOMContentLoaded', function () {
         var recipientsInput = document.getElementById('recipients');
         var usersListDiv = document.getElementById('usersList');
