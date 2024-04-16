@@ -59,6 +59,32 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('form');
+        const recipientsList = document.getElementById('recipientsList');
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(form);
+
+            const requestData = {};
+            formData.forEach((value, key) => {
+                requestData[key] = value;
+            });
+
+            const recipients = [];
+            recipientsList.childNodes.forEach(child => {
+                if (child.classList && child.classList.contains('recipient')) {
+                    const text = child.querySelector('.text').innerText;
+                    recipients.push(text);
+                }
+            });
+            requestData['recipients'] = recipients;
+            console.log(requestData);
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
         var recipientsInput = document.getElementById('recipients');
         var usersListDiv = document.getElementById('usersList');
         var usersList = usersListDiv.querySelector('.users_list');
