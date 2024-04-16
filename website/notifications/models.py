@@ -3,16 +3,26 @@ from users.models import CustomUser
 
 
 class Notification(models.Model):
+    TYPE_LIST = (
+        ("single_use", "Jednorazowe"),
+        ("cyclical", "Cykliczne"),
+        ("reminder", "Przypomnienie"),
+    )
+
     title = models.CharField(max_length=100, blank=False, null=False)
     message = models.TextField(blank=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    start_date = models.DateTimeField(blank=False, null=False)
-    frequency = models.IntegerField()
+    notification_type = models.CharField(max_length=50, choices=TYPE_LIST, default=TYPE_LIST[0])
+
+    date = models.DateTimeField(blank=True, null=True)
+    start_date = models.DateTimeField(blank=True, null=True)
+    frequency = models.IntegerField(blank=True, null=True)
+    time_before = models.TimeField(blank=True, null=True)
     recipients = models.ManyToManyField(CustomUser)
     is_active = models.BooleanField(default=True)
 
     class Meta:
-        ordering = ['-is_active', '-created_at', '-start_date', '-frequency']
+        ordering = ['-is_active', '-created_at', '-notification_type']
 
         verbose_name = 'Powiadomienie'
         verbose_name_plural = 'Powiadomienia'

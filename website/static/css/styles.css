@@ -231,6 +231,9 @@ main {
   display: flex;
   flex-direction: column;
 }
+.block .items form .item.single_use, .block .items form .item.cyclical, .block .items form .item.reminder {
+  display: none;
+}
 .block .items form .item .radio_items {
   display: flex;
   justify-content: space-around;

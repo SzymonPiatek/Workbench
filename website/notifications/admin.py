@@ -6,10 +6,8 @@ from .models import Notification
 class NotificationAdmin(admin.ModelAdmin):
     list_display = (
         'title',
-        'message',
+        'notification_type',
         'created_at',
-        'start_date',
-        'frequency',
         'count_recipients',
         'is_active',
     )

@@ -21,20 +21,16 @@
             <table id="notificationsTable">
                 <tr class="sticky">
                     <th data-sort-dir="asc">Tytuł</th>
-                    <th data-sort-dir="asc">Treść</th>
+                    <th data-sort-dir="asc">Typ</th>
                     <th data-sort-dir="asc">Data utworzenia</th>
-                    <th data-sort-dir="asc">Data początkowa</th>
-                    <th data-sort-dir="asc">Częstotliwość (dzień)</th>
                     <th data-sort-dir="asc">Odbiorcy</th>
                     <th data-sort-dir="asc">Status</th>
                 </tr>
                 {% for notification in notifications %}
                     <tr class="notificationRow {% if notification.is_active %}active{% else %}inactive{% endif %}">
                         <td>{{ notification.title }}</td>
-                        <td>{{ notification.message }}</td>
+                        <td>{{ notification.notification_type }}</td>
                         <td>{{ notification.formatted_created_at }}</td>
-                        <td>{{ notification.formatted_start_date }}</td>
-                        <td>{{ notification.frequency }}</td>
                         <td>{{ notification.count_recipients }}</td>
                         <td>{{ notification.is_active_return }}</td>
                     </tr>

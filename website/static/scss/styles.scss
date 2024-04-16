@@ -154,6 +154,9 @@ main {
         border-radius: 12px;
         display: flex;
         flex-direction: column;
+        &.single_use, &.cyclical, &.reminder {
+          display: none;
+        }
         .radio_items {
           display: flex;
           justify-content: space-around;
