@@ -30,6 +30,11 @@ class Notification(models.Model):
     def __str__(self):
         return self.title
 
+    def type_name(self):
+        for name in self.TYPE_LIST:
+            if name[0] == self.notification_type:
+                return name[1]
+
     def count_recipients(self):
         return self.recipients.count()
 
@@ -62,4 +67,4 @@ class Notification(models.Model):
         return full_date
 
     def is_active_return(self):
-        return "Tak" if self.is_active else "Nie"
+        return "Aktywny" if self.is_active else "Nieaktywny"

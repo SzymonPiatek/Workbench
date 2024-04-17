@@ -17,6 +17,7 @@
 
         <script src="https://kit.fontawesome.com/d55684f920.js" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </head>
     <body>
         {% include 'main_elements/sidebar.html' %}
@@ -26,10 +27,14 @@
         {% include 'overlay.html' %}
     </body>
     <script>
-        function toggleOverlay(button, elementId) {
+        function toggleOverlay(button, elementId, text) {
             const overlayContainer = document.getElementById("overlay_container");
             const elementDiv = document.getElementById(elementId);
-            const buttonText = button.querySelector(".text").innerText;
+            if (button) {
+                var buttonText = button.querySelector(".text").innerText;
+            } else {
+                var buttonText = text;
+            }
             const overlayTitle = document.getElementById('overlay_title');
 
             overlayTitle.innerHTML = buttonText;

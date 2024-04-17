@@ -9,12 +9,47 @@ from datetime import datetime
 
 
 def format_datetime_data(date_str):
-    date = date_str.replace("T", " ")
     try:
+        date = date_str.replace("T", " ")
         date = datetime.strptime(date, '%Y-%m-%d %H:%M')
         return date
     except Exception as e:
-        print(e)
+        print(f"Error: {e}")
+
+
+def format_datetime_data_to_str(date_str):
+    try:
+        date = str(date_str)[:16]
+        return date
+    except Exception as e:
+        print(f"Error: {e}")
+
+
+def get_notification_info(request, notification_id):
+    if request.method == 'GET':
+        try:
+            notification = Notification.objects.get(pk=notification_id)
+            recipients_emails = [user.email for user in notification.recipients.all()]
+            data = {
+                'title': notification.title,
+                'message': notification.message,
+                'created_at': format_datetime_data_to_str(date_str=notification.created_at),
+                'notification_type': notification.type_name(),
+                'recipientsList': recipients_emails,
+                'isActive': notification.is_active_return(),
+            }
+            if notification.notification_type == 'single_use':
+                data['date'] = notification.date
+            elif notification.notification_type == 'cyclical':
+                data['startDate'] = notification.start_date
+                data['frequency'] = notification.frequency
+            elif notification.notification_type == 'reminder':
+                data['timeBefore'] = notification.time_before
+            return JsonResponse(data, status=200)
+        except Notification.DoesNotExist:
+            return JsonResponse({'error': "Powiadomienie nie istnieje"}, status=404)
+    else:
+        return JsonResponse({'error': "Metoda HTTP nieobsługiwana"}, status=405)
 
 
 @csrf_exempt
@@ -43,13 +78,13 @@ def save_notification(request):
                 try:
                     new_notification.date = format_datetime_data(data['date'])
                 except Exception as e:
-                    print(e)
+                    print(f"Error: {e}")
 
             elif data['type'] == "cyclical":
                 try:
                     new_notification.start_date = format_datetime_data(data['startDate'])
                 except Exception as e:
-                    print(e)
+                    print(f"Error: {e}")
                 new_notification.frequency = data['frequency']
             elif data['type'] == "reminder":
                 new_notification.time_before = data['timeBefore']
@@ -59,11 +94,12 @@ def save_notification(request):
             return JsonResponse({'success': True})
 
         except Exception as e:
-            print(e)
+            print(f"Error: {e}")
             return JsonResponse({'success': False, 'error': str(e)})
 
     else:
         return JsonResponse({'success': False, 'error': 'Only POST requests are allowed'})
+
 
 def notifications(request):
     all_notifications = Notification.objects.all()

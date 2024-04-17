@@ -66,18 +66,6 @@
         form.addEventListener('submit', function (event) {
             event.preventDefault();
 
-            let typeChecked = false;
-            radioInputs.forEach(input => {
-                if (input.checked) {
-                    typeChecked = true;
-                }
-            });
-
-            if (!typeChecked) {
-                alert('Proszę wybrać jeden z typów powiadomienia.');
-                return;
-            }
-
             const formData = new FormData(form);
 
             const requestData = {};
@@ -85,6 +73,106 @@
                 requestData[key] = value;
             });
 
+            // Sprawdzenie, czy tytuł jest podany
+            // Jeśli tak -> ok
+            // Jeśli nie -> alert
+            if (!requestData['title']) {
+                Swal.fire({
+                    title: 'Niekompletny formularz',
+                    text: 'Proszę podać tytuł',
+                    icon: "warning",
+                    confirmButtonColor: '#22557a',
+                    confirmButtonText: 'Ok',
+                });
+                return;
+            }
+
+            // Sprawdzenie, czy treść wiadomości jest podana
+            // Jeśli tak -> ok
+            // Jeśli nie -> alert
+            if (!requestData['message']) {
+                Swal.fire({
+                    title: 'Niekompletny formularz',
+                    text: 'Proszę podać treść wiadomości',
+                    icon: "warning",
+                    confirmButtonColor: '#22557a',
+                    confirmButtonText: 'Ok',
+                });
+                return;
+            }
+
+            // Sprawdzenie, czy typ jest wybrany.
+            // Jeśli tak -> przypisz wartość
+            // Jeśli nie -> alert
+            let typeChecked = false;
+            let selectedType = '';
+            radioInputs.forEach(input => {
+                if (input.checked) {
+                    typeChecked = true;
+                    selectedType = input.value;
+                }
+            });
+
+            if (!typeChecked) {
+                Swal.fire({
+                    title: 'Niekompletny formularz',
+                    text: 'Proszę wybrać jeden z typów powiadomienia',
+                    icon: "warning",
+                    confirmButtonColor: '#22557a',
+                    confirmButtonText: 'Ok',
+                });
+                return;
+            }
+
+            // Jeśli typ jest wybrany -> Sprawdź jaki i wykonaj konkretne sprawdzenia
+            if (selectedType === 'single_use') {
+                if (!requestData['date']) {
+                    Swal.fire({
+                        title: 'Niekompletny formularz',
+                        text: 'Proszę podać datę wykonania',
+                        icon: "warning",
+                        confirmButtonColor: '#22557a',
+                        confirmButtonText: 'Ok',
+                    });
+                    return;
+                }
+            } else if (selectedType === 'cyclical') {
+                if (!requestData['startDate']) {
+                    Swal.fire({
+                        title: 'Niekompletny formularz',
+                        text: 'Proszę podać datę początkową',
+                        icon: "warning",
+                        confirmButtonColor: '#22557a',
+                        confirmButtonText: 'Ok',
+                    });
+                    return;
+                }
+                if (!requestData['frequency']) {
+                    Swal.fire({
+                        title: 'Niekompletny formularz',
+                        text: 'Podaj częstotliwość wysyłania',
+                        icon: "warning",
+                        confirmButtonColor: '#22557a',
+                        confirmButtonText: 'Ok',
+                    });
+                    return;
+                }
+            } else if (selectedType === 'reminder') {
+                if (!requestData['timeBefore']) {
+                    Swal.fire({
+                        title: 'Niekompletny formularz',
+                        text: 'Podaj czas przed wydarzeniem',
+                        icon: "warning",
+                        confirmButtonColor: '#22557a',
+                        confirmButtonText: 'Ok',
+                    });
+                    return;
+                }
+            }
+
+            // Pobierz listę odbiorców i sprawdź, czy nie jest pusta
+            // Jeśli jest pusta -> alert
+            // Jeśli nie jest pusta -> przypisz wartość
             const recipients = [];
             recipientsList.childNodes.forEach(child => {
                 if (child.classList && child.classList.contains('recipient')) {
@@ -92,13 +180,77 @@
                     recipients.push(text);
                 }
             });
+
+            if (recipients.length === 0) {
+                Swal.fire({
+                    title: 'Niekompletny formularz',
+                    text: 'Musisz wybrać przynajmniej jednego odbiorcę',
+                    icon: "warning",
+                    confirmButtonColor: '#22557a',
+                    confirmButtonText: 'Ok',
+                });
+                return;
+            }
             requestData['recipients'] = recipients;
 
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', '{% url "save_notification_page" %}', true);
-            xhr.setRequestHeader('Content-Type', 'application/json');
+            // Sprawdź, czy jest zaznaczony checkbox (Aktwyny)
+            // Jeśli tak -> jest ok
+            // Jeśli nie -> przypisz wartość false
+            if (!requestData['isActive']) {
+                requestData['isActive'] = false;
+            }
 
-            xhr.send(JSON.stringify(requestData));
+            // Przed wysłaniem formularza pyta użytkownika, czy jest tego pewien
+            // Jeśli tak -> wysyła formularz
+            // Jeśli nie -> nie wysyła
+            // Wysłanie formularza -> sprawdzenie na backendzie
+            // Jeśli wszystko jest ok -> resetuje form, czyści listę odbiorców, zamyka okno formularza, alert
+            // Jeśli nie -> alert
+            Swal.fire({
+                title: 'Czy na pewno chcesz zapisać powiadomienie?',
+                showCancelButton: true,
+                confirmButtonColor: '#22557a',
+                confirmButtonText: 'Tak',
+                cancelButtonText: 'Nie'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', '{% url "save_notification_page" %}', true);
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+
+                    xhr.onload = function () {
+                        if (xhr.status >= 200 && xhr.status < 400) {
+                            form.reset();
+                            recipientsList.innerHTML = '';
+                            Swal.fire({
+                                title: 'Zapisano!',
+                                text: 'Powiadomienie zostało zapisane',
+                                icon: 'success',
+                                confirmButtonColor: '#22557a',
+                                confirmButtonText: 'Ok',
+                            });
+                            closeOverlay();
+                        } else {
+                            Swal.fire({
+                                title: 'Niekompletny formularz',
+                                text: 'Błąd podczas pobierania danych',
+                                icon: "warning",
+                                confirmButtonColor: '#22557a',
+                                confirmButtonText: 'Ok',
+                            });
+                        }
+                    };
+                    xhr.send(JSON.stringify(requestData));
+                } else {
+                    Swal.fire({
+                        title: 'Anulowano',
+                        text: 'Powiadomienie nie zostało zapisane',
+                        icon: 'info',
+                        confirmButtonColor: '#22557a',
+                        confirmButtonText: 'Ok',
+                    });
+                }
+            });
         });
     });
 </script>
