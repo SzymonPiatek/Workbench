@@ -169,6 +169,7 @@
                     const formItemsInput = showFormItems.getElementsByTagName('input');
                     const formItemsTextarea = showFormItems.getElementsByTagName('textarea');
                     const formItems = Array.from(formItemsInput).concat(Array.from(formItemsTextarea));
+                    const deleteNotificationButton = document.getElementById('deleteNotificationButton');
 
                     for (const key in data) {
                         if (Object.hasOwnProperty.call(data, key)) {
@@ -186,6 +187,9 @@
                                     item.value = verticalList;
                                 } else {
                                     if (item.id === key) {
+                                        if (key === 'id') {
+                                            deleteNotificationButton.dataset.value = value;
+                                        }
                                         item.value = value;
                                     }
                                 }
