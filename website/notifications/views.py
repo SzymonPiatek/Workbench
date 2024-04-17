@@ -31,6 +31,7 @@ def get_notification_info(request, notification_id):
             notification = Notification.objects.get(pk=notification_id)
             recipients_emails = [user.email for user in notification.recipients.all()]
             data = {
+                'id': notification_id,
                 'title': notification.title,
                 'message': notification.message,
                 'created_at': format_datetime_data_to_str(date_str=notification.created_at),
@@ -99,6 +100,15 @@ def save_notification(request):
 
     else:
         return JsonResponse({'success': False, 'error': 'Only POST requests are allowed'})
+
+
+def delete_notification(request, notification_id):
+    notification = Notification.objects.get(id=notification_id)
+    if notification:
+        notification.delete()
+        return JsonResponse({'success': True})
+    else:
+        return JsonResponse({'success': False, 'error': 'Nie znaleziono powiadomienia'})
 
 
 def notifications(request):

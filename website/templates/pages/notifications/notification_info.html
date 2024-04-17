@@ -1,5 +1,9 @@
 <div class="items" id="showFormItems">
-    <form>
+    <div class="form">
+        <div class="item always">
+            <small>ID</small>
+            <input type="number" name="id" id="id" readonly>
+        </div>
         <div class="item always">
             <small>Tytuł</small>
             <input type="text" name="title" id="title" readonly>
@@ -36,5 +40,43 @@
             <small>Aktywny</small>
             <input type="text" name="isActive" id="isActive" readonly>
         </div>
-    </form>
+        <button onclick="deleteNotification(this)" id="deleteNotificationButton">Usuń</button>
+    </div>
 </div>
+
+<script>
+    function deleteNotification(button) {
+        var notificationId = button.dataset.value;
+
+        Swal.fire({
+            title: 'Czy na pewno chcesz usunąć powiadomienie?',
+            showCancelButton: true,
+            confirmButtonColor: '#22557a',
+            confirmButtonText: 'Tak',
+            cancelButtonText: 'Nie'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch('{% url "delete_notification_page" notification_id=0 %}'.replace('0', notificationId))
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Błąd sieci')
+                        }
+                        Swal.fire({
+                            title: 'Usunięto!',
+                            text: 'Powiadomienie zostało usunięte',
+                            icon: 'success',
+                            confirmButtonColor: '#22557a',
+                            confirmButtonText: 'Ok',
+                        });
+                        closeOverlay();
+                    })
+                    .then(error => {
+                        console.error(error);
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            }
+        });
+    }
+</script>

@@ -219,29 +219,29 @@ main {
 .block .items {
   flex: 1;
 }
-.block .items form {
+.block .items .form {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
-.block .items form input, .block .items form button, .block .items form textarea {
+.block .items .form input, .block .items .form button, .block .items .form textarea {
   border-radius: 12px;
 }
-.block .items form .item {
+.block .items .form .item {
   border-radius: 12px;
   display: flex;
   flex-direction: column;
 }
-.block .items form .item.single_use, .block .items form .item.cyclical, .block .items form .item.reminder {
+.block .items .form .item.single_use, .block .items .form .item.cyclical, .block .items .form .item.reminder {
   display: none;
 }
-.block .items form .item .radio_items {
+.block .items .form .item .radio_items {
   display: flex;
   justify-content: space-around;
   border: 1px #000 solid;
   border-radius: 20px;
 }
-.block .items form .item .radio_items label {
+.block .items .form .item .radio_items label {
   flex: 1;
   padding: 4px;
   display: flex;
@@ -249,44 +249,44 @@ main {
   align-items: center;
   font-size: 1.4rem;
 }
-.block .items form .item .radio_items input[type=radio]:checked + label {
+.block .items .form .item .radio_items input[type=radio]:checked + label {
   background: var(--color-1);
   border-radius: 20px;
   color: #fff;
 }
-.block .items form .item input, .block .items form .item textarea, .block .items form .item label {
+.block .items .form .item input, .block .items .form .item textarea, .block .items .form .item label {
   width: 100%;
   font-size: 1.4rem;
   padding: 4px;
 }
-.block .items form .item input, .block .items form .item textarea {
+.block .items .form .item input, .block .items .form .item textarea {
   border: 1px #000 solid;
 }
-.block .items form .item input[type=radio] {
+.block .items .form .item input[type=radio] {
   display: none;
 }
-.block .items form .item label {
+.block .items .form .item label {
   display: flex;
   align-items: center;
   gap: 10px;
 }
-.block .items form .item label.radio_label {
+.block .items .form .item label.radio_label {
   width: fit-content;
   justify-content: space-between;
   font-size: 1rem;
   background: red;
 }
-.block .items form .item label input {
+.block .items .form .item label input {
   width: 1.2rem;
   aspect-ratio: 1;
 }
-.block .items form .item #usersList {
+.block .items .form .item #usersList {
   width: inherit;
   margin-top: 1px;
   height: 10px;
   position: relative;
 }
-.block .items form .item #usersList .users_list {
+.block .items .form .item #usersList .users_list {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -294,7 +294,7 @@ main {
   position: absolute;
   z-index: 999;
 }
-.block .items form .item #usersList .users_list .user {
+.block .items .form .item #usersList .users_list .user {
   padding: 4px 8px;
   border: 1px #000 solid;
   border-radius: 12px;
@@ -303,12 +303,12 @@ main {
   align-items: center;
   gap: 8px;
 }
-.block .items form .item #usersList .users_list .user:hover {
+.block .items .form .item #usersList .users_list .user:hover {
   background: var(--color-1);
   color: #fff;
   transition: 0.2s ease;
 }
-.block .items form .item #recipientsList {
+.block .items .form .item #recipientsList {
   width: 100%;
   height: 200px;
   display: flex;
@@ -319,7 +319,7 @@ main {
   overflow-y: auto;
   padding: 8px;
 }
-.block .items form .item #recipientsList .recipient {
+.block .items .form .item #recipientsList .recipient {
   padding: 4px 8px;
   border: 1px #000 solid;
   border-radius: 12px;
@@ -328,16 +328,16 @@ main {
   align-items: center;
   gap: 8px;
 }
-.block .items form .item #recipientsList .recipient .function {
+.block .items .form .item #recipientsList .recipient .function {
   margin-left: auto;
 }
-.block .items form button {
+.block .items .form button {
   border: 1px #000 solid;
   font-size: 1.6rem;
   background: var(--color-1);
   color: #fff;
 }
-.block .items form button:hover {
+.block .items .form button:hover {
   background: var(--color-2);
   transition: 0.2s ease;
 }
