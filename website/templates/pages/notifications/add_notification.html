@@ -66,10 +66,22 @@
         form.addEventListener('submit', function (event) {
             event.preventDefault();
 
+            const formData = new FormData(form);
+
+            const requestData = {};
+            formData.forEach((value, key) => {
+                requestData[key] = value;
+            });
+
+            // Sprawdzenie, czy typ jest wybrany.
+            // Jeśli tak -> przypisz wartość
+            // Jeśli nie -> alert
             let typeChecked = false;
+            let selectedType = '';
             radioInputs.forEach(input => {
                 if (input.checked) {
                     typeChecked = true;
+                    selectedType = input.value;
                 }
             });
 
@@ -78,13 +90,31 @@
                 return;
             }
 
-            const formData = new FormData(form);
+            // Jeśli typ jest wybrany -> Sprawdź jaki i wykonaj konkretne sprawdzenia
+            if (selectedType === 'single_use') {
+                if (!requestData['date']) {
+                    alert('Proszę podać datę wykonania');
+                    return;
+                }
+            } else if (selectedType === 'cyclical') {
+                if (!requestData['startDate']) {
+                    alert('Proszę podać datę początkową');
+                    return;
+                }
+                if (!requestData['frequency']) {
+                    alert('Podaj częstotliwość wysyłania');
+                    return;
+                }
+            } else if (selectedType === 'reminder') {
+                if (!requestData['timeBefore']) {
+                    alert('Podaj czas przed wydarzeniem');
+                    return;
+                }
+            }
 
-            const requestData = {};
-            formData.forEach((value, key) => {
-                requestData[key] = value;
-            });
-
+            // Pobierz listę odbiorców i sprawdź, czy nie jest pusta
+            // Jeśli jest pusta -> alert
+            // Jeśli nie jest pusta -> przypisz wartość
             const recipients = [];
             recipientsList.childNodes.forEach(child => {
                 if (child.classList && child.classList.contains('recipient')) {
@@ -92,8 +122,16 @@
                     recipients.push(text);
                 }
             });
+
+            if (recipients.length === 0) {
+                alert('Musisz wybrać przynajmniej jednego odbiorcę')
+                return;
+            }
             requestData['recipients'] = recipients;
 
+            // Wysłanie formularza -> sprawdzenie na backendzie
+            // Jeśli wszystko jest ok -> resetuje form, czyści listę odbiorców, zamyka okno formularza, alert
+            // Jeśli nie -> alert
             const xhr = new XMLHttpRequest();
             xhr.open('POST', '{% url "save_notification_page" %}', true);
             xhr.setRequestHeader('Content-Type', 'application/json');
@@ -102,15 +140,15 @@
                 if (xhr.status >= 200 && xhr.status < 400) {
                     form.reset();
                     recipientsList.innerHTML = '';
-                    alert('Powiadomienie zapisane')
+                    alert('Powiadomienie zapisane');
                     closeOverlay();
                 } else {
-                    console.error('Błąd podczas pobierania danych.');
+                    alert('Błąd podczas pobierania danych.');
                 }
             };
 
             xhr.onerror = function () {
-                console.error('Błąd sieciowy.');
+                alert('Błąd sieciowy.');
             };
 
             xhr.send(JSON.stringify(requestData));

@@ -65,6 +65,7 @@ def save_notification(request):
     else:
         return JsonResponse({'success': False, 'error': 'Only POST requests are allowed'})
 
+
 def notifications(request):
     all_notifications = Notification.objects.all()
 

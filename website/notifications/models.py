@@ -67,4 +67,4 @@ class Notification(models.Model):
         return full_date
 
     def is_active_return(self):
-        return "Tak" if self.is_active else "Nie"
+        return "Aktywny" if self.is_active else "Nieaktywny"
