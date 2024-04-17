@@ -36,11 +36,11 @@
                         {% if notification.notification_type == 'single_use' %}single_use
                         {% elif notification.notification_type == 'cyclical' %}cyclical
                         {% elif notification.notification_type == 'reminder' %}reminder{% endif %}">
-                        <td>{{ notification.title }}</td>
-                        <td>{{ notification.type_name }}</td>
-                        <td>{{ notification.formatted_created_at }}</td>
-                        <td>{{ notification.count_recipients }}</td>
-                        <td>{{ notification.is_active_return }}</td>
+                        <td onclick="showNotificationInfo('{{ notification.id }}')">{{ notification.title }}</td>
+                        <td onclick="showNotificationInfo('{{ notification.id }}')">{{ notification.type_name }}</td>
+                        <td onclick="showNotificationInfo('{{ notification.id }}')">{{ notification.formatted_created_at }}</td>
+                        <td onclick="showNotificationInfo('{{ notification.id }}')">{{ notification.count_recipients }}</td>
+                        <td onclick="showNotificationInfo('{{ notification.id }}')">{{ notification.is_active_return }}</td>
                     </tr>
                 {% endfor %}
             </table>
@@ -154,5 +154,21 @@
                $(this).data('sort-dir', sortDir);
            });
         });
+
+        function showNotificationInfo(notificationId = 0) {
+            fetch('{% url "get_notification_info_page" notification_id=0 %}'.replace('0', notificationId))
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Błąd sieci')
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    toggleOverlay(null, 'notificationInfo', 'Edytuj powiadomienie');
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        }
     </script>
 {% endblock content %}
