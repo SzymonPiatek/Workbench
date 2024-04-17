@@ -8,7 +8,11 @@
             <div class="text">{{ page_title }}</div>
         </div>
         <div class="functions">
-            <div class="function" id="filterButton" data-value="all" onclick="toggleFilter()">
+            <div class="function" id="filterTypeButton" data-value="all_types" onclick="toggleFilter('filterTypeButton')">
+                <div class="image"><i class="fa-solid fa-filter"></i></div>
+                <div class="text">Pokaż jednorazowe</div>
+            </div>
+            <div class="function" id="filterStatusButton" data-value="all_statuses" onclick="toggleFilter('filterStatusButton')">
                 <div class="image"><i class="fa-solid fa-filter"></i></div>
                 <div class="text">Pokaż aktywne</div>
             </div>
@@ -27,7 +31,11 @@
                     <th data-sort-dir="asc">Status</th>
                 </tr>
                 {% for notification in notifications %}
-                    <tr class="notificationRow {% if notification.is_active %}active{% else %}inactive{% endif %}">
+                    <tr class="notificationRow
+                        {% if notification.is_active %}active{% else %}inactive{% endif %}
+                        {% if notification.notification_type == 'single_use' %}single_use
+                        {% elif notification.notification_type == 'cyclical' %}cyclical
+                        {% elif notification.notification_type == 'reminder' %}reminder{% endif %}">
                         <td>{{ notification.title }}</td>
                         <td>{{ notification.type_name }}</td>
                         <td>{{ notification.formatted_created_at }}</td>
@@ -40,12 +48,31 @@
     </div>
 
     <script>
-        function rowDisplay(status) {
+        let notification_status = "all_statuses"
+        let notification_type = "all_types"
+
+        function rowDisplay(status, type) {
             const tableRows = document.querySelectorAll("#notificationsTable .notificationRow");
 
-            if (status !== 'all') {
+            if (status !== 'all_statuses' && type !== 'all_types') {
+                tableRows.forEach(row => {
+                    if (row.classList.contains(status) && row.classList.contains(type)) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
+                });
+            } else if (status !== 'all_statuses' && type === 'all_types') {
                 tableRows.forEach(row => {
                     if (row.classList.contains(status)) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
+                });
+            } else if (status === 'all_statuses' && type !== 'all_types') {
+                tableRows.forEach(row => {
+                    if (row.classList.contains(type)) {
                         row.style.display = "";
                     } else {
                         row.style.display = "none";
@@ -58,23 +85,47 @@
             }
         }
 
-        function toggleFilter() {
-            const filterButton = document.getElementById('filterButton');
-            const filterValue = filterButton.getAttribute('data-value');
+        function toggleFilter(buttonId) {
+            const filterButton = document.getElementById(buttonId);
+            const filterButtonValue = filterButton.getAttribute('data-value');
             const filterButtonText = filterButton.querySelector('.text');
-            if (filterValue === "all") {
-                filterButton.setAttribute('data-value', "active");
-                filterButtonText.innerText = "Pokaż nieaktywne";
-                rowDisplay('active');
-            } else if (filterValue === "active") {
-                filterButton.setAttribute('data-value', "inactive");
-                filterButtonText.innerText = "Pokaż wszystkie";
-                rowDisplay('inactive');
-            } else if (filterValue === "inactive") {
-                filterButton.setAttribute('data-value', "all");
-                filterButtonText.innerText = "Pokaż aktywne";
-                rowDisplay('all');
+
+            if (buttonId === 'filterStatusButton') {
+                if (filterButtonValue === "all_statuses") {
+                    filterButton.setAttribute('data-value', "active");
+                    filterButtonText.innerText = "Pokaż nieaktywne";
+                    notification_status = 'active';
+                } else if (filterButtonValue === "active") {
+                    filterButton.setAttribute('data-value', "inactive");
+                    filterButtonText.innerText = "Pokaż wszystkie";
+                    notification_status = 'inactive';
+                } else if (filterButtonValue === "inactive") {
+                    filterButton.setAttribute('data-value', "all_statuses");
+                    filterButtonText.innerText = "Pokaż aktywne";
+                    notification_status = 'all_statuses';
+                }
+
+
+            } else if (buttonId === 'filterTypeButton') {
+                if (filterButtonValue === "all_types") {
+                    filterButton.setAttribute('data-value', "single_use");
+                    filterButtonText.innerText = "Pokaż jednorazowe";
+                    notification_type = 'single_use';
+                } else if (filterButtonValue === "single_use") {
+                    filterButton.setAttribute('data-value', "cyclical");
+                    filterButtonText.innerText = "Pokaż pokaż cykliczne";
+                    notification_type = 'cyclical';
+                } else if (filterButtonValue === "cyclical") {
+                    filterButton.setAttribute('data-value', "reminder");
+                    filterButtonText.innerText = "Pokaż przypomnienia";
+                    notification_type = 'reminder';
+                } else if (filterButtonValue === "reminder") {
+                    filterButton.setAttribute('data-value', "all_types");
+                    filterButtonText.innerText = "Pokaż wszystkie typy";
+                    notification_type = 'all_types';
+                }
             }
+            rowDisplay(notification_status, notification_type);
         }
 
         $(document).ready(function() {
