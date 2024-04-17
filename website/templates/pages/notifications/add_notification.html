@@ -2,11 +2,11 @@
     <form>
         <div class="item always">
             <small>Tytuł</small>
-            <input type="text" name="title" id="title">
+            <input type="text" name="title" id="title" required>
         </div>
         <div class="item always">
             <small>Treść</small>
-            <textarea name="message" id="message" rows="4" style="resize: vertical;"></textarea>
+            <textarea name="message" id="message" rows="4" style="resize: vertical;" required></textarea>
         </div>
         <div class="item always" id="frequencyInputs">
             <div class="radio_items">
@@ -97,6 +97,21 @@
             const xhr = new XMLHttpRequest();
             xhr.open('POST', '{% url "save_notification_page" %}', true);
             xhr.setRequestHeader('Content-Type', 'application/json');
+
+            xhr.onload = function () {
+                if (xhr.status >= 200 && xhr.status < 400) {
+                    form.reset();
+                    recipientsList.innerHTML = '';
+                    alert('Powiadomienie zapisane')
+                    closeOverlay();
+                } else {
+                    console.error('Błąd podczas pobierania danych.');
+                }
+            };
+
+            xhr.onerror = function () {
+                console.error('Błąd sieciowy.');
+            };
 
             xhr.send(JSON.stringify(requestData));
         });

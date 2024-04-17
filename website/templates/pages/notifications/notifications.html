@@ -29,7 +29,7 @@
                 {% for notification in notifications %}
                     <tr class="notificationRow {% if notification.is_active %}active{% else %}inactive{% endif %}">
                         <td>{{ notification.title }}</td>
-                        <td>{{ notification.notification_type }}</td>
+                        <td>{{ notification.type_name }}</td>
                         <td>{{ notification.formatted_created_at }}</td>
                         <td>{{ notification.count_recipients }}</td>
                         <td>{{ notification.is_active_return }}</td>
