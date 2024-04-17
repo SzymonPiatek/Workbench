@@ -14,7 +14,7 @@ def format_datetime_data(date_str):
         date = datetime.strptime(date, '%Y-%m-%d %H:%M')
         return date
     except Exception as e:
-        print(e)
+        print(f"Error: {e}")
 
 
 @csrf_exempt
@@ -43,13 +43,13 @@ def save_notification(request):
                 try:
                     new_notification.date = format_datetime_data(data['date'])
                 except Exception as e:
-                    print(e)
+                    print(f"Error: {e}")
 
             elif data['type'] == "cyclical":
                 try:
                     new_notification.start_date = format_datetime_data(data['startDate'])
                 except Exception as e:
-                    print(e)
+                    print(f"Error: {e}")
                 new_notification.frequency = data['frequency']
             elif data['type'] == "reminder":
                 new_notification.time_before = data['timeBefore']
@@ -59,7 +59,7 @@ def save_notification(request):
             return JsonResponse({'success': True})
 
         except Exception as e:
-            print(e)
+            print(f"Error: {e}")
             return JsonResponse({'success': False, 'error': str(e)})
 
     else:
