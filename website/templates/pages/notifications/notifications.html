@@ -164,7 +164,34 @@
                     return response.json();
                 })
                 .then(data => {
-                    toggleOverlay(null, 'notificationInfo', 'Edytuj powiadomienie');
+                    toggleOverlay(null, 'notificationInfo', 'Powiadomienie');
+                    const showFormItems = document.getElementById('showFormItems');
+                    const formItemsInput = showFormItems.getElementsByTagName('input');
+                    const formItemsTextarea = showFormItems.getElementsByTagName('textarea');
+                    const formItems = Array.from(formItemsInput).concat(Array.from(formItemsTextarea));
+
+                    for (const key in data) {
+                        if (Object.hasOwnProperty.call(data, key)) {
+                            const value = data[key];
+                            for (const item of formItems) {
+                                if (key === 'recipientsList' && item.id === key) {
+                                    let verticalList = "";
+                                    for (let i = 0; i < value.length; i++) {
+                                        const recipient = value[i];
+                                        verticalList += recipient.trim();
+                                        if (i < value.length - 1) {
+                                            verticalList += '\n';
+                                        }
+                                    }
+                                    item.value = verticalList;
+                                } else {
+                                    if (item.id === key) {
+                                        item.value = value;
+                                    }
+                                }
+                            }
+                        }
+                    }
                 })
                 .catch(error => {
                     console.log(error)

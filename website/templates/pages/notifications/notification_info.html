@@ -1,5 +1,40 @@
-<div class="items">
-    <div class="item">
-
-    </div>
+<div class="items" id="showFormItems">
+    <form>
+        <div class="item always">
+            <small>Tytuł</small>
+            <input type="text" name="title" id="title" readonly>
+        </div>
+        <div class="item always">
+            <small>Treść</small>
+            <textarea name="message" id="message" rows="4" style="resize: vertical;" readonly></textarea>
+        </div>
+        <div class="item always">
+            <small>Typ</small>
+            <input type="text" name="notification_type" id="notification_type" readonly>
+        </div>
+        <div class="item single_use">
+            <small>Data wykonania</small>
+            <input type="datetime-local" name="date" id="date" readonly>
+        </div>
+        <div class="item cyclical">
+            <small>Data początkowa</small>
+            <input type="datetime-local" name="startDate" id="startDate" readonly>
+        </div>
+        <div class="item cyclical">
+            <small>Częstotliwość (dzień)</small>
+            <input type="number" name="frequency" id="frequency" readonly>
+        </div>
+        <div class="item reminder">
+            <small>Czas przed wydarzeniem (min)</small>
+            <input type="number" name="timeBefore" id="timeBefore" readonly>
+        </div>
+        <div class="item always">
+            <small>Odbiorcy</small>
+            <textarea name="recipientList" id="recipientsList" rows="4" style="resize: vertical;" readonly></textarea>
+        </div>
+        <div class="item always">
+            <small>Aktywny</small>
+            <input type="text" name="isActive" id="isActive" readonly>
+        </div>
+    </form>
 </div>

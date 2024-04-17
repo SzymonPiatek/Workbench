@@ -35,8 +35,8 @@ def get_notification_info(request, notification_id):
                 'message': notification.message,
                 'created_at': format_datetime_data_to_str(date_str=notification.created_at),
                 'notification_type': notification.type_name(),
-                'recipients': recipients_emails,
-                'is_active': notification.is_active,
+                'recipientsList': recipients_emails,
+                'isActive': notification.is_active_return(),
             }
             if notification.notification_type == 'single_use':
                 data['date'] = notification.date
