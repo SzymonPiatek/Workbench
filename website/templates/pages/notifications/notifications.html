@@ -196,6 +196,30 @@
                             }
                         }
                     }
+
+                    const notificationTypeDiv = showFormItems.querySelector('#notification_type');
+                    let notificationType = notificationTypeDiv.value;
+
+                    console.log(notificationType);
+
+                    if (notificationType === "Jednorazowe") {
+                        notificationType = "single_use";
+                    } else if (notificationType === "Cykliczne") {
+                        notificationType = "cyclical";
+                    } else if (notificationType === "Przypomnienie") {
+                        notificationType = "reminder";
+                    }
+
+                    console.log(notificationType);
+
+                    const items = showFormItems.querySelectorAll('.item');
+                    items.forEach(item => {
+                        if (item.classList.contains(notificationType) || item.classList.contains('always')) {
+                            item.style.display = 'flex';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
                 })
                 .catch(error => {
                     console.log(error)
