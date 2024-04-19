@@ -17,13 +17,13 @@ def main_panel(request):
         {
             "title": "Zarządzanie",
             "elements": [
-                {"icon": "fa-solid fa-user-tie", "name": "Panel administratora",
+                {"icon": "fa-solid fa-user-tie", "name": "Panel administratora", "class": "element",
                  "url": "admin:login", "groups": ["admin"], "active": True},
-                {"icon": "fa-solid fa-chart-pie", "name": "Statystyki",
+                {"icon": "fa-solid fa-chart-pie", "name": "Statystyki", "class": "element",
                  "url": "statistics_page", "groups": ["admin"], "active": False},
-                {"icon": "fa-solid fa-bell", "name": "Powiadomienia",
+                {"icon": "fa-solid fa-bell", "name": "Powiadomienia", "class": "element",
                  "url": "notifications_page", "groups": ["admin"], "active": True},
-                {"icon": "fa-solid fa-plus", "name": "Dodaj powiadomienie",
+                {"icon": "fa-solid fa-plus", "name": "Dodaj powiadomienie", "class": "element",
                  "on_click": "toggleOverlay(this, 'addNotification')",
                  "groups": ["admin"], "active": True},
             ]
@@ -31,68 +31,68 @@ def main_panel(request):
         {
             "title": "Rezerwacje",
             "elements": [
-                {"icon": "fa-solid fa-car", "name": "Parking",
+                {"icon": "fa-solid fa-car", "name": "Parking", "class": "element",
                  "url": "main_panel_page", "groups": ["worker"], "active": False},
-                {"icon": "fa-solid fa-display", "name": "Biurko",
+                {"icon": "fa-solid fa-display", "name": "Biurko", "class": "element",
                  "url": "main_panel_page", "groups": ["worker"], "active": False},
-                {"icon": "fa-solid fa-people-roof", "name": "Sala",
+                {"icon": "fa-solid fa-people-roof", "name": "Sala", "class": "element",
                  "url": "main_panel_page", "groups": ["worker"], "active": False},
-                {"icon": "fa-solid fa-plus", "name": "Dodaj rezerwację",
+                {"icon": "fa-solid fa-plus", "name": "Dodaj rezerwację", "class": "element",
                  "url": "main_panel_page", "groups": ["worker"], "active": False}
             ]
         },
         {
             "title": "Przedmioty",
             "elements": [
-                {"icon": "fa-solid fa-list", "name": "Lista przedmiotów",
+                {"icon": "fa-solid fa-list", "name": "Lista przedmiotów", "class": "element",
                  "url": "main_panel_page", "groups": ["building_admin"], "active": False},
-                {"icon": "fa-solid fa-magnifying-glass", "name": "Inwentaryzacja",
+                {"icon": "fa-solid fa-magnifying-glass", "name": "Inwentaryzacja", "class": "element",
                  "url": "main_panel_page", "groups": ["building_admin"], "active": False},
-                {"icon": "fa-solid fa-plus", "name": "Dodaj pozycję",
+                {"icon": "fa-solid fa-plus", "name": "Dodaj pozycję", "class": "element",
                  "url": "main_panel_page", "groups": ["building_admin"], "active": False}
             ]
         },
         {
             "title": "Pracownicy",
             "elements": [
-                {"icon": "fa-solid fa-user", "name": "Lista pracowników",
+                {"icon": "fa-solid fa-user", "name": "Lista pracowników", "class": "element",
                  "url": "main_panel_page", "groups": ["supervisor"], "active": False},
-                {"icon": "fa-solid fa-users", "name": "Lista grup",
+                {"icon": "fa-solid fa-users", "name": "Lista grup", "class": "element",
                  "url": "main_panel_page", "groups": ["supervisor"], "active": False},
-                {"icon": "fa-solid fa-user-plus", "name": "Dodaj pracownika",
+                {"icon": "fa-solid fa-user-plus", "name": "Dodaj pracownika", "class": "element",
                  "url": "main_panel_page", "groups": ["supervisor"], "active": False},
-                {"icon": "fa-solid fa-plus", "name": "Dodaj grupę",
+                {"icon": "fa-solid fa-plus", "name": "Dodaj grupę", "class": "element",
                  "url": "main_panel_page", "groups": ["supervisor"], "active": False}
             ]
         },
         {
             "title": "Lokalizacje",
             "elements": [
-                {"icon": "fa-solid fa-building", "name": "Podgląd budynku",
+                {"icon": "fa-solid fa-building", "name": "Podgląd budynku", "class": "element",
                  "url": "main_panel_page", "groups": ["worker"], "active": False},
                 {"icon": "fa-solid fa-door-closed", "name": "Podgląd pomieszczeń",
                  "url": "main_panel_page", "groups": ["worker"], "active": False},
-                {"icon": "fa-solid fa-plus", "name": "Dodaj pomieszczenie",
+                {"icon": "fa-solid fa-plus", "name": "Dodaj pomieszczenie", "class": "element",
                  "url": "main_panel_page", "groups": ["admin", "building_admin"], "active": False}
             ]
         },
         {
             "title": "Kalendarz",
             "elements": [
-                {"icon": "fa-solid fa-calendar-check", "name": "Najbliższe wydarzenia",
+                {"icon": "fa-solid fa-calendar-check", "name": "Najbliższe wydarzenia", "class": "element",
                  "url": "main_panel_page", "groups": ["worker"], "active": False},
-                {"icon": "fa-solid fa-plus", "name": "Dodaj wydarzenie",
+                {"icon": "fa-solid fa-plus", "name": "Dodaj wydarzenie", "class": "element",
                  "url": "main_panel_page", "groups": ["worker"], "active": False}
             ]
         },
         {
             "title": "Helpdesk",
             "elements": [
-                {"icon": "fa-solid fa-life-ring", "name": "Zgłoś problem",
+                {"icon": "fa-solid fa-life-ring", "name": "Zgłoś problem", "class": "element",
                  "url": "main_panel_page", "groups": ["worker"], "active": False},
-                {"icon": "fa-solid fa-eye", "name": "Zobacz zgłoszenia",
+                {"icon": "fa-solid fa-eye", "name": "Zobacz zgłoszenia", "class": "element",
                  "url": "main_panel_page", "groups": ["helpdesk", "admin"], "active": False},
-                {"icon": "fa-solid fa-question-circle", "name": "FAQ",
+                {"icon": "fa-solid fa-question-circle", "name": "FAQ", "class": "element",
                  "url": "main_panel_page", "groups": ["worker"], "active": False}
             ]
         }

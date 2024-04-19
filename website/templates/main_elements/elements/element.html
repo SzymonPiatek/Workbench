@@ -1,5 +1,5 @@
 {% if element.url %}
-    <a href="{% url element.url %}" class="element">
+    <a href="{% url element.url %}" class="{{ element.class }}">
         <div class="image"><i class="{{ element.icon }}"></i></div>
         <div class="text">{{ element.name }}</div>
     </a>
