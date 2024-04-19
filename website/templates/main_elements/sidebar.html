@@ -9,22 +9,32 @@
                 <div class="image"><i class="fa-solid fa-star"></i></div>
                 <div class="text">Panel główny</div>
             </a>
-            <a href="" class="item">
-                <div class="image"><i class="fa-solid fa-screwdriver-wrench"></i></div>
-                <div class="text">Panel administratora</div>
-            </a>
+            {% if "admin" in user.groups_list %}
+                <a href="{% url 'admin:login' %}" class="item">
+                    <div class="image"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                    <div class="text">Panel administratora</div>
+                </a>
+                <a href="{% url 'notifications_page' %}" class="item">
+                    <div class="image"><i class="fa-solid fa-bell"></i></div>
+                    <div class="text">Powiadomienia</div>
+                </a>
+            {% endif %}
             <a href="" class="item">
                 <div class="image"><i class="fa-solid fa-bookmark"></i></div>
                 <div class="text">Rezerwacje</div>
             </a>
-            <a href="" class="item">
-                <div class="image"><i class="fa-solid fa-computer"></i></div>
-                <div class="text">Przedmioty</div>
-            </a>
-            <a href="" class="item">
-                <div class="image"><i class="fa-solid fa-user-group"></i></div>
-                <div class="text">Pracownicy</div>
-            </a>
+            {% if "admin" in user.groups_list or "helpdesk" in user.groups_list %}
+                <a href="" class="item">
+                    <div class="image"><i class="fa-solid fa-computer"></i></div>
+                    <div class="text">Przedmioty</div>
+                </a>
+            {% endif %}
+            {% if "admin" in user.groups_list or "helpdesk" in user.groups_list or "supervisor" in user.groups_list %}
+                <a href="" class="item">
+                    <div class="image"><i class="fa-solid fa-user-group"></i></div>
+                    <div class="text">Pracownicy</div>
+                </a>
+            {% endif %}
             <a href="" class="item">
                 <div class="image"><i class="fa-solid fa-location-dot"></i></div>
                 <div class="text">Lokalizacje</div>
@@ -33,10 +43,12 @@
                 <div class="image"><i class="fa-solid fa-calendar-days"></i></div>
                 <div class="text">Kalendarz</div>
             </a>
-            <a href="" class="item">
-                <div class="image"><i class="fa-solid fa-life-ring"></i></div>
-                <div class="text">Helpdesk</div>
-            </a>
+            {% if "admin" in user.groups_list or "helpdesk" in user.groups_list %}
+                <a href="" class="item">
+                    <div class="image"><i class="fa-solid fa-life-ring"></i></div>
+                    <div class="text">Helpdesk</div>
+                </a>
+            {% endif %}
         </div>
         <div class="items">
             <a href="" class="item">
@@ -45,7 +57,7 @@
             </a>
             <a href="" class="item">
                 <div class="image"><i class="fa-solid fa-user"></i></div>
-                <div class="item">Nazwa użytkownika</div>
+                <div class="item">{{ user }}</div>
             </a>
         </div>
     </div>
@@ -55,22 +67,44 @@
 </div>
 
 <script>
+    function setSidebarState(state) {
+        document.cookie = "sidebarState=" + state + ";path=/";
+    }
+
+    function getSidebarState() {
+        var name = "sidebarState=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var cookies = decodedCookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i];
+            while (cookie.charAt(0) === ' ') {
+                cookie = cookie.substring(1);
+            }
+            if (cookie.indexOf(name) === 0) {
+                return cookie.substring(name.length, cookie.length);
+            }
+        }
+        return "";
+    }
+
     function toggleSidebar() {
         const sidebarContainer = document.getElementById("sidebarContainer");
         const sidebar = document.getElementById("sidebar");
+        const sidebarButton = document.getElementById('sidebarButton');
+        const icon = sidebarButton.querySelector('i');
 
         if (sidebarContainer.classList.contains("hidden")) {
             sidebarContainer.classList.toggle("hidden");
             sidebar.classList.toggle("hidden");
+            setSidebarState("visible");
         } else {
             sidebarContainer.classList.toggle("hidden");
             setTimeout(function() {
                 sidebar.classList.toggle("hidden");
             }, 300);
+            setSidebarState("hidden");
         }
 
-        const sidebarButton = document.getElementById('sidebarButton');
-        const icon = sidebarButton.querySelector('i');
         if (icon.classList.contains('fa-caret-left')) {
             icon.classList.remove('fa-caret-left');
             icon.classList.add('fa-caret-right');
@@ -79,4 +113,19 @@
             icon.classList.add('fa-caret-left');
         }
     }
+
+    window.onload = function() {
+        const sidebarState = getSidebarState();
+        if (sidebarState === "hidden") {
+            const sidebarContainer = document.getElementById("sidebarContainer");
+            const sidebar = document.getElementById("sidebar");
+            const sidebarButton = document.getElementById('sidebarButton');
+            const icon = sidebarButton.querySelector('i');
+
+            sidebarContainer.classList.toggle("hidden");
+            sidebar.classList.toggle("hidden");
+            icon.classList.remove('fa-caret-left');
+            icon.classList.add('fa-caret-right');
+        }
+    };
 </script>
