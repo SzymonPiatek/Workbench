@@ -59,22 +59,44 @@
 </div>
 
 <script>
+    function setSidebarState(state) {
+        document.cookie = "sidebarState=" + state + ";path=/";
+    }
+
+    function getSidebarState() {
+        var name = "sidebarState=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var cookies = decodedCookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i];
+            while (cookie.charAt(0) === ' ') {
+                cookie = cookie.substring(1);
+            }
+            if (cookie.indexOf(name) === 0) {
+                return cookie.substring(name.length, cookie.length);
+            }
+        }
+        return "";
+    }
+
     function toggleSidebar() {
         const sidebarContainer = document.getElementById("sidebarContainer");
         const sidebar = document.getElementById("sidebar");
+        const sidebarButton = document.getElementById('sidebarButton');
+        const icon = sidebarButton.querySelector('i');
 
         if (sidebarContainer.classList.contains("hidden")) {
             sidebarContainer.classList.toggle("hidden");
             sidebar.classList.toggle("hidden");
+            setSidebarState("visible");
         } else {
             sidebarContainer.classList.toggle("hidden");
             setTimeout(function() {
                 sidebar.classList.toggle("hidden");
             }, 300);
+            setSidebarState("hidden");
         }
 
-        const sidebarButton = document.getElementById('sidebarButton');
-        const icon = sidebarButton.querySelector('i');
         if (icon.classList.contains('fa-caret-left')) {
             icon.classList.remove('fa-caret-left');
             icon.classList.add('fa-caret-right');
@@ -83,4 +105,19 @@
             icon.classList.add('fa-caret-left');
         }
     }
+
+    window.onload = function() {
+        const sidebarState = getSidebarState();
+        if (sidebarState === "hidden") {
+            const sidebarContainer = document.getElementById("sidebarContainer");
+            const sidebar = document.getElementById("sidebar");
+            const sidebarButton = document.getElementById('sidebarButton');
+            const icon = sidebarButton.querySelector('i');
+
+            sidebarContainer.classList.toggle("hidden");
+            sidebar.classList.toggle("hidden");
+            icon.classList.remove('fa-caret-left');
+            icon.classList.add('fa-caret-right');
+        }
+    };
 </script>
