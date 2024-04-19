@@ -6,23 +6,23 @@ class SidebarMiddleware(MiddlewareMixin):
         user_groups = request.user.groups.values_list('name', flat=True)
 
         sidebar_items_top = [
-            {"icon": "fa-solid fa-star", "name": "Panel główny",
+            {"icon": "fa-solid fa-star", "name": "Panel główny", "class": "item",
              "url": "main_panel_page", "groups": ["worker"], "active": True},
-            {"icon": "fa-solid fa-star", "name": "Panel administratora",
+            {"icon": "fa-solid fa-star", "name": "Panel administratora", "class": "item",
              "url": "admin:login", "groups": ["admin"], "active": True},
-            {"icon": "fa-solid fa-bell", "name": "Powiadomienia",
+            {"icon": "fa-solid fa-bell", "name": "Powiadomienia", "class": "item",
              "url": "notifications_page", "groups": ["admin"], "active": True},
-            {"icon": "fa-solid fa-bookmark", "name": "Rezerwacje",
+            {"icon": "fa-solid fa-bookmark", "name": "Rezerwacje", "class": "item",
              "url": "main_panel_page", "groups": ["worker"], "active": True},
-            {"icon": "fa-solid fa-computer", "name": "Przedmioty",
+            {"icon": "fa-solid fa-computer", "name": "Przedmioty", "class": "item",
              "url": "main_panel_page", "groups": ["admin", "building_admin"], "active": True},
-            {"icon": "fa-solid fa-user-group", "name": "Pracownicy",
+            {"icon": "fa-solid fa-user-group", "name": "Pracownicy", "class": "item",
              "url": "main_panel_page", "groups": ["worker"], "active": True},
-            {"icon": "fa-solid fa-location-dot", "name": "Lokalizacje",
+            {"icon": "fa-solid fa-location-dot", "name": "Lokalizacje", "class": "item",
              "url": "main_panel_page", "groups": ["worker"], "active": True},
-            {"icon": "fa-solid fa-calendar-days", "name": "Kalendarz",
+            {"icon": "fa-solid fa-calendar-days", "name": "Kalendarz", "class": "item",
              "url": "main_panel_page", "groups": ["worker"], "active": True},
-            {"icon": "fa-solid fa-life-ring", "name": "Helpdesk",
+            {"icon": "fa-solid fa-life-ring", "name": "Helpdesk", "class": "item",
              "url": "main_panel_page", "groups": ["helpdesk", "admin"], "active": True},
         ]
 

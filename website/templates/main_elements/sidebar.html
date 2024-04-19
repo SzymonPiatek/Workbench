@@ -5,13 +5,13 @@
                 <div class="image"><i class="fa-brands fa-edge-legacy"></i></div>
                 <div class="text">Example</div>
             </a>
-            {% for item in sidebar_items.0 %}
-                {% include 'main_elements/elements/item.html' %}
+            {% for element in sidebar_items.0 %}
+                {% include 'main_elements/elements/element.html' %}
             {% endfor %}
         </div>
         <div class="items">
-            {% for item in sidebar_items.1 %}
-                {% include 'main_elements/elements/item.html' %}
+            {% for element in sidebar_items.1 %}
+                {% include 'main_elements/elements/element.html' %}
             {% endfor %}
         </div>
     </div>
