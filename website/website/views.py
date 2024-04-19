@@ -14,8 +14,10 @@ def main_panel(request):
 
     blocks = [
         {
-            "title": "Panel administratora",
+            "title": "Zarządzanie",
             "elements": [
+                {"icon": "fa-user-tie", "name": "Panel administratora",
+                 "url": "admin:login", "groups": ["admin"]},
                 {"icon": "fa-chart-pie", "name": "Statystyki",
                  "url": "statistics_page", "groups": ["admin"]},
                 {"icon": "fa-bell", "name": "Powiadomienia",
