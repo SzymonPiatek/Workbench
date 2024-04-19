@@ -70,7 +70,7 @@ def main_panel(request):
                 {"icon": "fa-door-closed", "name": "Podgląd pomieszczeń",
                  "url": "main_panel_page", "groups": ["worker"]},
                 {"icon": "fa-plus", "name": "Dodaj pomieszczenie",
-                 "url": "main_panel_page", "groups": ["worker"]}
+                 "url": "main_panel_page", "groups": ["admin", "building_admin"]}
             ]
         },
         {
@@ -88,7 +88,7 @@ def main_panel(request):
                 {"icon": "fa-life-ring", "name": "Zgłoś problem",
                  "url": "main_panel_page", "groups": ["worker"]},
                 {"icon": "fa-eye", "name": "Zobacz zgłoszenia",
-                 "url": "main_panel_page", "groups": ["helpdesk"]},
+                 "url": "main_panel_page", "groups": ["helpdesk", "admin"]},
                 {"icon": "fa-question-circle", "name": "FAQ",
                  "url": "main_panel_page", "groups": ["worker"]}
             ]
@@ -97,10 +97,12 @@ def main_panel(request):
 
     filtered_blocks = []
     for block in blocks:
+        visible_elements = []
         for element in block.get('elements', []):
             if any(group in user_groups for group in element.get('groups', [])):
-                filtered_blocks.append(block)
-                break
+                visible_elements.append(element)
+        if visible_elements:
+            filtered_blocks.append({"title": block["title"], "elements": visible_elements})
 
     context = {
         "page_title": "Strona główna",
