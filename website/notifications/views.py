@@ -117,6 +117,7 @@ def notifications(request):
     context = {
         "page_title": "Powiadomienia",
         "notifications": all_notifications,
+        "sidebar_items": request.sidebar_items,
     }
 
     return render(request, 'pages/notifications/notifications.html', context)
