@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand
 from django.contrib.auth.hashers import make_password
 from faker import Faker
 from users.models import CustomUser
+from unidecode import unidecode
 
 
 class Command(BaseCommand):
@@ -12,7 +13,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         quantity = kwargs['quantity']
-        fake = Faker()
+        fake = Faker('pl-PL')
         i = 0
 
         while i != quantity:
@@ -20,7 +21,10 @@ class Command(BaseCommand):
             last_name = fake.last_name()
             full_name = f"{first_name} {last_name}"
             username = f"{first_name[0].lower()}{last_name.lower()}"
-            email = f"{first_name.lower()}.{last_name.lower()}@gmail.com"
+            username = unidecode(username)
+            pre_email = f"{first_name.lower()}.{last_name.lower()}"
+            pre_email = unidecode(pre_email)
+            email = f"{pre_email}@gmail.com"
             password = "123"
 
             if CustomUser.objects.filter(username=username).exists() or CustomUser.objects.filter(email=email).exists():

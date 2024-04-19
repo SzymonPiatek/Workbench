@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand
 from django.core.management import call_command
 from django.contrib.auth.hashers import make_password
 from users.models import CustomUser
+import os
 
 
 class Command(BaseCommand):
@@ -12,13 +13,17 @@ class Command(BaseCommand):
         self.create_test_users()
 
     def create_superuser(self):
-        if CustomUser.objects.filter(username="admin").exists():
-            self.stdout.write(self.style.ERROR("User with username 'admin' already exists"))
+        if CustomUser.objects.filter(username=os.environ.get("ADMIN_USERNAME")).exists():
+            self.stdout.write(self.style.ERROR(f"User with username '{os.environ.get("ADMIN_USERNAME")}' already exists"))
         else:
             call_command(command_name="createsuperuser",
-                         username="admin",
-                         email="admin@admin.pl",
+                         username=os.environ.get("ADMIN_USERNAME"),
+                         email=os.environ.get("ADMIN_EMAIL"),
                          interactive=False)
+
+            admin = CustomUser.objects.get(username=os.environ.get("ADMIN_USERNAME"))
+            admin.set_password(os.environ.get("ADMIN_PASSWORD"))
+            admin.save()
 
     def create_test_users(self):
         call_command("create_fake_users", 100)
