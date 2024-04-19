@@ -5,60 +5,14 @@
                 <div class="image"><i class="fa-brands fa-edge-legacy"></i></div>
                 <div class="text">Example</div>
             </a>
-            <a href="{% url 'main_panel_page' %}"  class="item">
-                <div class="image"><i class="fa-solid fa-star"></i></div>
-                <div class="text">Panel główny</div>
-            </a>
-            {% if "admin" in user.groups_list %}
-                <a href="{% url 'admin:login' %}" class="item">
-                    <div class="image"><i class="fa-solid fa-screwdriver-wrench"></i></div>
-                    <div class="text">Panel administratora</div>
-                </a>
-                <a href="{% url 'notifications_page' %}" class="item">
-                    <div class="image"><i class="fa-solid fa-bell"></i></div>
-                    <div class="text">Powiadomienia</div>
-                </a>
-            {% endif %}
-            <a href="" class="item">
-                <div class="image"><i class="fa-solid fa-bookmark"></i></div>
-                <div class="text">Rezerwacje</div>
-            </a>
-            {% if "admin" in user.groups_list or "helpdesk" in user.groups_list %}
-                <a href="" class="item">
-                    <div class="image"><i class="fa-solid fa-computer"></i></div>
-                    <div class="text">Przedmioty</div>
-                </a>
-            {% endif %}
-            {% if "admin" in user.groups_list or "helpdesk" in user.groups_list or "supervisor" in user.groups_list %}
-                <a href="" class="item">
-                    <div class="image"><i class="fa-solid fa-user-group"></i></div>
-                    <div class="text">Pracownicy</div>
-                </a>
-            {% endif %}
-            <a href="" class="item">
-                <div class="image"><i class="fa-solid fa-location-dot"></i></div>
-                <div class="text">Lokalizacje</div>
-            </a>
-            <a href="" class="item">
-                <div class="image"><i class="fa-solid fa-calendar-days"></i></div>
-                <div class="text">Kalendarz</div>
-            </a>
-            {% if "admin" in user.groups_list or "helpdesk" in user.groups_list %}
-                <a href="" class="item">
-                    <div class="image"><i class="fa-solid fa-life-ring"></i></div>
-                    <div class="text">Helpdesk</div>
-                </a>
-            {% endif %}
+            {% for item in sidebar_items.0 %}
+                {% include 'main_elements/elements/item.html' %}
+            {% endfor %}
         </div>
         <div class="items">
-            <a href="" class="item">
-                <div class="image"><i class="fa-solid fa-triangle-exclamation"></i></div>
-                <div class="item">Zgłoś problem</div>
-            </a>
-            <a href="" class="item">
-                <div class="image"><i class="fa-solid fa-user"></i></div>
-                <div class="item">{{ user }}</div>
-            </a>
+            {% for item in sidebar_items.1 %}
+                {% include 'main_elements/elements/item.html' %}
+            {% endfor %}
         </div>
     </div>
     <div class="sidebar_button" id="sidebarButton" onclick="toggleSidebar()">
