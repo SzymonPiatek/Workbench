@@ -1,0 +1,11 @@
+{% if item.url %}
+    <a href="{% url item.url %}" class="item">
+        <div class="image"><i class="{{ item.icon }}"></i></div>
+        <div class="text">{{ item.name}}</div>
+    </a>
+{% else %}
+    <div class="item" onclick="{{ item.on_click }}">
+        <div class="image"><i class="{{ item.icon }}"></i></div>
+        <div class="text">{{ item.name}}</div>
+    </div>
+{% endif %}

@@ -12,7 +12,6 @@ def statistics(request):
 def main_panel(request):
     user_groups = request.user.groups.values_list('name', flat=True)
 
-    # Main panel block
     main_panel_blocks = [
         {
             "title": "Zarządzanie",
@@ -98,17 +97,6 @@ def main_panel(request):
         }
     ]
 
-    filtered_blocks = []
-    for block in main_panel_blocks:
-        visible_elements = []
-        for element in block.get('elements', []):
-            if element["active"]:
-                if any(group in user_groups for group in element.get('groups', [])):
-                    visible_elements.append(element)
-        if visible_elements:
-            filtered_blocks.append({"title": block["title"], "elements": visible_elements})
-
-    # Sidebar items
     sidebar_items_top = [
         {"icon": "fa-solid fa-star", "name": "Panel główny",
          "url": "main_panel_page", "groups": ["worker"], "active": True},
@@ -137,6 +125,16 @@ def main_panel(request):
          "url": "main_panel_page", "groups": ["worker"], "active": True},
     ]
 
+    filtered_blocks = []
+    for block in main_panel_blocks:
+        visible_elements = []
+        for element in block.get('elements', []):
+            if element["active"]:
+                if any(group in user_groups for group in element.get('groups', [])):
+                    visible_elements.append(element)
+        if visible_elements:
+            filtered_blocks.append({"title": block["title"], "elements": visible_elements})
+
     filtered_sidebar_items_top = []
     for item in sidebar_items_top:
         if item["active"]:
@@ -149,11 +147,12 @@ def main_panel(request):
             if any(group in user_groups for group in item.get("groups", [])):
                 filtered_sidebar_items_bottom.append(item)
 
+    sidebar_items = [filtered_sidebar_items_top, filtered_sidebar_items_bottom]
+
     context = {
         "page_title": "Strona główna",
         "blocks": filtered_blocks,
-        "sidebar_items_top": filtered_sidebar_items_top,
-        "sidebar_items_bottom": filtered_sidebar_items_bottom,
+        "sidebar_items": sidebar_items,
     }
 
     return render(request, "pages/main_panel.html", context)

@@ -12,17 +12,7 @@
             </div>
             <div class="elements">
                 {% for element in block.elements %}
-                    {% if element.url %}
-                        <a href="{% url element.url %}" class="element">
-                            <div class="image"><i class="fa-solid {{ element.icon }}"></i></div>
-                            <div class="text">{{ element.name }}</div>
-                        </a>
-                    {% elif element.on_click %}
-                        <div class="element" onclick="{{ element.on_click }}">
-                            <div class="image"><i class="fa-solid {{ element.icon }}"></i></div>
-                            <div class="text">{{ element.name }}</div>
-                        </div>
-                    {% endif %}
+                    {% include 'pages/elements/element.html' %}
                 {% endfor %}
             </div>
         </div>

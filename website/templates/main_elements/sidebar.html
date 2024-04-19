@@ -5,33 +5,13 @@
                 <div class="image"><i class="fa-brands fa-edge-legacy"></i></div>
                 <div class="text">Example</div>
             </a>
-            {% for item in sidebar_items_top %}
-                {% if item.url %}
-                    <a href="{% url item.url %}" class="item">
-                        <div class="image"><i class="{{ item.icon }}"></i></div>
-                        <div class="text">{{ item.name}}</div>
-                    </a>
-                {% else %}
-                    <div class="item" onclick="{{ item.on_click }}">
-                        <div class="image"><i class="{{ item.icon }}"></i></div>
-                        <div class="text">{{ item.name}}</div>
-                    </div>
-                {% endif %}
+            {% for item in sidebar_items.0 %}
+                {% include 'main_elements/elements/item.html' %}
             {% endfor %}
         </div>
         <div class="items">
-            {% for item in sidebar_items_bottom %}
-                {% if item.url %}
-                    <a href="{% url item.url %}" class="item">
-                        <div class="image"><i class="{{ item.icon }}"></i></div>
-                        <div class="text">{{ item.name}}</div>
-                    </a>
-                {% else %}
-                    <div class="item" onclick="{{ item.on_click }}">
-                        <div class="image"><i class="{{ item.icon }}"></i></div>
-                        <div class="text">{{ item.name}}</div>
-                    </div>
-                {% endif %}
+            {% for item in sidebar_items.1 %}
+                {% include 'main_elements/elements/item.html' %}
             {% endfor %}
         </div>
     </div>
