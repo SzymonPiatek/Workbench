@@ -11,6 +11,7 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         self.create_superuser()
         self.create_test_users()
+        self.create_test_addresses()
 
     def create_superuser(self):
         if CustomUser.objects.filter(username=os.environ.get("ADMIN_USERNAME")).exists():
@@ -27,3 +28,6 @@ class Command(BaseCommand):
 
     def create_test_users(self):
         call_command("create_fake_users", 100)
+
+    def create_test_addresses(self):
+        call_command("create_fake_addresses", 100)
