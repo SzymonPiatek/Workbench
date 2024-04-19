@@ -9,10 +9,12 @@
                 <div class="image"><i class="fa-solid fa-star"></i></div>
                 <div class="text">Panel główny</div>
             </a>
-            <a href="" class="item">
-                <div class="image"><i class="fa-solid fa-screwdriver-wrench"></i></div>
-                <div class="text">Panel administratora</div>
-            </a>
+            {% if user.is_superuser %}
+                <a href="{% url 'admin:login' %}" class="item">
+                    <div class="image"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                    <div class="text">Panel administratora</div>
+                </a>
+            {% endif %}
             <a href="" class="item">
                 <div class="image"><i class="fa-solid fa-bookmark"></i></div>
                 <div class="text">Rezerwacje</div>
@@ -43,10 +45,12 @@
                 <div class="image"><i class="fa-solid fa-triangle-exclamation"></i></div>
                 <div class="item">Zgłoś problem</div>
             </a>
-            <a href="" class="item">
-                <div class="image"><i class="fa-solid fa-user"></i></div>
-                <div class="item">Nazwa użytkownika</div>
-            </a>
+            {% if user.is_authenticated %}
+                <a href="" class="item">
+                    <div class="image"><i class="fa-solid fa-user"></i></div>
+                    <div class="item">{{ user }}</div>
+                </a>
+            {% endif %}
         </div>
     </div>
     <div class="sidebar_button" id="sidebarButton" onclick="toggleSidebar()">
