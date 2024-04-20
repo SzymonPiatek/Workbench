@@ -12,6 +12,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         quantity = kwargs["quantity"]
+        self.create_addresses(quantity)
+
+    def create_addresses(self, quantity):
         i = 0
         fake = Faker('pl-PL')
 
@@ -24,7 +27,7 @@ class Command(BaseCommand):
         while i != quantity:
             polish_adress = fake.postcode()
 
-            name = f"Address {random.randint(1, 100000)}"
+            name = f"Address {random.randint(1, 10000)}"
             city = fake.city()
             street = fake.street_name()
             house_number = random.randint(1, 99)
@@ -53,4 +56,5 @@ class Command(BaseCommand):
 
                 i += 1
 
-                self.stdout.write(self.style.SUCCESS(f'Address created successfully.'))
+                self.stdout.write(self.style.SUCCESS(f'{i} Address created successfully.'))
+        return True

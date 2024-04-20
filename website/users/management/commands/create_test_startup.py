@@ -9,25 +9,18 @@ class Command(BaseCommand):
     help = "Create test startup"
 
     def handle(self, *args, **kwargs):
+        call_command("migrate")
         self.create_superuser()
-        self.create_test_users()
-        self.create_test_addresses()
+        call_command("runserver")
 
     def create_superuser(self):
-        if CustomUser.objects.filter(username=os.environ.get("ADMIN_USERNAME")).exists():
-            self.stdout.write(self.style.ERROR(f"User with username '{os.environ.get("ADMIN_USERNAME")}' already exists"))
-        else:
-            call_command(command_name="createsuperuser",
-                         username=os.environ.get("ADMIN_USERNAME"),
-                         email=os.environ.get("ADMIN_EMAIL"),
-                         interactive=False)
+        admin_username = os.environ.get("ADMIN_USERNAME")
+        admin_email = os.environ.get("ADMIN_EMAIL")
+        admin_password = os.environ.get("ADMIN_PASSWORD")
 
-            admin = CustomUser.objects.get(username=os.environ.get("ADMIN_USERNAME"))
-            admin.set_password(os.environ.get("ADMIN_PASSWORD"))
+        if not CustomUser.objects.filter(username=admin_username).exists():
+            admin = CustomUser.objects.create_superuser(username=admin_username, email=admin_email,
+                                                        password=admin_password)
             admin.save()
-
-    def create_test_users(self):
-        call_command("create_fake_users", 100)
-
-    def create_test_addresses(self):
-        call_command("create_fake_addresses", 100)
+        else:
+            self.stdout.write(self.style.ERROR(f"User with username '{admin_username}' already exists"))
