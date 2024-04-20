@@ -5,11 +5,12 @@ from users.models import CustomUser
 from unidecode import unidecode
 from django.db import transaction
 import time
+import os
 import threading
 
 
-BATCH_SIZE = 1000
-NUM_THREADS = 8
+BATCH_SIZE = 100
+NUM_THREADS = os.cpu_count()
 
 
 class CreateUsersThread(threading.Thread):
