@@ -4,7 +4,7 @@ from faker import Faker
 from users.models import CustomUser
 from unidecode import unidecode
 from django.db import transaction
-
+import time
 
 class Command(BaseCommand):
     help = "Create new basic users"
@@ -14,14 +14,16 @@ class Command(BaseCommand):
 
     @transaction.atomic
     def handle(self, *args, **kwargs):
+        start_time = time.time()
         quantity = kwargs['quantity']
         fake = Faker('pl-PL')
 
-        users_to_create = []
         existing_usernames = set(CustomUser.objects.values_list('username', flat=True))
         existing_emails = set(CustomUser.objects.values_list('email', flat=True))
 
-        for i in range(quantity):
+        users_to_create = []
+
+        while len(users_to_create) < quantity:
             first_name = fake.first_name()
             last_name = fake.last_name()
             full_name = f"{first_name} {last_name}"
@@ -30,25 +32,20 @@ class Command(BaseCommand):
             pre_email = f"{first_name.lower()}.{last_name.lower()}"
             pre_email = unidecode(pre_email)
             email = f"{pre_email}@gmail.com"
-            password = make_password("123")
 
             if username not in existing_usernames and email not in existing_emails:
-                users_to_create.append(CustomUser(
+                user = CustomUser(
                     first_name=first_name,
                     last_name=last_name,
                     full_name=full_name,
                     username=username,
                     email=email,
-                    password=password
-                ))
-
+                    password=make_password("123")
+                )
+                users_to_create.append(user)
                 existing_usernames.add(username)
                 existing_emails.add(email)
 
-                print(i+1)
-
-        print("User data generated")
-        CustomUser.objects.bulk_create(users_to_create)
-        print("User created")
-
-        self.stdout.write(self.style.SUCCESS(f'{len(users_to_create)} users created successfully.'))
+        CustomUser.objects.bulk_create(users_to_create, ignore_conflicts=True)
+        elapsed_time = time.time() - start_time
+        print(f"{quantity} users created successfully in {elapsed_time:.2f} seconds.")
