@@ -6,7 +6,7 @@ from users.models import CustomUser
 
 
 class Command(BaseCommand):
-    help = "Create new basic user"
+    help = "Create user"
 
     def handle(self, *args, **kwargs):
         def is_valid_email(email_value):

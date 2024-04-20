@@ -6,6 +6,14 @@ website/db.sqlite3
 website/website/__pycache__/
 website/notifications/__pycache__/
 website/notifications/migrations/__pycache__/
+website/localizations/__pycache__/
+website/localizations/migrations/__pycache__/
+website/localizations/management/__pycache__/
+website/localizations/management/commands/__pycache__/
+website/reservations/__pycache__/
+website/reservations/migrations/__pycache__/
+website/items/__pycache__/
+website/items/migrations/__pycache__/
 website/users/__pycache__/
 website/users/migrations/__pycache__/
 website/users/management/__pycache__/
