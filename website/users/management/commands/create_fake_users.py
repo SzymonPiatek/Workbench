@@ -6,6 +6,7 @@ from unidecode import unidecode
 from django.db import transaction
 import time
 
+
 class Command(BaseCommand):
     help = "Create new basic users"
 
@@ -18,11 +19,7 @@ class Command(BaseCommand):
         quantity = kwargs['quantity']
         fake = Faker('pl-PL')
 
-        existing_usernames = set(CustomUser.objects.values_list('username', flat=True))
-        existing_emails = set(CustomUser.objects.values_list('email', flat=True))
-
-        batch_size = 100  # Definiujemy rozmiar partii
-
+        batch_size = 100
         users_to_create = []
 
         while len(users_to_create) < quantity:
@@ -38,17 +35,26 @@ class Command(BaseCommand):
                 email = f"{pre_email}@gmail.com"
                 password = make_password("123")
 
-                if username not in existing_usernames and email not in existing_emails:
-                    user_data.append(CustomUser(
+                try:
+                    CustomUser.objects.create(
                         first_name=first_name,
                         last_name=last_name,
                         full_name=full_name,
                         username=username,
                         email=email,
                         password=password
-                    ))
-                    existing_usernames.add(username)
-                    existing_emails.add(email)
+                    )
+                except IntegrityError:
+                    pass
+
+                user_data.append(CustomUser(
+                    first_name=first_name,
+                    last_name=last_name,
+                    full_name=full_name,
+                    username=username,
+                    email=email,
+                    password=password
+                ))
 
                 if len(user_data) >= batch_size:
                     users_to_create.extend(user_data)
