@@ -9,7 +9,7 @@ import threading
 
 
 BATCH_SIZE = 1000
-NUM_THREADS = 4
+NUM_THREADS = 8
 
 
 class CreateUsersThread(threading.Thread):
