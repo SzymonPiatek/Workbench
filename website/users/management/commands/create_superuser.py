@@ -1,19 +1,13 @@
 from django.core.management.base import BaseCommand
-from django.core.management import call_command
 from django.contrib.auth.hashers import make_password
 from users.models import CustomUser
 import os
 
 
 class Command(BaseCommand):
-    help = "Create test startup"
+    help = "Create superuser"
 
     def handle(self, *args, **kwargs):
-        call_command("migrate")
-        self.create_superuser()
-        call_command("runserver")
-
-    def create_superuser(self):
         admin_username = os.environ.get("ADMIN_USERNAME")
         admin_email = os.environ.get("ADMIN_EMAIL")
         admin_password = os.environ.get("ADMIN_PASSWORD")
@@ -22,5 +16,6 @@ class Command(BaseCommand):
             admin = CustomUser.objects.create_superuser(username=admin_username, email=admin_email,
                                                         password=admin_password)
             admin.save()
+            self.stdout.write(self.style.SUCCESS(f"User with username '{admin_username}' created"))
         else:
             self.stdout.write(self.style.ERROR(f"User with username '{admin_username}' already exists"))

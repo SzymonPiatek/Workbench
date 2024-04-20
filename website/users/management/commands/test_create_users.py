@@ -3,7 +3,7 @@ from django.core.management import call_command
 
 
 class Command(BaseCommand):
-    help = "Create test startup"
+    help = "Test create users"
 
     def handle(self, *args, **kwargs):
         call_command("create_fake_users", 1)

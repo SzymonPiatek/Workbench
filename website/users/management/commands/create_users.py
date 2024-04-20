@@ -53,7 +53,7 @@ class CreateUsersThread(threading.Thread):
 
 
 class Command(BaseCommand):
-    help = "Create new basic users"
+    help = "Create new users"
 
     def add_arguments(self, parser):
         parser.add_argument('quantity', type=int, help='Number of users to create')
@@ -74,4 +74,4 @@ class Command(BaseCommand):
             thread.join()
 
         elapsed_time = time.time() - start_time
-        print(f"{quantity} użytkowników utworzono pomyślnie w ciągu {elapsed_time:.2f} sekund.")
+        print(f"{quantity} users created in {elapsed_time:.2f} sec")
