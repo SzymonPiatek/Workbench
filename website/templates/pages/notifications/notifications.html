@@ -109,19 +109,19 @@
             } else if (buttonId === 'filterTypeButton') {
                 if (filterButtonValue === "all_types") {
                     filterButton.setAttribute('data-value', "single_use");
-                    filterButtonText.innerText = "Pokaż jednorazowe";
+                    filterButtonText.innerText = "Pokaż cykliczne";
                     notification_type = 'single_use';
                 } else if (filterButtonValue === "single_use") {
                     filterButton.setAttribute('data-value', "cyclical");
-                    filterButtonText.innerText = "Pokaż pokaż cykliczne";
+                    filterButtonText.innerText = "Pokaż przypomnienia";
                     notification_type = 'cyclical';
                 } else if (filterButtonValue === "cyclical") {
                     filterButton.setAttribute('data-value', "reminder");
-                    filterButtonText.innerText = "Pokaż przypomnienia";
+                    filterButtonText.innerText = "Pokaż wszystkie typy";
                     notification_type = 'reminder';
                 } else if (filterButtonValue === "reminder") {
                     filterButton.setAttribute('data-value', "all_types");
-                    filterButtonText.innerText = "Pokaż wszystkie typy";
+                    filterButtonText.innerText = "Pokaż jednorazowe";
                     notification_type = 'all_types';
                 }
             }
