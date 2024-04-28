@@ -22,6 +22,9 @@ INSTALLED_APPS = [
     'notifications.apps.NotificationsConfig',
     'users.apps.UsersConfig',
     'api.apps.ApiConfig',
+    'localizations.apps.LocalizationsConfig',
+    'reservations.apps.ReservationsConfig',
+    'items.apps.ItemsConfig',
 ]
 
 MIDDLEWARE = [
