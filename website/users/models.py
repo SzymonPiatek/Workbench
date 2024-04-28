@@ -24,3 +24,6 @@ class CustomUser(AbstractUser):
         if self.first_name and self.last_name and not self.full_name:
             self.full_name = f"{self.first_name} {self.last_name}"
         super().save(*args, **kwargs)
+
+    def groups_list(self):
+        return [group.name for group in self.groups.all()]

@@ -40,9 +40,9 @@ def get_notification_info(request, notification_id):
                 'isActive': notification.is_active_return(),
             }
             if notification.notification_type == 'single_use':
-                data['date'] = notification.date
+                data['date'] = format_datetime_data_to_str(notification.date)
             elif notification.notification_type == 'cyclical':
-                data['startDate'] = notification.start_date
+                data['startDate'] = format_datetime_data_to_str(notification.start_date)
                 data['frequency'] = notification.frequency
             elif notification.notification_type == 'reminder':
                 data['timeBefore'] = notification.time_before
@@ -117,6 +117,7 @@ def notifications(request):
     context = {
         "page_title": "Powiadomienia",
         "notifications": all_notifications,
+        "sidebar_items": request.sidebar_items,
     }
 
     return render(request, 'pages/notifications/notifications.html', context)
