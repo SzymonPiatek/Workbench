@@ -26,5 +26,5 @@ def localizations_view(request):
         "sidebar_items": request.sidebar_items,
     }
 
-    return render(request, 'pages/main_panel.html', context)
+    return render(request, 'main_template.html', context)
 
