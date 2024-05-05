@@ -1,8 +1,13 @@
 {% if element.url %}
-    <a href="{% url element.url %}" class="{{ element.class }}">
+    {% if element.kwargs %}
+        <a href="{% url element.url element.kwargs %}" class="{{ element.class }}">
+    {% else %}
+        <a href="{% url element.url %}" class="{{ element.class }}">
+    {% endif %}
         <div class="image"><i class="{{ element.icon }}"></i></div>
         <div class="text">{{ element.name }}</div>
     </a>
+
 {% elif element.on_click %}
     <div class="element" onclick="{{ element.on_click }}">
         <div class="image"><i class="{{ element.icon }}"></i></div>

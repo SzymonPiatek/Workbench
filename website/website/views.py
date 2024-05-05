@@ -32,24 +32,24 @@ def main_panel(request):
             "title": "Rezerwacje",
             "elements": [
                 {"icon": "fa-solid fa-car", "name": "Parking", "class": "element",
-                 "url": "main_panel_page", "groups": ["worker"], "active": True},
+                 "url": "main_panel_page", "groups": ["worker"], "active": False},
                 {"icon": "fa-solid fa-display", "name": "Biurko", "class": "element",
-                 "url": "main_panel_page", "groups": ["worker"], "active": True},
+                 "url": "main_panel_page", "groups": ["worker"], "active": False},
                 {"icon": "fa-solid fa-people-roof", "name": "Sala", "class": "element",
-                 "url": "main_panel_page", "groups": ["worker"], "active": True},
+                 "url": "main_panel_page", "groups": ["worker"], "active": False},
                 {"icon": "fa-solid fa-plus", "name": "Dodaj rezerwację", "class": "element",
-                 "url": "main_panel_page", "groups": ["worker"], "active": True}
+                 "url": "main_panel_page", "groups": ["worker"], "active": False}
             ]
         },
         {
             "title": "Przedmioty",
             "elements": [
                 {"icon": "fa-solid fa-list", "name": "Lista przedmiotów", "class": "element",
-                 "url": "main_panel_page", "groups": ["building_admin"], "active": True},
+                 "url": "main_panel_page", "groups": ["building_admin"], "active": False},
                 {"icon": "fa-solid fa-magnifying-glass", "name": "Inwentaryzacja", "class": "element",
                  "url": "main_panel_page", "groups": ["building_admin"], "active": False},
                 {"icon": "fa-solid fa-plus", "name": "Dodaj pozycję", "class": "element",
-                 "url": "main_panel_page", "groups": ["building_admin"], "active": True}
+                 "url": "main_panel_page", "groups": ["building_admin"], "active": False}
             ]
         },
         {
@@ -68,12 +68,14 @@ def main_panel(request):
         {
             "title": "Lokalizacje",
             "elements": [
-                {"icon": "fa-solid fa-building", "name": "Podgląd budynku", "class": "element",
-                 "url": "main_panel_page", "groups": ["worker"], "active": False},
-                {"icon": "fa-solid fa-door-closed", "name": "Podgląd pomieszczeń",
-                 "url": "main_panel_page", "groups": ["worker"], "active": False},
+                {"icon": "fa-solid fa-building", "name": "Zobacz lokalizacje", "class": "element",
+                 "url": "localizations_page", "groups": ["admin"], "active": True},
+                {"icon": "fa-solid fa-plus", "name": "Dodaj lokalizację", "class": "element",
+                 "on_click": "toggleOverlay(this, 'addLocalization')",
+                 "groups": ["admin", "building_admin"], "active": True},
                 {"icon": "fa-solid fa-plus", "name": "Dodaj pomieszczenie", "class": "element",
-                 "url": "main_panel_page", "groups": ["admin", "building_admin"], "active": True}
+                 "on_click": "toggleOverlay(this, 'addRoom')",
+                 "groups": ["admin", "building_admin"], "active": True}
             ]
         },
         {
@@ -114,4 +116,4 @@ def main_panel(request):
         "sidebar_items": request.sidebar_items,
     }
 
-    return render(request, "pages/main_panel.html", context)
+    return render(request, "main_template.html", context)

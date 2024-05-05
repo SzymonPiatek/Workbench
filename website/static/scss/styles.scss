@@ -148,8 +148,8 @@ main {
       display: flex;
       flex-direction: column;
       gap: 20px;
-      input, button, textarea {
-        border-radius: 12px;
+      input, button, textarea, select {
+        border-radius: 12px!important;
       }
       .item {
         border-radius: 12px;
@@ -177,7 +177,7 @@ main {
             color: #fff;
           }
         }
-        input, textarea, label {
+        input, textarea, label, select {
           width: 100%;
           font-size: 1.4rem;
           padding: 4px;

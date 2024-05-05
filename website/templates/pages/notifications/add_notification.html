@@ -1,5 +1,5 @@
-<div class="items" id="formItems">
-    <form class="form">
+<div class="items">
+    <form class="form" id="addNotificationForm">
         <div class="item always">
             <small>Tytuł</small>
             <input type="text" name="title" id="title">
@@ -59,7 +59,7 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const form = document.querySelector('form');
+        const form = document.getElementById('addNotificationForm');
         const recipientsList = document.getElementById('recipientsList');
         const radioInputs = document.querySelectorAll('input[type="radio"][name="type"]');
 
@@ -73,9 +73,6 @@
                 requestData[key] = value;
             });
 
-            // Sprawdzenie, czy tytuł jest podany
-            // Jeśli tak -> ok
-            // Jeśli nie -> alert
             if (!requestData['title']) {
                 Swal.fire({
                     title: 'Niekompletny formularz',
@@ -87,9 +84,6 @@
                 return;
             }
 
-            // Sprawdzenie, czy treść wiadomości jest podana
-            // Jeśli tak -> ok
-            // Jeśli nie -> alert
             if (!requestData['message']) {
                 Swal.fire({
                     title: 'Niekompletny formularz',
@@ -101,9 +95,6 @@
                 return;
             }
 
-            // Sprawdzenie, czy typ jest wybrany.
-            // Jeśli tak -> przypisz wartość
-            // Jeśli nie -> alert
             let typeChecked = false;
             let selectedType = '';
             radioInputs.forEach(input => {
@@ -124,7 +115,6 @@
                 return;
             }
 
-            // Jeśli typ jest wybrany -> Sprawdź jaki i wykonaj konkretne sprawdzenia
             if (selectedType === 'single_use') {
                 if (!requestData['date']) {
                     Swal.fire({
@@ -170,9 +160,6 @@
                 }
             }
 
-            // Pobierz listę odbiorców i sprawdź, czy nie jest pusta
-            // Jeśli jest pusta -> alert
-            // Jeśli nie jest pusta -> przypisz wartość
             const recipients = [];
             recipientsList.childNodes.forEach(child => {
                 if (child.classList && child.classList.contains('recipient')) {
@@ -193,19 +180,10 @@
             }
             requestData['recipients'] = recipients;
 
-            // Sprawdź, czy jest zaznaczony checkbox (Aktwyny)
-            // Jeśli tak -> jest ok
-            // Jeśli nie -> przypisz wartość false
             if (!requestData['isActive']) {
                 requestData['isActive'] = false;
             }
 
-            // Przed wysłaniem formularza pyta użytkownika, czy jest tego pewien
-            // Jeśli tak -> wysyła formularz
-            // Jeśli nie -> nie wysyła
-            // Wysłanie formularza -> sprawdzenie na backendzie
-            // Jeśli wszystko jest ok -> resetuje form, czyści listę odbiorców, zamyka okno formularza, alert
-            // Jeśli nie -> alert
             Swal.fire({
                 title: 'Czy na pewno chcesz zapisać powiadomienie?',
                 showCancelButton: true,
@@ -325,7 +303,7 @@
         }
 
         function isUserInRecipientList(email) {
-            var recipients = recipientsList.querySelectorAll('.recipient');
+            const recipients = recipientsList.querySelectorAll('.recipient');
             for (var i = 0; i < recipients.length; i++) {
                 if (recipients[i].querySelector('.text').innerHTML === email) {
                     return true;
@@ -369,11 +347,11 @@
     document.addEventListener('DOMContentLoaded', function () {
         const frequencyInputs = document.getElementById('frequencyInputs');
         const radioInputs = frequencyInputs.querySelectorAll('input[type="radio"][name="type"]');
-        const formItems = document.getElementById('formItems');
+        const formItems = document.getElementById('addNotificationForm');
         const items = formItems.querySelectorAll('.item');
 
         function toggleItems() {
-            const selectedInput = frequencyInputs.querySelector('input[type="radio"][name="type"]:checked');
+            const selectedInput = frequencyInputs.querySelector('.radio_items input[type="radio"][name="type"]:checked');
             if (selectedInput) {
                 const selectedType = selectedInput.value;
 

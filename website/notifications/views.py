@@ -99,7 +99,7 @@ def save_notification(request):
             return JsonResponse({'success': False, 'error': str(e)})
 
     else:
-        return JsonResponse({'success': False, 'error': 'Only POST requests are allowed'})
+        return JsonResponse({'success': False, 'error': 'Dozwolone są tylko żądania typu POST'})
 
 
 def delete_notification(request, notification_id):

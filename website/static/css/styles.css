@@ -224,8 +224,8 @@ main {
   flex-direction: column;
   gap: 20px;
 }
-.block .items .form input, .block .items .form button, .block .items .form textarea {
-  border-radius: 12px;
+.block .items .form input, .block .items .form button, .block .items .form textarea, .block .items .form select {
+  border-radius: 12px !important;
 }
 .block .items .form .item {
   border-radius: 12px;
@@ -254,7 +254,7 @@ main {
   border-radius: 20px;
   color: #fff;
 }
-.block .items .form .item input, .block .items .form .item textarea, .block .items .form .item label {
+.block .items .form .item input, .block .items .form .item textarea, .block .items .form .item label, .block .items .form .item select {
   width: 100%;
   font-size: 1.4rem;
   padding: 4px;
