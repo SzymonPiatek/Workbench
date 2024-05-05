@@ -88,3 +88,30 @@ def localization_save_view(request):
             return JsonResponse({'success': False, 'error': str(e)})
     else:
         return JsonResponse({'success': False, 'error': 'Dozwolone są tylko żądania typu POST'})
+
+
+@csrf_exempt
+def room_save_view(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+
+            room_name = data["name"]
+            address = data["address"]
+            room = Room.objects.filter(name=room_name, address=address).first()
+            if room is None:
+                new_room = Room(
+                    name=data["name"],
+                    room_type=data["room_type"],
+                    floor=data["floor"],
+                    address=data["name"],
+                )
+                new_room.save()
+                return JsonResponse({'success': True})
+            else:
+                return JsonResponse({'success': False, 'error': 'Pomieszczenie o tej nazwie już istnieje'})
+        except Exception as e:
+            print(f"Error: {e}")
+            return JsonResponse({'success': False, 'error': str(e)})
+    else:
+        return JsonResponse({'success': False, 'error': 'Dozwolone są tylko żądania typu POST'})

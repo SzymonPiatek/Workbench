@@ -1,0 +1,140 @@
+<div class="items">
+    <form class="form" id="addRoomForm">
+        <div class="item always">
+            <small>Nazwa</small>
+            <input type="text" name="name" id="name">
+        </div>
+        <div class="item always">
+            <small>Typ</small>
+            <input type="text" name="room_type" id="room_type">
+        </div>
+        <div class="item always">
+            <small>Piętro</small>
+            <input type="number" name="floor" id="floor">
+        </div>
+        <div class="item always">
+            <small>Lokalizacja</small>
+            <input type="text" name="address" id="address">
+        </div>
+        <button type="submit">Dodaj</button>
+    </form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('addRoomForm');
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(form);
+
+            const requestData = {};
+            formData.forEach((value, key) => {
+                requestData[key] = value;
+            });
+
+            console.log(requestData);
+
+            if (!requestData['name']) {
+                Swal.fire({
+                    title: 'Niekompletny formularz',
+                    text: 'Proszę podać nazwę pomieszczenia',
+                    icon: "warning",
+                    confirmButtonColor: '#22557a',
+                    confirmButtonText: 'Ok',
+                });
+                return;
+            }
+
+            if (!requestData['room_type']) {
+                Swal.fire({
+                    title: 'Niekompletny formularz',
+                    text: 'Proszę podać typ pomieszczenia',
+                    icon: "warning",
+                    confirmButtonColor: '#22557a',
+                    confirmButtonText: 'Ok',
+                });
+                return;
+            }
+
+            if (!requestData['floor']) {
+                Swal.fire({
+                    title: 'Niekompletny formularz',
+                    text: 'Proszę podać piętro',
+                    icon: "warning",
+                    confirmButtonColor: '#22557a',
+                    confirmButtonText: 'Ok',
+                });
+                return;
+            }
+
+            if (!requestData['address']) {
+                Swal.fire({
+                    title: 'Niekompletny formularz',
+                    text: 'Proszę podać lokalizację pomieszczenia',
+                    icon: "warning",
+                    confirmButtonColor: '#22557a',
+                    confirmButtonText: 'Ok',
+                });
+                return;
+            }
+
+            Swal.fire({
+                title: 'Czy na pewno chcesz zapisać pomieszczenie?',
+                showCancelButton: true,
+                confirmButtonColor: '#22557a',
+                confirmButtonText: 'Tak',
+                cancelButtonText: 'Nie'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', '{% url "save_room_page" %}', true);
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+
+                    xhr.onload = function () {
+                        if (xhr.status >= 200 && xhr.status < 400) {
+                            const responseData = JSON.parse(xhr.responseText);
+                            if (responseData.success) {
+                                form.reset();
+                                Swal.fire({
+                                    title: 'Zapisano!',
+                                    text: 'Pomieszczenie zostało zapisane',
+                                    icon: 'success',
+                                    confirmButtonColor: '#22557a',
+                                    confirmButtonText: 'Ok',
+                                });
+                                closeOverlay();
+                            } else {
+                                Swal.fire({
+                                    title: 'Błąd',
+                                    text: responseData.error,
+                                    icon: 'error',
+                                    confirmButtonColor: '#22557a',
+                                    confirmButtonText: 'Ok',
+                                });
+                            }
+                        } else {
+                            Swal.fire({
+                                title: 'Niekompletny formularz',
+                                text: 'Błąd podczas pobierania danych',
+                                icon: "warning",
+                                confirmButtonColor: '#22557a',
+                                confirmButtonText: 'Ok',
+                            });
+                        }
+                    };
+                    xhr.send(JSON.stringify(requestData));
+                } else {
+                    Swal.fire({
+                        title: 'Anulowano',
+                        text: 'Pomieszczenie nie zostało zapisane',
+                        icon: 'info',
+                        confirmButtonColor: '#22557a',
+                        confirmButtonText: 'Ok',
+                    });
+                }
+            });
+        });
+    });
+</script>
