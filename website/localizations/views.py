@@ -14,7 +14,8 @@ def localizations_view(request):
                 "icon": "fa-solid fa-city",
                 "name": address.name,
                 "class": "element",
-                "url": "main_panel_page",
+                "url": "localizations_rooms_page",
+                "kwargs": str(address.id),
                 "groups": ["admin"],
                 "active": True,
             })
@@ -28,3 +29,29 @@ def localizations_view(request):
 
     return render(request, 'main_template.html', context)
 
+
+def localizations_rooms_view(request, localization_id):
+    localization = Address.objects.filter(id=localization_id).first()
+
+    blocks = []
+    block = {"title": localization.name, "elements": []}
+
+    rooms = Room.objects.filter(address=localization)
+    for room in rooms:
+        block["elements"].append({
+            "icon": "fa-solid fa-door-open",
+            "name": room.name,
+            "class": "element",
+            "url": "main_panel_page",
+            "groups": ["admin"],
+            "active": True,
+        })
+    blocks.append(block)
+
+    context = {
+        'blocks': blocks,
+        'page_title': localization.name,
+        "sidebar_items": request.sidebar_items,
+    }
+
+    return render(request, 'main_template.html', context)
