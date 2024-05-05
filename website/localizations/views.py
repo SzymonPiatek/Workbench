@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 from .models import Room, Address
 
 
@@ -55,3 +56,17 @@ def localizations_rooms_view(request, localization_id):
     }
 
     return render(request, 'main_template.html', context)
+
+
+@csrf_exempt
+def localization_save_view(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            print(data)
+        except Exception as e:
+            print(f"Error: {e}")
+            return JsonResponse({'success': False, 'error': str(e)})
+
+    else:
+        return JsonResponse({'success': False, 'error': 'Only POST requests are allowed'})

@@ -1,0 +1,192 @@
+<div class="items">
+    <form class="form">
+        <div class="item always">
+            <small>Nazwa</small>
+            <input type="text" name="name" id="name">
+        </div>
+        <div class="item always">
+            <small>Miasto</small>
+            <input type="text" name="city" id="city">
+        </div>
+        <div class="item always">
+            <small>Ulica</small>
+            <input type="text" name="street" id="street">
+        </div>
+        <div class="item always">
+            <small>Numer budynku</small>
+            <input type="text" name="houseNumber" id="houseNumber">
+        </div>
+        <div class="item always">
+            <small>Numer lokalu</small>
+            <input type="text" name="apartmentNumber" id="apartmentNumber">
+        </div>
+        <div class="item always">
+            <small>Kod pocztowy</small>
+            <input type="text" name="zipCode" id="zipCode">
+        </div>
+        <div class="item always">
+            <small>Miejscowość</small>
+            <input type="text" name="zipCodeCity" id="zipCodeCity">
+        </div>
+        <div class="item always">
+            <small>Województwo</small>
+            <input type="text" name="voivodeship" id="voivodeship">
+        </div>
+        <div class="item always">
+            <small>Kraj</small>
+            <input type="text" name="country" id="country">
+        </div>
+        <button type="submit">Dodaj</button>
+    </form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('form');
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(form);
+
+            const requestData = {};
+            formData.forEach((value, key) => {
+                requestData[key] = value;
+            });
+
+            if (!requestData['name']) {
+                Swal.fire({
+                    title: 'Niekompletny formularz',
+                    text: 'Proszę podać nazwę lokalizacji',
+                    icon: "warning",
+                    confirmButtonColor: '#22557a',
+                    confirmButtonText: 'Ok',
+                });
+                return;
+            }
+
+            if (!requestData['city']) {
+                Swal.fire({
+                    title: 'Niekompletny formularz',
+                    text: 'Proszę podać nazwę miasta',
+                    icon: "warning",
+                    confirmButtonColor: '#22557a',
+                    confirmButtonText: 'Ok',
+                });
+                return;
+            }
+
+            if (!requestData['street']) {
+                Swal.fire({
+                    title: 'Niekompletny formularz',
+                    text: 'Proszę podać nazwę ulicy',
+                    icon: "warning",
+                    confirmButtonColor: '#22557a',
+                    confirmButtonText: 'Ok',
+                });
+                return;
+            }
+
+            if (!requestData['houseNumber']) {
+                Swal.fire({
+                    title: 'Niekompletny formularz',
+                    text: 'Proszę podać adres budynku',
+                    icon: "warning",
+                    confirmButtonColor: '#22557a',
+                    confirmButtonText: 'Ok',
+                });
+                return;
+            }
+
+            if (!requestData['zipCode']) {
+                Swal.fire({
+                    title: 'Niekompletny formularz',
+                    text: 'Proszę podać kod pocztowy',
+                    icon: "warning",
+                    confirmButtonColor: '#22557a',
+                    confirmButtonText: 'Ok',
+                });
+                return;
+            }
+
+            if (!requestData['zipCodeCity']) {
+                Swal.fire({
+                    title: 'Niekompletny formularz',
+                    text: 'Proszę podać miejscowość kodu pocztowego',
+                    icon: "warning",
+                    confirmButtonColor: '#22557a',
+                    confirmButtonText: 'Ok',
+                });
+                return;
+            }
+
+            if (!requestData['voivodeship']) {
+                Swal.fire({
+                    title: 'Niekompletny formularz',
+                    text: 'Proszę podać województwo',
+                    icon: "warning",
+                    confirmButtonColor: '#22557a',
+                    confirmButtonText: 'Ok',
+                });
+                return;
+            }
+
+            if (!requestData['country']) {
+                Swal.fire({
+                    title: 'Niekompletny formularz',
+                    text: 'Proszę podać kraj',
+                    icon: "warning",
+                    confirmButtonColor: '#22557a',
+                    confirmButtonText: 'Ok',
+                });
+                return;
+            }
+
+            Swal.fire({
+                title: 'Czy na pewno chcesz zapisać lokalizację?',
+                showCancelButton: true,
+                confirmButtonColor: '#22557a',
+                confirmButtonText: 'Tak',
+                cancelButtonText: 'Nie'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', '{% url "save_localization_page" %}', true);
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+
+                    xhr.onload = function () {
+                        if (xhr.status >= 200 && xhr.status < 400) {
+                                form.reset();
+                                recipientsList.innerHTML = '';
+                                Swal.fire({
+                                    title: 'Zapisano!',
+                                    text: 'Lokalizacja została zapisana',
+                                    icon: 'success',
+                                    confirmButtonColor: '#22557a',
+                                    confirmButtonText: 'Ok',
+                                });
+                            closeOverlay();
+                        } else {
+                            Swal.fire({
+                                title: 'Niekompletny formularz',
+                                text: 'Błąd podczas pobierania danych',
+                                icon: "warning",
+                                confirmButtonColor: '#22557a',
+                                confirmButtonText: 'Ok',
+                            });
+                        }
+                    };
+                    xhr.send(JSON.stringify(requestData));
+                } else {
+                    Swal.fire({
+                        title: 'Anulowano',
+                        text: 'Lokalizacja nie została zapisana',
+                        icon: 'info',
+                        confirmButtonColor: '#22557a',
+                        confirmButtonText: 'Ok',
+                    });
+                }
+            });
+        });
+    });
+</script>
