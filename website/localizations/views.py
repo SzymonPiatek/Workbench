@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from .models import Room, Address
+from items.models import Item
 
 
 def localizations_view(request):
@@ -53,7 +54,8 @@ def localizations_rooms_view(request, localization_id):
             "icon": "fa-solid fa-door-open",
             "name": room.name,
             "class": "element",
-            "url": "main_panel_page",
+            "url": "room_page",
+            "kwargs": str(room.id),
             "groups": ["admin"],
             "active": True,
         })
@@ -62,6 +64,58 @@ def localizations_rooms_view(request, localization_id):
     context = {
         'blocks': blocks,
         'page_title': localization.name,
+        "sidebar_items": request.sidebar_items,
+    }
+
+    return render(request, 'main_template.html', context)
+
+
+def room_view(request, room_id):
+    room = Room.objects.get(id=room_id)
+    items = Item.objects.filter(room=room).order_by('item_type')
+
+    item_type_icons = {
+        "biurko": "fa-solid fa-desktop",
+        "pc": "fa-solid fa-desktop",
+        "komputer": "fa-solid fa-desktop",
+        "laptop": "fa-solid fa-desktop",
+        "tablet": "fa-solid fa-desktop",
+        "monitor": "fa-solid fa-desktop",
+        "telewizor": "fa-solid fa-desktop",
+        "szafa": "fa-solid fa-box-archive",
+        "regał": "fa-solid fa-box-archive",
+        "komoda": "fa-solid fa-box-archive",
+        "krzesło": "fa-solid fa-chair",
+        "fotel": "fa-solid fa-chair",
+        "lampa": "fa-solid fa-lightbulb",
+        "lampka": "fa-solid fa-lightbulb",
+        "telefon": "fa-solid fa-phone"
+    }
+
+    blocks = []
+    block = {"title": "Przedmioty", "elements": []}
+    if items:
+        for item in items:
+            item_type = item.item_type.name.lower()
+            icon = "fa-solid fa-question"
+            for word, icon_class in item_type_icons.items():
+                if word in item_type:
+                    icon = icon_class
+                    break
+
+            block["elements"].append({
+                "icon": icon,
+                "name": item.name,
+                "class": "element",
+                "url": "main_panel_page",
+                "groups": ["admin"],
+                "active": True,
+            })
+    blocks.append(block)
+
+    context = {
+        'blocks': blocks,
+        'page_title': room.name,
         "sidebar_items": request.sidebar_items,
     }
 

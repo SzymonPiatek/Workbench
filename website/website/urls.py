@@ -20,7 +20,7 @@ for res in resources:
 urlpatterns = [
     path('', views.main_panel, name="main_panel_page"),
     path('admin/', admin.site.urls),
-    path('statistics/', views.statistics, name="statistics_page"),
+    path('/statistics/', views.statistics, name="statistics_page"),
     path('notifications/', include("notifications.urls")),
     path('users/', include("users.urls")),
     path('localizations', include("localizations.urls")),

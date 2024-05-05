@@ -19,7 +19,7 @@ class SidebarMiddleware(MiddlewareMixin):
             {"icon": "fa-solid fa-user-group", "name": "Pracownicy", "class": "item",
              "url": "main_panel_page", "groups": ["worker"], "active": True},
             {"icon": "fa-solid fa-location-dot", "name": "Lokalizacje", "class": "item",
-             "url": "main_panel_page", "groups": ["worker"], "active": True},
+             "url": "localizations_page", "groups": ["worker"], "active": True},
             {"icon": "fa-solid fa-calendar-days", "name": "Kalendarz", "class": "item",
              "url": "main_panel_page", "groups": ["worker"], "active": True},
             {"icon": "fa-solid fa-life-ring", "name": "Helpdesk", "class": "item",
