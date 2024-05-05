@@ -54,6 +54,8 @@
                 requestData[key] = value;
             });
 
+            console.log(requestData);
+
             if (!requestData['name']) {
                 Swal.fire({
                     title: 'Niekompletny formularz',
@@ -95,6 +97,11 @@
                     confirmButtonColor: '#22557a',
                     confirmButtonText: 'Ok',
                 });
+                return;
+            }
+
+            if (!requestData['apartmentNumber']) {
+                requestData['apartmentNumber'] = null;
                 return;
             }
 
@@ -157,7 +164,6 @@
                     xhr.onload = function () {
                         if (xhr.status >= 200 && xhr.status < 400) {
                                 form.reset();
-                                recipientsList.innerHTML = '';
                                 Swal.fire({
                                     title: 'Zapisano!',
                                     text: 'Lokalizacja została zapisana',

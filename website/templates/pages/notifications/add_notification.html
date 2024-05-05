@@ -303,7 +303,7 @@
         }
 
         function isUserInRecipientList(email) {
-            var recipients = recipientsList.querySelectorAll('.recipient');
+            const recipients = recipientsList.querySelectorAll('.recipient');
             for (var i = 0; i < recipients.length; i++) {
                 if (recipients[i].querySelector('.text').innerHTML === email) {
                     return true;
@@ -347,11 +347,11 @@
     document.addEventListener('DOMContentLoaded', function () {
         const frequencyInputs = document.getElementById('frequencyInputs');
         const radioInputs = frequencyInputs.querySelectorAll('input[type="radio"][name="type"]');
-        const formItems = document.getElementById('formItems');
+        const formItems = document.getElementById('addNotificationForm');
         const items = formItems.querySelectorAll('.item');
 
         function toggleItems() {
-            const selectedInput = frequencyInputs.querySelector('input[type="radio"][name="type"]:checked');
+            const selectedInput = frequencyInputs.querySelector('.radio_items input[type="radio"][name="type"]:checked');
             if (selectedInput) {
                 const selectedType = selectedInput.value;
 
