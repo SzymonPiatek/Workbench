@@ -31,6 +31,11 @@
             .then(data => {
                 addressSelect.innerHTML = '';
 
+                const emptyOption = document.createElement('option');
+                emptyOption.value = '';
+                emptyOption.textContent = 'Wybierz lokalizację';
+                addressSelect.appendChild(emptyOption);
+
                 data.forEach(address => {
                     const option = document.createElement('option');
                     option.value = address.id;
@@ -39,7 +44,7 @@
                 });
             })
             .catch(error => console.error('Error:', error));
-        }
+            }
 
         populateAddresses();
 
