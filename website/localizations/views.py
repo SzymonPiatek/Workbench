@@ -65,10 +65,26 @@ def localization_save_view(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body.decode('utf-8'))
-            return JsonResponse({'success': True})
+
+            localization_name = data["name"]
+            localization = Address.objects.filter(name=localization_name).first()
+            if localization is None:
+                new_localization = Address.objects.create(
+                    name=data["name"],
+                    city=data["city"],
+                    house_number=data["houseNumber"],
+                    apartment_number=data["apartmentNumber"],
+                    zip_code=data["zipCode"],
+                    zip_code_city=data["zipCodeCity"],
+                    voivodeship=data["voivodeship"],
+                    country=data["country"],
+                )
+                new_localization.save()
+                return JsonResponse({'success': True})
+            else:
+                return JsonResponse({'success': False, 'error': 'Lokalizacja o tej nazwie już istnieje'})
         except Exception as e:
             print(f"Error: {e}")
             return JsonResponse({'success': False, 'error': str(e)})
-
     else:
-        return JsonResponse({'success': False, 'error': 'Only POST requests are allowed'})
+        return JsonResponse({'success': False, 'error': 'Dozwolone są tylko żądania typu POST'})

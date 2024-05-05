@@ -100,10 +100,6 @@
                 return;
             }
 
-            if (!requestData['apartmentNumber']) {
-                requestData['apartmentNumber'] = false;
-            }
-
             if (!requestData['zipCode']) {
                 Swal.fire({
                     title: 'Niekompletny formularz',
@@ -162,6 +158,8 @@
 
                     xhr.onload = function () {
                         if (xhr.status >= 200 && xhr.status < 400) {
+                            const responseData = JSON.parse(xhr.responseText);
+                            if (responseData.success) {
                                 form.reset();
                                 Swal.fire({
                                     title: 'Zapisano!',
@@ -170,7 +168,16 @@
                                     confirmButtonColor: '#22557a',
                                     confirmButtonText: 'Ok',
                                 });
-                            closeOverlay();
+                                closeOverlay();
+                            } else {
+                                Swal.fire({
+                                    title: 'Błąd',
+                                    text: responseData.error,
+                                    icon: 'error',
+                                    confirmButtonColor: '#22557a',
+                                    confirmButtonText: 'Ok',
+                                });
+                            }
                         } else {
                             Swal.fire({
                                 title: 'Niekompletny formularz',
