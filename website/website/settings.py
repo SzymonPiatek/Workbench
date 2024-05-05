@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'localizations.apps.LocalizationsConfig',
     'reservations.apps.ReservationsConfig',
     'items.apps.ItemsConfig',
+    'tastypie',
 ]
 
 MIDDLEWARE = [
