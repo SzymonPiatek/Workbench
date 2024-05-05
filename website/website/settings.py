@@ -19,11 +19,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'notifications',
-    'users',
-    'reservations',
-    'items',
-    'localizations',
+    'notifications.apps.NotificationsConfig',
+    'users.apps.UsersConfig',
+    'api.apps.ApiConfig',
+    'localizations.apps.LocalizationsConfig',
+    'reservations.apps.ReservationsConfig',
+    'items.apps.ItemsConfig',
+    'tastypie',
 ]
 
 MIDDLEWARE = [

@@ -4,6 +4,8 @@ node_modules
 .idea/
 website/db.sqlite3
 website/website/__pycache__/
+website/api/__pycache__/
+website/api/migrations/__pycache__/
 website/notifications/__pycache__/
 website/notifications/migrations/__pycache__/
 website/localizations/__pycache__/

@@ -27,9 +27,9 @@ class SidebarMiddleware(MiddlewareMixin):
         ]
 
         sidebar_items_bottom = [
-            {"icon": "fa-solid fa-triangle-exclamation", "name": "Zgłoś problem",
+            {"icon": "fa-solid fa-triangle-exclamation", "name": "Zgłoś problem", "class": "item",
              "url": "main_panel_page", "groups": ["worker"], "active": True},
-            {"icon": "fa-solid fa-user", "name": request.user.username,
+            {"icon": "fa-solid fa-user", "name": request.user.username, "class": "item",
              "url": "main_panel_page", "groups": ["worker"], "active": True},
         ]
 
