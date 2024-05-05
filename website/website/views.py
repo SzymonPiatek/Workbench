@@ -71,9 +71,11 @@ def main_panel(request):
                 {"icon": "fa-solid fa-building", "name": "Zobacz lokalizacje", "class": "element",
                  "url": "localizations_page", "groups": ["admin"], "active": True},
                 {"icon": "fa-solid fa-plus", "name": "Dodaj lokalizację", "class": "element",
-                 "url": "main_panel_page", "groups": ["admin", "building_admin"], "active": True},
+                 "on_click": "toggleOverlay(this, 'addLocalization')",
+                 "groups": ["admin", "building_admin"], "active": True},
                 {"icon": "fa-solid fa-plus", "name": "Dodaj pomieszczenie", "class": "element",
-                 "url": "main_panel_page", "groups": ["admin", "building_admin"], "active": True}
+                 "on_click": "toggleOverlay(this, 'addRoom')",
+                 "groups": ["admin", "building_admin"], "active": True}
             ]
         },
         {
