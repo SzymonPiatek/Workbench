@@ -19,6 +19,6 @@ urlpatterns = [
     path('statistics/', views.statistics, name="statistics_page"),
     path('notifications/', include("notifications.urls")),
     path('users/', include("users.urls")),
-
+    path('localizations', include("localizations.urls")),
     path('api/', include(api.urls))
 ]

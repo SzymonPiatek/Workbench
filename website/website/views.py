@@ -68,10 +68,8 @@ def main_panel(request):
         {
             "title": "Lokalizacje",
             "elements": [
-                {"icon": "fa-solid fa-building", "name": "Podgląd budynku", "class": "element",
-                 "url": "main_panel_page", "groups": ["worker"], "active": False},
-                {"icon": "fa-solid fa-door-closed", "name": "Podgląd pomieszczeń",
-                 "url": "main_panel_page", "groups": ["worker"], "active": False},
+                {"icon": "fa-solid fa-building", "name": "Zobacz lokalizacje", "class": "element",
+                 "url": "localizations_page", "groups": ["admin"], "active": True},
                 {"icon": "fa-solid fa-plus", "name": "Dodaj pomieszczenie", "class": "element",
                  "url": "main_panel_page", "groups": ["admin", "building_admin"], "active": True}
             ]

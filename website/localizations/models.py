@@ -10,6 +10,9 @@ class Room(models.Model):
         verbose_name = "Pomieszczenie"
         verbose_name_plural = "Pomieszczenia"
 
+    def __str__(self):
+        return self.name
+
 
 class Address(models.Model):
     name = models.CharField(max_length=100, unique=True, blank=False, null=False)
