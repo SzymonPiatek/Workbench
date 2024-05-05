@@ -33,6 +33,14 @@ def localizations_view(request):
     return render(request, 'main_template.html', context)
 
 
+def addresses(request):
+    addresses = Address.objects.all()
+    addresses_list = [
+        {'name': address.name,
+         'id': address.id} for address in addresses]
+    return JsonResponse(addresses_list, safe=False)
+
+
 def localizations_rooms_view(request, localization_id):
     localization = Address.objects.filter(id=localization_id).first()
 
@@ -97,19 +105,23 @@ def room_save_view(request):
             data = json.loads(request.body.decode('utf-8'))
 
             room_name = data["name"]
-            address = data["address"]
-            room = Room.objects.filter(name=room_name, address=address).first()
-            if room is None:
-                new_room = Room(
-                    name=data["name"],
-                    room_type=data["room_type"],
-                    floor=data["floor"],
-                    address=data["name"],
-                )
-                new_room.save()
-                return JsonResponse({'success': True})
+            address_id = data["address"]
+            localization = Address.objects.filter(id=address_id).first()
+            if localization is None:
+                return JsonResponse({'success': False, 'error': 'Nie znaleziono lokalizacji o podanej nazwie'})
             else:
-                return JsonResponse({'success': False, 'error': 'Pomieszczenie o tej nazwie już istnieje'})
+                room = Room.objects.filter(name=room_name, address=localization).first()
+                if room is None:
+                    new_room = Room(
+                        name=data["name"],
+                        room_type=data["room_type"],
+                        floor=data["floor"],
+                        address=localization,
+                    )
+                    new_room.save()
+                    return JsonResponse({'success': True})
+                else:
+                    return JsonResponse({'success': False, 'error': 'Pomieszczenie o tej nazwie już istnieje'})
         except Exception as e:
             print(f"Error: {e}")
             return JsonResponse({'success': False, 'error': str(e)})

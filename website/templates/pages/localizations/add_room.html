@@ -14,7 +14,7 @@
         </div>
         <div class="item always">
             <small>Lokalizacja</small>
-            <input type="text" name="address" id="address">
+            <select type="text" name="address" id="address"></select>
         </div>
         <button type="submit">Dodaj</button>
     </form>
@@ -23,6 +23,25 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const form = document.getElementById('addRoomForm');
+        const addressSelect = document.getElementById('address');
+
+        function populateAddresses() {
+        fetch('{% url "get_all_addresses" %}')
+            .then(response => response.json())
+            .then(data => {
+                addressSelect.innerHTML = '';
+
+                data.forEach(address => {
+                    const option = document.createElement('option');
+                    option.value = address.id;
+                    option.textContent = address.name;
+                    addressSelect.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        populateAddresses();
 
         form.addEventListener('submit', function (event) {
             event.preventDefault();
@@ -33,8 +52,6 @@
             formData.forEach((value, key) => {
                 requestData[key] = value;
             });
-
-            console.log(requestData);
 
             if (!requestData['name']) {
                 Swal.fire({
