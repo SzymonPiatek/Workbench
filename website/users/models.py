@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, Group, Permission
+from localizations.models import Room
 
 
 class CustomUser(AbstractUser):
@@ -12,6 +13,8 @@ class CustomUser(AbstractUser):
 
     groups = models.ManyToManyField(Group, blank=True)
     user_permissions = models.ManyToManyField(Permission, blank=True)
+
+    room = models.ForeignKey(Room, blank=True, null=True, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Użytkownik'
