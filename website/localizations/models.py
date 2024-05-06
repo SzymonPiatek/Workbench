@@ -21,7 +21,7 @@ class Address(models.Model):
 
 
 class Room(models.Model):
-    name = models.CharField(max_length=100, blank=False, null=False, unique=True)
+    name = models.CharField(max_length=100, blank=False, null=False)
     room_type = models.CharField(max_length=100, blank=False, null=False)
     floor = models.IntegerField(blank=False, null=False)
     address = models.ForeignKey(Address, on_delete=models.CASCADE, blank=False, null=False)
