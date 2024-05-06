@@ -56,7 +56,7 @@ def main_panel(request):
             "title": "Pracownicy",
             "elements": [
                 {"icon": "fa-solid fa-user", "name": "Lista pracowników", "class": "element",
-                 "url": "main_panel_page", "groups": ["supervisor"], "active": False},
+                 "url": "users_page", "groups": ["supervisor"], "active": True},
                 {"icon": "fa-solid fa-users", "name": "Lista grup", "class": "element",
                  "url": "main_panel_page", "groups": ["supervisor"], "active": False},
                 {"icon": "fa-solid fa-user-plus", "name": "Dodaj pracownika", "class": "element",

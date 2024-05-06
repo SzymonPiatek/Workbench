@@ -13,22 +13,22 @@ class SidebarMiddleware(MiddlewareMixin):
             {"icon": "fa-solid fa-bell", "name": "Powiadomienia", "class": "item",
              "url": "notifications_page", "groups": ["admin"], "active": True},
             {"icon": "fa-solid fa-bookmark", "name": "Rezerwacje", "class": "item",
-             "url": "main_panel_page", "groups": ["worker"], "active": True},
+             "url": "main_panel_page", "groups": ["worker"], "active": False},
             {"icon": "fa-solid fa-computer", "name": "Przedmioty", "class": "item",
              "url": "items_page", "groups": ["admin", "building_admin"], "active": True},
             {"icon": "fa-solid fa-user-group", "name": "Pracownicy", "class": "item",
-             "url": "main_panel_page", "groups": ["worker"], "active": True},
+             "url": "users_page", "groups": ["worker"], "active": True},
             {"icon": "fa-solid fa-location-dot", "name": "Lokalizacje", "class": "item",
              "url": "localizations_page", "groups": ["worker"], "active": True},
             {"icon": "fa-solid fa-calendar-days", "name": "Kalendarz", "class": "item",
-             "url": "main_panel_page", "groups": ["worker"], "active": True},
+             "url": "main_panel_page", "groups": ["worker"], "active": False},
             {"icon": "fa-solid fa-life-ring", "name": "Helpdesk", "class": "item",
-             "url": "main_panel_page", "groups": ["helpdesk", "admin"], "active": True},
+             "url": "main_panel_page", "groups": ["helpdesk", "admin"], "active": False},
         ]
 
         sidebar_items_bottom = [
             {"icon": "fa-solid fa-triangle-exclamation", "name": "Zgłoś problem", "class": "item",
-             "url": "main_panel_page", "groups": ["worker"], "active": True},
+             "url": "main_panel_page", "groups": ["worker"], "active": False},
             {"icon": "fa-solid fa-user", "name": request.user.username, "class": "item",
              "url": "main_panel_page", "groups": ["worker"], "active": True},
         ]
