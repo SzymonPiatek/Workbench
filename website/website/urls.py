@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from tastypie.api import Api
 from . import views
-from api.models import NotificationResource, CustomUserResource, RoomResource, AddressResource
+from api.models import *
 
 
 api = Api(api_name='v1')
@@ -12,6 +12,7 @@ resources = [
     CustomUserResource(),
     RoomResource(),
     AddressResource(),
+    ItemResource(),
 ]
 for res in resources:
     api.register(res)

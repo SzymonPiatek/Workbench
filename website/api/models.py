@@ -4,6 +4,7 @@ from tastypie.authorization import Authorization
 from notifications.models import Notification
 from users.models import CustomUser
 from localizations.models import Room, Address
+from items.models import Item
 
 
 class NotificationResource(ModelResource):
@@ -37,6 +38,15 @@ class RoomResource(ModelResource):
     class Meta:
         queryset = Room.objects.all()
         resource_name = 'rooms'
+        allowed_methods = ['get']
+        authentication = ApiKeyAuthentication()
+        authorization = Authorization()
+
+
+class ItemResource(ModelResource):
+    class Meta:
+        queryset = Item.objects.all()
+        resource_name = 'items'
         allowed_methods = ['get']
         authentication = ApiKeyAuthentication()
         authorization = Authorization()
