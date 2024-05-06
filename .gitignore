@@ -16,6 +16,8 @@ website/reservations/__pycache__/
 website/reservations/migrations/__pycache__/
 website/items/__pycache__/
 website/items/migrations/__pycache__/
+website/items/management/__pycache__/
+website/items/management/commands/__pycache__/
 website/users/__pycache__/
 website/users/migrations/__pycache__/
 website/users/management/__pycache__/

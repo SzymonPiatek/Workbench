@@ -45,7 +45,7 @@ def main_panel(request):
             "title": "Przedmioty",
             "elements": [
                 {"icon": "fa-solid fa-list", "name": "Lista przedmiotów", "class": "element",
-                 "url": "main_panel_page", "groups": ["building_admin"], "active": False},
+                 "url": "items_page", "groups": ["building_admin"], "active": True},
                 {"icon": "fa-solid fa-magnifying-glass", "name": "Inwentaryzacja", "class": "element",
                  "url": "main_panel_page", "groups": ["building_admin"], "active": False},
                 {"icon": "fa-solid fa-plus", "name": "Dodaj pozycję", "class": "element",
@@ -56,7 +56,7 @@ def main_panel(request):
             "title": "Pracownicy",
             "elements": [
                 {"icon": "fa-solid fa-user", "name": "Lista pracowników", "class": "element",
-                 "url": "main_panel_page", "groups": ["supervisor"], "active": False},
+                 "url": "users_page", "groups": ["supervisor"], "active": True},
                 {"icon": "fa-solid fa-users", "name": "Lista grup", "class": "element",
                  "url": "main_panel_page", "groups": ["supervisor"], "active": False},
                 {"icon": "fa-solid fa-user-plus", "name": "Dodaj pracownika", "class": "element",

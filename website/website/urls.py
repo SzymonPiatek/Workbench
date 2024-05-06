@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from tastypie.api import Api
 from . import views
-from api.models import NotificationResource, CustomUserResource, RoomResource, AddressResource
+from api.models import *
 
 
 api = Api(api_name='v1')
@@ -12,6 +12,7 @@ resources = [
     CustomUserResource(),
     RoomResource(),
     AddressResource(),
+    ItemResource(),
 ]
 for res in resources:
     api.register(res)
@@ -20,9 +21,10 @@ for res in resources:
 urlpatterns = [
     path('', views.main_panel, name="main_panel_page"),
     path('admin/', admin.site.urls),
-    path('/statistics/', views.statistics, name="statistics_page"),
+    path('statistics/', views.statistics, name="statistics_page"),
     path('notifications/', include("notifications.urls")),
     path('users/', include("users.urls")),
-    path('localizations', include("localizations.urls")),
-    path('api/', include(api.urls))
+    path('localizations/', include("localizations.urls")),
+    path('items/', include("items.urls")),
+    path('api/', include(api.urls)),
 ]

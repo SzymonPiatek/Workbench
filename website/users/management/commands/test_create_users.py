@@ -4,6 +4,7 @@ from django.core.management import call_command
 
 class Command(BaseCommand):
     help = "Test create users"
+
     def handle(self, *args, **kwargs):
         call_command("create_users", 1)
         call_command("create_users", 2)

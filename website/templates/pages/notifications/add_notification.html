@@ -245,7 +245,7 @@
 
         function getAllUsers() {
             var xhr = new XMLHttpRequest();
-            xhr.open('GET', '{% url "get_all_users_api" %}', true);
+            xhr.open('GET', '{% url "get_all_users" %}', true);
 
             xhr.onload = function () {
                 if (xhr.status >= 200 && xhr.status < 400) {

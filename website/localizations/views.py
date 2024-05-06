@@ -7,12 +7,12 @@ from items.models import Item
 
 
 def localizations_view(request):
-    cities = Address.objects.values_list('city', flat=True).distinct()
+    cities = Address.objects.values_list('city', flat=True).distinct().order_by('city')
 
     blocks = []
     for city in cities:
         block = {"title": city, "elements": []}
-        addresses = Address.objects.filter(city=city)
+        addresses = Address.objects.filter(city=city).order_by('id')
         for address in addresses:
             block["elements"].append({
                 "icon": "fa-solid fa-city",
@@ -93,7 +93,7 @@ def room_view(request, room_id):
     }
 
     blocks = []
-    block = {"title": "Przedmioty", "elements": []}
+    block = {"title": f"{room.name} - Przedmioty", "elements": []}
     if items:
         for item in items:
             item_type = item.item_type.name.lower()
@@ -141,7 +141,6 @@ def localization_save_view(request):
                     voivodeship=data["voivodeship"],
                     country=data["country"],
                 )
-                new_localization.save()
                 return JsonResponse({'success': True})
             else:
                 return JsonResponse({'success': False, 'error': 'Lokalizacja o tej nazwie już istnieje'})
@@ -172,7 +171,6 @@ def room_save_view(request):
                         floor=data["floor"],
                         address=localization,
                     )
-                    new_room.save()
                     return JsonResponse({'success': True})
                 else:
                     return JsonResponse({'success': False, 'error': 'Pomieszczenie o tej nazwie już istnieje'})

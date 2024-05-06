@@ -1,4 +1,5 @@
 from django.core.management.base import BaseCommand
+from django.db.models import Max
 from localizations.models import Address
 from faker import Faker
 import random
@@ -16,6 +17,11 @@ class Command(BaseCommand):
 
     def create_addresses(self, quantity):
         i = 0
+        max_id = Address.objects.aggregate(max_id=Max('id'))['max_id']
+        if max_id:
+            max_id = int(max_id)
+        else:
+            max_id = 0
         fake = Faker('pl-PL')
 
         voivodeships = [
@@ -27,8 +33,8 @@ class Command(BaseCommand):
         while i != quantity:
             polish_adress = fake.postcode()
 
-            name = f"Address {random.randint(1, 10000)}"
             city = fake.city()
+            name = f"Oddział {city} nr {max_id + 1}"
             street = fake.street_name()
             house_number = random.randint(1, 99)
             apartment_number = random.randint(1, 99)
@@ -55,6 +61,7 @@ class Command(BaseCommand):
                 )
 
                 i += 1
+                max_id += 1
 
                 self.stdout.write(self.style.SUCCESS(f'{i} Address created successfully.'))
         return True
