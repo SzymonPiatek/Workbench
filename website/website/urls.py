@@ -24,5 +24,6 @@ urlpatterns = [
     path('notifications/', include("notifications.urls")),
     path('users/', include("users.urls")),
     path('localizations/', include("localizations.urls")),
-    path('api/', include(api.urls))
+    path('items/', include("items.urls")),
+    path('api/', include(api.urls)),
 ]

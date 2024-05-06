@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ page_title }} {% endblock title %}
+
+{% block content %}
+    <div class="block">
+        <div class="label">
+            <div class="text">{{ page_title }}</div>
+        </div>
+        <div class="functions">
+            <div class="function" id="addItemButton">
+                <div class="image"><i class="fa-solid fa-plus"></i></div>
+                <div class="text">Dodaj przedmiot</div>
+            </div>
+        </div>
+    </div>
+    <div class="table">
+        <table id="itemsTable">
+            <tr class="sticky">
+                <th data-sort-dir="asc">ID</th>
+                <th data-sort-dir="asc">Nazwa</th>
+                <th data-sort-dir="asc">Typ</th>
+                <th data-sort-dir="asc">Kod</th>
+                <th data-sort-dir="asc">Lokalizacja</th>
+            </tr>
+            {% for item in items %}
+                <tr class="itemsRow">
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.item_type }}</td>
+                    <td>{{ item.code }}</td>
+                    <td>{{ item.room.name }} - {{ item.room.address.name }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock content %}

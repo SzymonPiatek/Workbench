@@ -15,7 +15,7 @@ class SidebarMiddleware(MiddlewareMixin):
             {"icon": "fa-solid fa-bookmark", "name": "Rezerwacje", "class": "item",
              "url": "main_panel_page", "groups": ["worker"], "active": True},
             {"icon": "fa-solid fa-computer", "name": "Przedmioty", "class": "item",
-             "url": "main_panel_page", "groups": ["admin", "building_admin"], "active": True},
+             "url": "items_page", "groups": ["admin", "building_admin"], "active": True},
             {"icon": "fa-solid fa-user-group", "name": "Pracownicy", "class": "item",
              "url": "main_panel_page", "groups": ["worker"], "active": True},
             {"icon": "fa-solid fa-location-dot", "name": "Lokalizacje", "class": "item",

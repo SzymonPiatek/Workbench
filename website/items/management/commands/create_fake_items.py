@@ -47,5 +47,7 @@ class Command(BaseCommand):
                         room=room
                     )
 
+                    max_code += 1
+
         self.stdout.write(self.style.SUCCESS('Items created successfully.'))
         return True
