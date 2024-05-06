@@ -45,7 +45,7 @@ def main_panel(request):
             "title": "Przedmioty",
             "elements": [
                 {"icon": "fa-solid fa-list", "name": "Lista przedmiotów", "class": "element",
-                 "url": "main_panel_page", "groups": ["building_admin"], "active": False},
+                 "url": "items_page", "groups": ["building_admin"], "active": True},
                 {"icon": "fa-solid fa-magnifying-glass", "name": "Inwentaryzacja", "class": "element",
                  "url": "main_panel_page", "groups": ["building_admin"], "active": False},
                 {"icon": "fa-solid fa-plus", "name": "Dodaj pozycję", "class": "element",
