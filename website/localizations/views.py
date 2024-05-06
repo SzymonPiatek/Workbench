@@ -7,12 +7,12 @@ from items.models import Item
 
 
 def localizations_view(request):
-    cities = Address.objects.values_list('city', flat=True).distinct()
+    cities = Address.objects.values_list('city', flat=True).distinct().order_by('city')
 
     blocks = []
     for city in cities:
         block = {"title": city, "elements": []}
-        addresses = Address.objects.filter(city=city)
+        addresses = Address.objects.filter(city=city).order_by('name')
         for address in addresses:
             block["elements"].append({
                 "icon": "fa-solid fa-city",
