@@ -12,7 +12,7 @@ def localizations_view(request):
     blocks = []
     for city in cities:
         block = {"title": city, "elements": []}
-        addresses = Address.objects.filter(city=city).order_by('name')
+        addresses = Address.objects.filter(city=city).order_by('id')
         for address in addresses:
             block["elements"].append({
                 "icon": "fa-solid fa-city",
