@@ -21,6 +21,7 @@
                 <th data-sort-dir="asc">Imię</th>
                 <th data-sort-dir="asc">Nazwisko</th>
                 <th data-sort-dir="asc">Email</th>
+                <th data-sort-dir="asc">Lokalizacja</th>
             </tr>
             {% for user in users %}
                 <tr class="itemsRow">
@@ -28,6 +29,7 @@
                     <td>{{ user.first_name }}</td>
                     <td>{{ user.last_name }}</td>
                     <td>{{ user.email }}</td>
+                    <td>{{ user.room.address.name }} - {{ user.room.name }}</td>
                 </tr>
             {% endfor %}
         </table>

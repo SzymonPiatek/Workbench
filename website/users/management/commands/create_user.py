@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand
 from django.contrib.auth.hashers import make_password
 import getpass
 import re
+import time
 from users.models import CustomUser
 
 
@@ -13,6 +14,8 @@ class Command(BaseCommand):
             email_regex = re.compile(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
             return email_regex.match(email_value)
 
+        start_time = time.time()
+
         username = input("Username: ")
         email = input("Email: ")
 
@@ -23,7 +26,6 @@ class Command(BaseCommand):
         password = getpass.getpass("Password: ")
 
         if CustomUser.objects.filter(username=username).exists() or CustomUser.objects.filter(email=email).exists():
-            self.stdout.write(self.style.ERROR('User with this username or email already exists.'))
             return
 
         new_user = CustomUser.objects.create(
@@ -32,4 +34,5 @@ class Command(BaseCommand):
             password=make_password(password)
         )
 
-        self.stdout.write(self.style.SUCCESS(f'User "{username}" created successfully.'))
+        elapsed_time = time.time() - start_time
+        self.stdout.write(self.style.SUCCESS(f'User "{username}" created in {elapsed_time:.2f} sec'))

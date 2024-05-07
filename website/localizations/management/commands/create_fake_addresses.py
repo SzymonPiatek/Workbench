@@ -3,6 +3,7 @@ from django.db.models import Max
 from localizations.models import Address
 from faker import Faker
 import random
+import time
 
 
 class Command(BaseCommand):
@@ -12,6 +13,8 @@ class Command(BaseCommand):
         parser.add_argument('quantity', type=int, help='Number of addresses to create')
 
     def handle(self, *args, **kwargs):
+        self.start_time = time.time()
+
         quantity = kwargs["quantity"]
         self.create_addresses(quantity)
 
@@ -63,5 +66,5 @@ class Command(BaseCommand):
                 i += 1
                 max_id += 1
 
-                self.stdout.write(self.style.SUCCESS(f'{i} Address created successfully.'))
-        return True
+        elapsed_time = time.time() - self.start_time
+        self.stdout.write(self.style.SUCCESS(f'{i} Address created in {elapsed_time:.2f} sec'))
