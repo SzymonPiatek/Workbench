@@ -8,8 +8,10 @@ class CustomUserAdmin(admin.ModelAdmin):
         "email",
         "full_name",
         "username",
+        "room",
     )
     search_fields = (
         "full_name",
         "email",
+        "room",
     )

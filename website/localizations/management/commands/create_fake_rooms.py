@@ -1,11 +1,15 @@
 from django.core.management.base import BaseCommand
 from localizations.models import Address, Room
+from users.models import CustomUser
+import random
+import time
 
 
 class Command(BaseCommand):
-    help = "Create new address"
+    help = "Create new rooms"
 
     def handle(self, *args, **kwargs):
+        self.start_time = time.time()
         self.create_rooms()
 
     def create_rooms(self):
@@ -28,5 +32,5 @@ class Command(BaseCommand):
                     address=address
                 )
 
-        self.stdout.write(self.style.SUCCESS('Rooms created successfully.'))
-        return True
+        elapsed_time = time.time() - self.start_time
+        self.stdout.write(self.style.SUCCESS(f'Rooms created in {elapsed_time:.2f} sec'))

@@ -74,4 +74,4 @@ class Command(BaseCommand):
             thread.join()
 
         elapsed_time = time.time() - start_time
-        print(f"{quantity} users created in {elapsed_time:.2f} sec")
+        self.stdout.write(self.style.SUCCESS(f"{quantity} users created in {elapsed_time:.2f} sec"))

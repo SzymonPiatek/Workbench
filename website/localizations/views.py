@@ -4,6 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from .models import Room, Address
 from items.models import Item
+from users.models import CustomUser
 
 
 def localizations_view(request):
@@ -73,6 +74,8 @@ def localizations_rooms_view(request, localization_id):
 def room_view(request, room_id):
     room = Room.objects.get(id=room_id)
     items = Item.objects.filter(room=room).order_by('item_type')
+    users = CustomUser.objects.filter(room=room)
+    print(users)
 
     item_type_icons = {
         "biurko": "fa-solid fa-desktop",
@@ -93,6 +96,20 @@ def room_view(request, room_id):
     }
 
     blocks = []
+
+    if users:
+        block = {"title": f"{room.name} - Pracownicy", "elements": []}
+        for user in users:
+            block["elements"].append({
+                "icon": "fa-solid fa-user",
+                "name": user.full_name if user.full_name else user.username,
+                "class": "element",
+                "url": "main_panel_page",
+                "groups": ["admin"],
+                "active": True,
+            })
+        blocks.append(block)
+
     block = {"title": f"{room.name} - Przedmioty", "elements": []}
     if items:
         for item in items:

@@ -2,13 +2,16 @@ from django.core.management.base import BaseCommand
 from django.db.models import Max
 from localizations.models import Room
 from items.models import Item, ItemType
+from users.models import CustomUser
 import random
+import time
 
 
 class Command(BaseCommand):
     help = "Create new items"
 
     def handle(self, *args, **kwargs):
+        self.start_time = time.time()
         self.create_items()
 
     def create_items(self):
@@ -49,5 +52,13 @@ class Command(BaseCommand):
 
                     max_code += 1
 
-        self.stdout.write(self.style.SUCCESS('Items created successfully.'))
-        return True
+                    users = CustomUser.objects.filter(room__isnull=True)
+
+                    if item["item_type"] in ["Biurko"]:
+                        if users.exists():
+                            random_user = random.choice(users)
+                            random_user.room = room
+                            random_user.save()
+
+        elapsed_time = time.time() - self.start_time
+        self.stdout.write(self.style.SUCCESS(f'Items created in {elapsed_time:.2f} sec'))

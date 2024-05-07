@@ -35,4 +35,37 @@
         </table>
     </div>
 
+    <script>
+        $(document).ready(function() {
+            $('#itemsTable th').click(function() {
+                var table = $(this).closest('table');
+                var rows = table.find('tbody > tr').get();
+                var columnIndex = $(this).index();
+                var sortDir = $(this).data('sort-dir') === 'asc' ? 'desc' : 'asc';
+
+                rows.sort(function(a, b) {
+                    var cellA = $(a).children('td').eq(columnIndex).text().toUpperCase();
+                    var cellB = $(b).children('td').eq(columnIndex).text().toUpperCase();
+
+                    cellA = isNaN(cellA) ? cellA : parseFloat(cellA);
+                    cellB = isNaN(cellB) ? cellB : parseFloat(cellB);
+
+                    if (sortDir === 'asc') {
+                        return cellA > cellB ? 1 : -1;
+                    } else {
+                        return cellA < cellB ? 1 : -1;
+                    }
+                });
+
+                $.each(rows, function(index, row) {
+                    if (!$(row).hasClass('sticky')) {
+                       table.children('tbody').append(row);
+                    }
+                });
+
+                $(this).data('sort-dir', sortDir);
+            });
+        });
+    </script>
+
 {% endblock content %}
